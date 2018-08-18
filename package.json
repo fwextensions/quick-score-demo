@@ -1,20 +1,22 @@
 {
   "name": "quick-score-demo",
   "version": "0.0.0",
+  "author": "",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
   "main": "index.js",
+  "sideEffects": false,
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
+    "start": "npm run build && webpack-dev-server --open --mode development",
     "watch": "webpack --watch --mode development",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-virtualized": "^9.20.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -23,8 +25,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.12.0",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.8",
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^3.1.4"

@@ -6,6 +6,7 @@ import React from "react";
 
 export default class Input extends React.Component {
 	static defaultProps = {
+		value: "",
 		onChange() {},
 		onFocus() {},
 		onBlur() {}
@@ -75,13 +76,17 @@ export default class Input extends React.Component {
 
 	render()
 	{
-		return <input
-			{...this.props}
-			ref={this.handleRef}
-			value={this.state.currentValue}
-			onChange={this.handleChange}
-			onFocus={this.handleFocus}
-			onBlur={this.handleBlur}
-		/>;
+			// expand the props first so that they don't override the ones we
+			// set after that
+		return (
+			<input
+				{...this.props}
+				ref={this.handleRef}
+				value={this.state.currentValue}
+				onChange={this.handleChange}
+				onFocus={this.handleFocus}
+				onBlur={this.handleBlur}
+			/>
+		);
 	}
 }

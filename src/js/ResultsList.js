@@ -1,11 +1,17 @@
 import React from "react";
+import List from "react-virtualized/dist/es/List";
 
 
-const RowHeight = 45,
-	Width = 490;
+const RowHeight = 45;
+const Width = 600;
 
 
 export default class ResultsList extends React.Component{
+	static defaultProps = {
+		maxItems: 20
+	};
+
+
 	startIndex = 0;
 	stopIndex = 0;
 	list = null;
@@ -50,19 +56,19 @@ export default class ResultsList extends React.Component{
 	};
 
 
-	handleRowsRendered(
-		event)
+	handleRowsRendered = (
+		event) =>
 	{
 			// track the visible rendered rows so we know how to change the
 			// selection when the App tells us to page up/down, since it
 			// doesn't know what's visible
 		this.startIndex = event.startIndex;
 		this.stopIndex = event.stopIndex;
-	}
+	};
 
 
-	rowRenderer(
-		data)
+	rowRenderer = (
+		data) =>
 	{
 		var props = this.props,
 			item = props.items[data.index],
@@ -76,7 +82,7 @@ export default class ResultsList extends React.Component{
 			style={data.style}
 			{...props}
 		/>
-	}
+	};
 
 
 	render()
@@ -92,7 +98,7 @@ export default class ResultsList extends React.Component{
 			<div className="results-list-container"
 				style={style}
 			>
-				<ReactVirtualized.List
+				<List
 					ref={this.handleListRef}
 					className="results-list"
 					tabIndex={-1}
