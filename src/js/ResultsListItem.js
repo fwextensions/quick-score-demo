@@ -2,10 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 
+const MaxTitleLength = 70;
+const MaxURLLength = 75;
+
+
 const Item = styled.div`
 	margin: 0;
-	padding: 4px 6px 5px 28px;
-	max-width: 490px;
+	padding: 4px 55px 5px 28px;
+	max-width: 590px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -26,25 +30,53 @@ const Favicon = styled.div`
 	top: 6px;
 	width: 16px;
 	height: 16px;
-	background-image: url(https://www.google.com/s2/favicons?domain=${props => props.domain});
 	background-size: cover;
-	background-repeat: no-repeat;
+	background: url(https://www.google.com/s2/favicons?domain=${props => props.domain}) no-repeat;
 	position: absolute;
 `;
+const Score = styled.div`
+	font-size: 12px;
+	opacity: 0.6;
+	top: 6px;
+	right: 6px;
+	height: 19px;
+	text-align: right;
+	position: absolute;
+`;
+const URLScore = Score.extend`
+	top: 23px;
+`;
+
+
+function clip(
+	value)
+{
+	return value.toPrecision(5);
+}
 
 
 export default function ResultsListItem({
 	item,
 	style})
 {
-	const {title, url} = item;
+	const {title, url, scores} = item;
+	const tooltip = [
+		title.length > MaxTitleLength ? title : "",
+		url.length > MaxURLLength ? url : ""
+	].join("\n").trim();
 
-		// make sure to apply props.style to the row container
+		// make sure to apply props.style to the row container so it gets
+		// positioned correctly in the virtual list
 	return (
-		<Item style={style}>
+		<Item
+			style={style}
+			title={tooltip}
+		>
 			<Favicon domain={item.domain}/>
 			<Text>{title}</Text>
 			<URLText>{url}</URLText>
+			<Score>{clip(scores.title)}</Score>
+			<URLScore>{clip(scores.url)}</URLScore>
 		</Item>
 	);
 }

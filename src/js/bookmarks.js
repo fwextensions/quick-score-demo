@@ -1,3 +1,6 @@
+const ProtocolPattern = /https?:\/\/(www\.)?/;
+
+
 const bookmarks = [
 	{
 		"title": "24 ways Flickr Photos On Demand with getFlickr",
@@ -6,10 +9,6 @@ const bookmarks = [
 	{
 		"title": "Amberjack",
 		"url": "http://amberjack.org/"
-	},
-	{
-		"title": "BrowserPlus js",
-		"url": "http://browserplus.corp.yahoo.com/js/"
 	},
 	{
 		"title": "DD_belatedPNG better PNG background-image support in IE6",
@@ -132,10 +131,6 @@ const bookmarks = [
 		"url": "http://blog.davglass.com/files/yui/loader/"
 	},
 	{
-		"title": "Yahoo Localization Center",
-		"url": "http://ylc.corp.yahoo.com/utils/JavaScript_sprintf"
-	},
-	{
 		"title": "YouTube Chromeless Player Reference - YouTube APIs and Tools - Google Code",
 		"url": "http://code.google.com/apis/youtube/chromeless_player_reference.html"
 	},
@@ -162,10 +157,6 @@ const bookmarks = [
 	{
 		"title": "jspax documentations",
 		"url": "http://www.jspax.org/"
-	},
-	{
-		"title": "loadurl.js",
-		"url": "http://soldthose-dm.corp.yahoo.com/~iain/loadurl/doc/loadurl.js.html"
 	},
 	{
 		"title": "moo.fx - size does matter",
@@ -828,10 +819,6 @@ const bookmarks = [
 		"url": "https://github.com/sindresorhus/electron-debug"
 	},
 	{
-		"title": "Yahoo! INC - Calendar - Event Details",
-		"url": "https://calendar.google.com/calendar/render#eventpage_6%7Ceid-a2Q5ZGZzcW5kNWoycW1nM2JnaXQ2cXVubThfMjAxNzAxMjdUMjEwMDAwWiBqZHVubmluZ0B5YWhvby1pbmMuY29t-0-0-"
-	},
-	{
 		"title": "Elemental UI",
 		"url": "http://elemental-ui.com/"
 	},
@@ -890,10 +877,6 @@ const bookmarks = [
 	{
 		"title": "Editor · Slate",
 		"url": "https://docs.slatejs.org/#"
-	},
-	{
-		"title": "Yahoo! INC - Calendar - Event Details",
-		"url": "https://calendar.google.com/calendar/render#eventpage_6%7Ceid-MDdkMWZzam10a2JpZnF0YjV1dmhqdDRldG8gamR1bm5pbmdAeWFob28taW5jLmNvbQ-1-0-"
 	},
 	{
 		"title": "xyc/react-inspector: Power of Browser DevTools inspectors right inside your React app",
@@ -1064,10 +1047,6 @@ const bookmarks = [
 		"url": "https://www.jsdelivr.com/package/npm/lodash"
 	},
 	{
-		"title": "`",
-		"url": "https://www.google.com/search?rlz=1C1GGRV_enUS749US749&q=macbook+silver+keys+last+year&oq=macbook+silver+keys+last+year&gs_l=psy-ab.3..33i21k1.2123.3003.0.3086.10.8.0.0.0.0.121.561.5j1.6.0....0...1.1.64.psy-ab..4.6.560...0i22i30k1j33i22i29i30k1j33i160k1.0.6C0cH57RYFU"
-	},
-	{
 		"title": "react-html-document",
 		"url": "https://www.npmjs.com/package/react-html-document"
 	},
@@ -1213,4 +1192,8 @@ const bookmarks = [
 	}
 ];
 
-export default bookmarks.map(({title, url}) => ({ title, url, domain: new URL(url).hostname }));
+export default bookmarks.map(({title, url}) => ({
+	title,
+	url: url.replace(ProtocolPattern, ""),
+	domain: new URL(url).hostname
+}));
