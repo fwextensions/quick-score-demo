@@ -1,4 +1,4 @@
-export default [
+const bookmarks = [
 	{
 		"title": "24 ways Flickr Photos On Demand with getFlickr",
 		"url": "http://24ways.org/2006/flickr-photos-on-demand"
@@ -1212,3 +1212,5 @@ export default [
 		"url": "https://www.npmjs.com/package/fast-memoize"
 	}
 ];
+
+export default bookmarks.map(({title, url}) => ({ title, url, domain: new URL(url).hostname }));

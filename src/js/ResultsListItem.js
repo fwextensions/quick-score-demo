@@ -1,3 +1,55 @@
+import React from "react";
+import styled from "styled-components";
+
+
+const Item = styled.div`
+	margin: 0;
+	padding: 4px 6px 5px 28px;
+	max-width: 490px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	position: relative;
+`;
+const Text = styled.div`
+	width: 100%;
+	height: 19px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+`;
+const URLText = Text.extend`
+	font-size: 12px;
+	opacity: 0.7;
+`;
+const Favicon = styled.div`
+	left: 6px;
+	top: 6px;
+	width: 16px;
+	height: 16px;
+	background-image: url(https://www.google.com/s2/favicons?domain=${props => props.domain});
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: absolute;
+`;
+
+
+export default function ResultsListItem({
+	item,
+	style})
+{
+	const {title, url} = item;
+
+		// make sure to apply props.style to the row container
+	return (
+		<Item style={style}>
+			<Favicon domain={item.domain}/>
+			<Text>{title}</Text>
+			<URLText>{url}</URLText>
+		</Item>
+	);
+}
+
+/*
 define([
 	"jsx!./matched-string",
 	"cp",
@@ -172,3 +224,4 @@ define([
 
 	return ResultsListItem;
 });
+*/

@@ -1,5 +1,22 @@
 import React from "react";
+import styled from "styled-components";
 import Input from "./Input";
+
+
+const StyledInput = styled(Input)`	
+	font-weight: bold;
+	width: 490px;
+	height: 25px;
+	margin: 5px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	padding: 2px 2px 5px 27px;
+	outline: none;
+	&::-webkit-input-placeholder {
+		font-weight: normal;
+		font-style: italic;
+	} 
+`;
 
 
 export default class SearchBox extends React.Component {
@@ -8,7 +25,7 @@ export default class SearchBox extends React.Component {
 	};
 
 
-	searchBox = null;
+	input = null;
 
 
 	componentDidMount()
@@ -18,12 +35,12 @@ export default class SearchBox extends React.Component {
 			// even if there's a default value, the insertion point gets set
 			// to the beginning of the input field, instead of at the end.
 			// so move it there after the field is created.
-		this.searchBox.setSelectionRange(queryLength, queryLength);
+		this.input.setSelectionRange(queryLength, queryLength);
 	}
 
 
-	handleRef = (searchBox) => {
-		this.searchBox = searchBox;
+	handleRef = (input) => {
+		this.input = input;
 	};
 
 
@@ -32,12 +49,11 @@ export default class SearchBox extends React.Component {
 		const props = this.props;
 
 		return (
-			<Input
+			<StyledInput
 				type="search"
-				className="search-box"
 				tabIndex="0"
 				placeholder="Search for a title or URL"
-				ref={this.handleRef}
+				innerRef={this.handleRef}
 				spellCheck={false}
 				autoFocus={true}
 				value={props.query}

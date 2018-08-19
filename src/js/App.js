@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
+import ResultsListItem from "./ResultsListItem";
 import bookmarks from "./bookmarks";
 
 
@@ -44,34 +45,10 @@ export default class App extends React.Component {
 				/>
 				<ResultsList
 					items={bookmarks}
-					itemComponent={Item}
+					itemComponent={ResultsListItem}
 					maxItems={10}
 				/>
 			</div>
 		);
 	}
-}
-
-
-function Item({item, style})
-{
-	const {title, url} = item;
-
-		// make sure to apply props.style to the row container
-	return (
-		<div style={style}>
-			<div
-				style={{
-					height: 45,
-					padding: ".25em .5em",
-					fontSize: 12,
-					borderBottom: "1px solid silver",
-					overflow: "hidden"
-				}}
-			>
-				<div>{title}</div>
-				<div>{url}</div>
-			</div>
-		</div>
-	);
 }

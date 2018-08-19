@@ -89,29 +89,21 @@ export default class ResultsList extends React.Component{
 	{
 		var props = this.props,
 			itemCount = props.items.length,
-			height = Math.min(itemCount, props.maxItems) * RowHeight,
-			style = {
-				display: height ? "block" : "none"
-			};
+			height = Math.min(itemCount, props.maxItems) * RowHeight;
 
 		return (
-			<div className="results-list-container"
-				style={style}
-			>
-				<List
-					ref={this.handleListRef}
-					className="results-list"
-					tabIndex={-1}
-					width={Width}
-					height={height}
-					rowCount={itemCount}
-					rowHeight={RowHeight}
-					rowRenderer={this.rowRenderer}
-					scrollToIndex={props.selectedIndex}
-					onRowsRendered={this.handleRowsRendered}
-					{...props}
-				/>
-			</div>
+			<List
+				ref={this.handleListRef}
+				tabIndex={-1}
+				width={Width}
+				height={height}
+				rowCount={itemCount}
+				rowHeight={RowHeight}
+				rowRenderer={this.rowRenderer}
+				scrollToIndex={props.selectedIndex}
+				onRowsRendered={this.handleRowsRendered}
+				{...props}
+			/>
 		);
 	}
 }
