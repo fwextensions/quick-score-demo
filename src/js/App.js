@@ -6,7 +6,7 @@ import {createScorer} from "quick-score/lib";
 import bookmarks from "./bookmarks";
 
 
-const MinScore = .5;
+const MinScore = .75;
 const score = createScorer(["title", "url"]);
 
 
@@ -70,6 +70,7 @@ export default class App extends React.Component {
 				<ResultsList
 					items={items}
 					itemComponent={ResultsListItem}
+					query={query}
 					maxItems={10}
 				/>
 			</div>
