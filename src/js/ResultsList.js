@@ -3,7 +3,7 @@ import List from "react-virtualized/dist/es/List";
 
 
 const RowHeight = 45;
-const Width = 600;
+const Width = 500;
 
 
 export default class ResultsList extends React.Component{

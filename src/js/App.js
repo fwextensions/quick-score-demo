@@ -1,56 +1,52 @@
 import React from "react";
-import styled from "styled-components";
-import SearchBox from "./SearchBox";
-import ResultsList from "./ResultsList";
-import ResultsListItem from "./ResultsListItem";
-import {createScorer} from "quick-score/lib";
+import SearchWidget from "./SearchWidget";
+import {createScorer, quickScore, quickeyQuickScore} from "quick-score/lib";
 import bookmarks from "./bookmarks";
 
 
 const MinScore = .75;
-const score = createScorer(["title", "url"]);
 
 
-const Box = styled.div`
-	border: 1px solid #ccc;
-	padding: .5em;
-	margin: 1em;
-	display: inline-block;
-`;
+function clone(
+	obj)
+{
+	return JSON.parse(JSON.stringify(obj));
+}
 
 
 export default class App extends React.Component {
 	state = {
-		query: "",
-		items: []
+		query: ""
 	};
 
 
 	resultsList = null;
+	leftWidget = null;
+	rightWidget = null;
+	leftBookmarks = clone(bookmarks);
+	rightBookmarks = clone(bookmarks);
+	leftScorer = createScorer(["title", "url"], quickScore);
+	rightScorer = createScorer(["title", "url"], quickeyQuickScore);
 
 
 	constructor(
 		props)
 	{
 		super(props);
-
-		this.state.items = this.getMatchingItems("");
 	}
 
 
-	getMatchingItems(
-		query)
-	{
-		const items = score(bookmarks, query);
-
-		return items.filter(({score}) => score > MinScore);
-	}
-
-
-	handleResultsListRef = (
+	handleLeftWidgetRef = (
 		ref) =>
 	{
-		this.resultsList = ref;
+		this.leftWidget = ref;
+	};
+
+
+	handleRightWidgetRef = (
+		ref) =>
+	{
+		this.rightWidget = ref;
 	};
 
 
@@ -66,37 +62,41 @@ export default class App extends React.Component {
 	handleQueryChange = (
 		event) =>
 	{
-		const query = event.target.value;
-
 		this.setState({
-			query,
-			items: this.getMatchingItems(query)
+			query: event.target.value
 		});
 
 			// reset the scroll to show the first match
-		this.resultsList.scrollToRow(0);
+		this.leftWidget.scrollToRow(0);
+		this.rightWidget.scrollToRow(0);
 	};
 
 
 	render()
 	{
-		const {query, items} = this.state;
+		const {query} = this.state;
 
 		return (
-			<Box>
-				<SearchBox
+			<div>
+				<SearchWidget
+					ref={this.handleLeftWidgetRef}
 					query={query}
-					onChange={this.handleQueryChange}
+					items={this.leftBookmarks}
+					scorer={this.leftScorer}
+					minScore={MinScore}
+					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
-				<ResultsList
-					ref={this.handleResultsListRef}
-					items={items}
-					itemComponent={ResultsListItem}
+				<SearchWidget
+					ref={this.handleRightWidgetRef}
 					query={query}
-					maxItems={10}
+					items={this.rightBookmarks}
+					scorer={this.rightScorer}
+					minScore={.15}
+					onQueryChange={this.handleQueryChange}
+					onKeyDown={this.handleKeyDown}
 				/>
-			</Box>
+			</div>
 		);
 	}
 }

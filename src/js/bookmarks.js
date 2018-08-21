@@ -899,10 +899,6 @@ const bookmarks = [
 		"url": "https://github.com/epoberezkin/ajv"
 	},
 	{
-		"title": "Material-UI",
-		"url": "https://www.material-ui.com/#/"
-	},
-	{
 		"title": "typicode/husky: Git hooks made easy",
 		"url": "https://github.com/typicode/husky"
 	},

@@ -5,7 +5,7 @@ import Input from "./Input";
 
 const StyledInput = styled(Input)`	
 	font-weight: bold;
-	width: 600px;
+	width: 500px;
 	height: 25px;
 	margin: 0 0 .5em 0;
 	border: none;
