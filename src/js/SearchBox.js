@@ -19,46 +19,20 @@ const StyledInput = styled(Input)`
 `;
 
 
-export default class SearchBox extends React.Component {
-	static defaultProps = {
-		query: ""
-	};
+const SearchBox = (props) => (
+	<StyledInput
+		type="search"
+		tabIndex="0"
+		placeholder="Search for a title or URL"
+		spellCheck={false}
+		autoFocus={true}
+		value={props.query}
+		{...props}
+	/>
+);
 
+SearchBox.defaultProps = {
+	query: ""
+};
 
-	input = null;
-
-
-	componentDidMount()
-	{
-		const queryLength = this.props.query.length;
-
-			// even if there's a default value, the insertion point gets set
-			// to the beginning of the input field, instead of at the end.
-			// so move it there after the field is created.
-		this.input.setSelectionRange(queryLength, queryLength);
-	}
-
-
-	handleRef = (input) => {
-		this.input = input;
-	};
-
-
-	render()
-	{
-		const props = this.props;
-
-		return (
-			<StyledInput
-				type="search"
-				tabIndex="0"
-				placeholder="Search for a title or URL"
-				innerRef={this.handleRef}
-				spellCheck={false}
-				autoFocus={true}
-				value={props.query}
-				{...props}
-			/>
-		);
-	}
-}
+export default SearchBox;

@@ -26,6 +26,19 @@ export default class Input extends React.Component {
 	}
 
 
+	componentDidMount()
+	{
+		const queryLength = this.props.value.length;
+
+		if (queryLength) {
+				// even if there's a default value, the insertion point gets set
+				// to the beginning of the input field, instead of at the end.
+				// so move it there after the field is created.
+			this.input.setSelectionRange(queryLength, queryLength);
+		}
+	}
+
+
 	componentWillReceiveProps(nextProps)
 	{
 			// the parent can pass forceUpdate to force the input's value
