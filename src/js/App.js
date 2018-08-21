@@ -17,6 +17,9 @@ export default class App extends React.Component {
 	};
 
 
+	resultsList = null;
+
+
 	constructor(
 		props)
 	{
@@ -33,6 +36,13 @@ export default class App extends React.Component {
 
 		return items.filter(({score}) => score > MinScore);
 	}
+
+
+	handleResultsListRef = (
+		ref) =>
+	{
+		this.resultsList = ref;
+	};
 
 
 	handleKeyDown = (
@@ -53,6 +63,9 @@ export default class App extends React.Component {
 			query,
 			items: this.getMatchingItems(query)
 		});
+
+			// reset the scroll to show the first match
+		this.resultsList.scrollToRow(0);
 	};
 
 
@@ -68,6 +81,7 @@ export default class App extends React.Component {
 					onKeyDown={this.handleKeyDown}
 				/>
 				<ResultsList
+					ref={this.handleResultsListRef}
 					items={items}
 					itemComponent={ResultsListItem}
 					query={query}
