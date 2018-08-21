@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
@@ -8,6 +9,14 @@ import bookmarks from "./bookmarks";
 
 const MinScore = .75;
 const score = createScorer(["title", "url"]);
+
+
+const Box = styled.div`
+	border: 1px solid #ccc;
+	padding: .5em;
+	margin: 1em;
+	display: inline-block;
+`;
 
 
 export default class App extends React.Component {
@@ -74,7 +83,7 @@ export default class App extends React.Component {
 		const {query, items} = this.state;
 
 		return (
-			<div>
+			<Box>
 				<SearchBox
 					query={query}
 					onChange={this.handleQueryChange}
@@ -87,7 +96,7 @@ export default class App extends React.Component {
 					query={query}
 					maxItems={10}
 				/>
-			</div>
+			</Box>
 		);
 	}
 }
