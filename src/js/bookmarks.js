@@ -807,10 +807,6 @@ const bookmarks = [
 		"url": "https://github.com/styled-components/styled-components"
 	},
 	{
-		"title": "GitHub - styled-components/styled-components: Visual primitives for the component age 💅",
-		"url": "https://github.com/styled-components/styled-components#alternative-installation-methods"
-	},
-	{
 		"title": "Rebass",
 		"url": "http://jxnblk.com/rebass/"
 	},

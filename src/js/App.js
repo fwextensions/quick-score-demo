@@ -1,10 +1,8 @@
 import React from "react";
+import {createScorer, quickScore, quickeyQuickScore} from "quick-score";
 import SearchWidget from "./SearchWidget";
-import {createScorer, quickScore, quickeyQuickScore} from "quick-score/lib";
+import {qkQuickScore} from "./qk-quick-score";
 import bookmarks from "./bookmarks";
-
-
-const MinScore = .75;
 
 
 function clone(
@@ -20,11 +18,12 @@ export default class App extends React.Component {
 	};
 
 
-	resultsList = null;
 	leftWidget = null;
 	rightWidget = null;
 	leftBookmarks = clone(bookmarks);
 	rightBookmarks = clone(bookmarks);
+//	leftScorer = createScorer(["title", "url"], quickeyQuickScore);
+//	rightScorer = createScorer(["title", "url"], qkQuickScore);
 	leftScorer = createScorer(["title", "url"], quickScore);
 	rightScorer = createScorer(["title", "url"], quickeyQuickScore);
 
@@ -83,7 +82,7 @@ export default class App extends React.Component {
 					query={query}
 					items={this.leftBookmarks}
 					scorer={this.leftScorer}
-					minScore={MinScore}
+					minScore={0}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
@@ -92,7 +91,7 @@ export default class App extends React.Component {
 					query={query}
 					items={this.rightBookmarks}
 					scorer={this.rightScorer}
-					minScore={.15}
+					minScore={0}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>

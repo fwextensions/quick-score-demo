@@ -5,7 +5,7 @@
   "description": "",
   "keywords": [],
   "license": "ISC",
-  "main": "index.js",
+  "main": "src/js/index.js",
   "sideEffects": false,
   "scripts": {
     "start": "npm run build && webpack-dev-server --open --mode development",
