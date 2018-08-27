@@ -1,7 +1,7 @@
 import {Range} from "./range";
 
 
-const WordSeparators = "-/\\:()<>%._=&[] \t\n\r";
+const WordSeparators = "-/\\:()<>%._=&[]+ \t\n\r";
 const UpperCaseLetters = (function() {
 	const charCodeA = "A".charCodeAt(0);
 	const uppercase = [];
@@ -19,28 +19,64 @@ const MaxMatchStartPct = .15;
 const MinMatchDensityPct = .75;
 const MaxMatchDensityPct = .95;
 const BeginningOfStringPct = .1;
+const ConfigDefaults = {
+	wordSeparators: WordSeparators,
+	ignoredScore: 0.9,
+	skippedScore: 0.15,
+	skipReduction: true,
+	adjustRemainingScore: function(
+		remainingScore,
+		string,
+		query,
+		skippedSpecialChar,
+		matchedRange,
+		searchRange,
+		remainingSearchRange,
+		fullMatchedRange)
+	{
+		const isShortString = string.length < LongStringLength;
+		const matchStartPercentage = fullMatchedRange.location / string.length;
+		let matchRangeDiscount = 1;
+		let matchStartDiscount = (1 - matchStartPercentage);
+
+			// discount the remainingScore based on how much
+			// larger the match is than the query, unless
+			// the match is in the first 10% of the string, the
+			// match range isn't too sparse and the whole string
+			// is not too long
+		if (!skippedSpecialChar) {
+			matchRangeDiscount = query.length / fullMatchedRange.length;
+			matchRangeDiscount = (isShortString &&
+				matchStartPercentage <= BeginningOfStringPct &&
+				matchRangeDiscount >= MinMatchDensityPct) ?
+				1 : matchRangeDiscount;
+			matchStartDiscount = matchRangeDiscount >= MaxMatchDensityPct ?
+				1 : matchStartDiscount;
+		}
+
+			// discount the scores of very long strings
+		return remainingScore * Math.min(remainingSearchRange.length, LongStringLength) *
+			matchRangeDiscount * matchStartDiscount;
+	}
+};
 
 
 export function qkQuickScore(
 	string,
 	query,
 	matches,
-	noSkipReduction)
+	configOptions)
 {
+// TODO: this doesn't let you pass in a range to search over
+
 	function calcScore(
-//		string,
-//		query,
-//		matches,
 		searchRange,
 		queryRange,
 		fullMatchedRange)
-//		searchRange = new Range(0, string.length),
-//		queryRange = new Range(0, query.length),
-//		fullMatchedRange = new Range())
 	{
 		if (!queryRange.length) {
 				// deduct some points for all remaining characters
-			return IgnoredScore;
+			return config.ignoredScore;
 		}
 
 		if (queryRange.length > searchRange.length) {
@@ -76,25 +112,27 @@ export function qkQuickScore(
 			const remainingScore = calcScore(remainingSearchRange, remainingQueryRange, fullMatchedRange);
 
 			if (remainingScore) {
-				const matchStartPercentage = fullMatchedRange.location / string.length;
 				const isShortString = string.length < LongStringLength;
-				const useSkipReduction = !noSkipReduction && (isShortString || matchStartPercentage < MaxMatchStartPct);
+				const matchStartPercentage = fullMatchedRange.location / string.length;
+				const useSkipReduction = config.skipReduction === true &&
+					(isShortString || matchStartPercentage < MaxMatchStartPct);
 				let score = remainingSearchRange.location - searchRange.location;
-				let matchStartDiscount = (1 - matchStartPercentage);
-					// default to no match-sparseness discount, for cases where there
-					// are spaces before the matched letters or they're capitals
-				let matchRangeDiscount = 1;
+					// default to true since we only want to apply a discount if
+					// we hit the final else clause below, and we won't get to
+					// any of them if the match is right at the start of the
+					// searchRange
+				let skippedSpecialChar = true;
 
 				if (matchedRange.location > searchRange.location) {
 						// some letters were skipped when finding this match, so
 						// adjust the score based on whether spaces or capital
 						// letters were skipped
-					if (useSkipReduction && WordSeparators.indexOf(string.charAt(matchedRange.location - 1)) > -1) {
+					if (useSkipReduction && config.wordSeparators.indexOf(string.charAt(matchedRange.location - 1)) > -1) {
 						for (let j = matchedRange.location - 2; j >= searchRange.location; j--) {
-							if (WordSeparators.indexOf(string.charAt(j)) > -1) {
+							if (config.wordSeparators.indexOf(string.charAt(j)) > -1) {
 								score--;
 							} else {
-								score -= SkippedScore;
+								score -= config.skippedScore;
 							}
 						}
 					} else if (useSkipReduction && UpperCaseLetters.indexOf(string.charAt(matchedRange.location)) > -1) {
@@ -102,33 +140,20 @@ export function qkQuickScore(
 							if (UpperCaseLetters.indexOf(string.charAt(j)) > -1) {
 								score--;
 							} else {
-								score -= SkippedScore;
+								score -= config.skippedScore;
 							}
 						}
 					} else {
 							// reduce the score by the number of chars we've
 							// skipped since the beginning of the search range
-							// and discount the remainingScore based on how much
-							// larger the match is than the query, unless
-							// the match is in the first 10% of the string, the
-							// match range isn't too sparse and the whole string
-							// is not too long
 						score -= matchedRange.location - searchRange.location;
-
-						matchRangeDiscount = query.length / fullMatchedRange.length;
-						matchRangeDiscount = (isShortString &&
-							matchStartPercentage <= BeginningOfStringPct &&
-							matchRangeDiscount >= MinMatchDensityPct) ? 1 : matchRangeDiscount;
-						matchStartDiscount = matchRangeDiscount >= MaxMatchDensityPct ?
-							1 : matchStartDiscount;
+						skippedSpecialChar = false;
 					}
 				}
 
-					// discount the scores of very long strings
-				score += remainingScore * Math.min(remainingSearchRange.length, LongStringLength) *
-	//			score += remainingScore * remainingSearchRange.length *
-					matchRangeDiscount * matchStartDiscount;
-
+				score += config.adjustRemainingScore(remainingScore, string,
+					query, skippedSpecialChar, matchedRange, searchRange,
+					remainingSearchRange, fullMatchedRange);
 				score /= searchRange.length;
 
 				return score;
@@ -147,26 +172,9 @@ export function qkQuickScore(
 	}
 
 
-	let searchRange = new Range(0, string.length);
-	let queryRange = new Range(0, query.length);
-	let fullMatchedRange = new Range();
-	let score = calcScore(searchRange, queryRange, fullMatchedRange);
-
-	const matchStartPercentage = fullMatchedRange.location / string.length;
-	const isShortString = string.length < LongStringLength;
-	let matchStartDiscount = (1 - matchStartPercentage);
-		// default to no match-sparseness discount, for cases where there
-		// are spaces before the matched letters or they're capitals
-	let matchRangeDiscount = 1;
-
-	matchRangeDiscount = query.length / fullMatchedRange.length;
-	matchRangeDiscount = (isShortString &&
-		matchStartPercentage <= BeginningOfStringPct &&
-		matchRangeDiscount >= MinMatchDensityPct) ? 1 : matchRangeDiscount;
-	matchStartDiscount = matchRangeDiscount >= MaxMatchDensityPct ?
-		1 : matchStartDiscount;
-
-// TODO: this doesn't take into account not doing the discount when there are word or capital matches
+	let config = Object.assign({}, ConfigDefaults, configOptions);
+	let score = calcScore(new Range(0, string.length), new Range(0, query.length),
+		new Range());
 
 	return score;
 }

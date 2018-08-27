@@ -22,10 +22,10 @@ export default class App extends React.Component {
 	rightWidget = null;
 	leftBookmarks = clone(bookmarks);
 	rightBookmarks = clone(bookmarks);
-//	leftScorer = createScorer(["title", "url"], quickeyQuickScore);
-//	rightScorer = createScorer(["title", "url"], qkQuickScore);
-	leftScorer = createScorer(["title", "url"], quickScore);
-	rightScorer = createScorer(["title", "url"], quickeyQuickScore);
+	leftScorer = createScorer(["title", "url"], quickeyQuickScore);
+	rightScorer = createScorer(["title", "url"], qkQuickScore);
+//	leftScorer = createScorer(["title", "url"], quickScore);
+//	rightScorer = createScorer(["title", "url"], quickeyQuickScore);
 
 
 	constructor(

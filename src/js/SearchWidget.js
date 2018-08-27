@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import memoize from "fast-memoize";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
@@ -26,15 +25,15 @@ export default class SearchWidget extends React.PureComponent {
 	}
 
 
-	getMatchingItems = memoize((
+	getMatchingItems(
 		query,
-		items) =>
+		items)
 	{
 		const {scorer, minScore} = this.props;
 		const matchingItems = scorer(items, query);
 
 		return matchingItems.filter(({score}) => score > minScore);
-	});
+	}
 
 
 	scrollToRow(
