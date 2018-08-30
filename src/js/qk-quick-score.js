@@ -21,8 +21,8 @@ const MaxMatchDensityPct = .95;
 const BeginningOfStringPct = .1;
 const ConfigDefaults = {
 	wordSeparators: WordSeparators,
-	ignoredScore: 0.9,
-	skippedScore: 0.15,
+	ignoredScore: IgnoredScore,
+	skippedScore: SkippedScore,
 	skipReduction: true,
 	adjustRemainingScore: function(
 		remainingScore,
@@ -84,11 +84,11 @@ export function qkQuickScore(
 		}
 
 		for (let i = queryRange.length; i > 0; i--) {
-			const querySubstring = query.substring(queryRange.location, queryRange.location + i);
+			const querySubstring = lcQuery.substring(queryRange.location, queryRange.location + i);
 				// reduce the length of the search range by the number of chars
 				// we're skipping in the query, to make sure there's enough string
 				// left to possibly contain the skipped chars
-			const matchedRange = getRangeOfSubstring(string, querySubstring,
+			const matchedRange = getRangeOfSubstring(lcString, querySubstring,
 				new Range(searchRange.location, searchRange.length - queryRange.length + i));
 
 			if (!matchedRange.isValid()) {
@@ -173,6 +173,8 @@ export function qkQuickScore(
 
 
 	let config = Object.assign({}, ConfigDefaults, configOptions);
+	const lcString = string.toLocaleLowerCase();
+	const lcQuery = query.toLocaleLowerCase();
 	let score = calcScore(new Range(0, string.length), new Range(0, query.length),
 		new Range());
 
@@ -185,8 +187,8 @@ function getRangeOfSubstring(
 	substring,
 	searchRange = new Range(0, string.length))
 {
-	const stringToSearch = string.substring(searchRange.location, searchRange.max()).toLocaleLowerCase();
-	const subStringIndex = stringToSearch.indexOf(substring.toLocaleLowerCase());
+	const stringToSearch = string.substring(searchRange.location, searchRange.max());
+	const subStringIndex = stringToSearch.indexOf(substring);
 	const result = new Range();
 
 	if (subStringIndex > -1) {
