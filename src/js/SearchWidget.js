@@ -32,7 +32,8 @@ export default class SearchWidget extends React.PureComponent {
 		const {scorer, minScore} = this.props;
 		const matchingItems = scorer(items, query);
 
-		return matchingItems.filter(({score}) => score > minScore);
+			// don't filter 0 scores when the query is empty
+		return matchingItems.filter(({score}) => !query || score > minScore);
 	}
 
 

@@ -1,7 +1,6 @@
 import React from "react";
-import {createScorer, quickScore, quickeyQuickScore} from "quick-score";
+import {createScorer, quickScore, QuicksilverConfig} from "quick-score";
 import SearchWidget from "./SearchWidget";
-import {qkQuickScore} from "./qk-quick-score";
 import bookmarks from "./bookmarks";
 
 
@@ -22,10 +21,8 @@ export default class App extends React.Component {
 	rightWidget = null;
 	leftBookmarks = clone(bookmarks);
 	rightBookmarks = clone(bookmarks);
-	leftScorer = createScorer(["title", "url"], quickeyQuickScore);
-	rightScorer = createScorer(["title", "url"], qkQuickScore);
-//	leftScorer = createScorer(["title", "url"], quickScore);
-//	rightScorer = createScorer(["title", "url"], quickeyQuickScore);
+	leftScorer = createScorer(["title", "url"], quickScore);
+	rightScorer = createScorer(["title", "url"], quickScore, QuicksilverConfig);
 
 
 	constructor(
