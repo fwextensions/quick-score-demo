@@ -11,7 +11,7 @@
     "start": "npm run build && webpack-dev-server --open --mode development",
     "watch": "webpack --watch --mode development",
     "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build"
   },
   "dependencies": {
     "fast-memoize": "^2.5.1",
