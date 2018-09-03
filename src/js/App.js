@@ -13,7 +13,8 @@ function clone(
 
 export default class App extends React.Component {
 	state = {
-		query: ""
+		query: "",
+		selectedIndex: -1
 	};
 
 
@@ -30,6 +31,13 @@ export default class App extends React.Component {
 	{
 		super(props);
 	}
+
+
+	setSelectedIndex = (
+		index) =>
+	{
+		this.setState({ selectedIndex: index });
+	};
 
 
 	handleLeftWidgetRef = (
@@ -49,8 +57,30 @@ export default class App extends React.Component {
 	handleKeyDown = (
 		event) =>
 	{
-		if (event.key == "Escape") {
-			this.setState({ query: "" });
+		const {selectedIndex} = this.state;
+
+		switch (event.key) {
+			case "Escape":
+				this.setState({ query: "" });
+				break;
+
+			case "ArrowDown":
+				this.setState({ selectedIndex: Math.min(selectedIndex + 1, bookmarks.length) });
+				break;
+
+			case "ArrowUp":
+				this.setState({ selectedIndex: Math.max(selectedIndex - 1, 0) });
+				break;
+
+			case "PageDown":
+				this.leftWidget.scrollByPage("down");
+				this.rightWidget.scrollByPage("down");
+				break;
+
+			case "PageUp":
+				this.leftWidget.scrollByPage("up");
+				this.rightWidget.scrollByPage("up");
+				break;
 		}
 	};
 
@@ -59,7 +89,8 @@ export default class App extends React.Component {
 		event) =>
 	{
 		this.setState({
-			query: event.target.value
+			query: event.target.value,
+			selectedIndex: 0
 		});
 
 			// reset the scroll to show the first match
@@ -70,7 +101,7 @@ export default class App extends React.Component {
 
 	render()
 	{
-		const {query} = this.state;
+		const {query, selectedIndex} = this.state;
 
 		return (
 			<div>
@@ -80,6 +111,8 @@ export default class App extends React.Component {
 					items={this.leftBookmarks}
 					scorer={this.leftScorer}
 					minScore={0}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={this.setSelectedIndex}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
@@ -89,6 +122,8 @@ export default class App extends React.Component {
 					items={this.rightBookmarks}
 					scorer={this.rightScorer}
 					minScore={0}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={this.setSelectedIndex}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>

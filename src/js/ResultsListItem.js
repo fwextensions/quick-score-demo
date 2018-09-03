@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import MatchedString from "./MatchedString";
 
 
@@ -15,6 +15,7 @@ const Item = styled.div`
 	text-overflow: ellipsis;
 	overflow: hidden;
 	position: relative;
+	${props => props.isSelected && css`background: #ebebeb;`};
 `;
 const Text = styled.div`
 	width: 100%;
@@ -59,6 +60,7 @@ function clip(
 export default function ResultsListItem({
 	item,
 	query,
+	isSelected,
 	style})
 {
 	const {title, url, scores, matches} = item;
@@ -73,6 +75,7 @@ export default function ResultsListItem({
 		<Item
 			style={style}
 			title={tooltip}
+			isSelected={isSelected}
 		>
 			<Favicon domain={item.domain}/>
 			<Text>

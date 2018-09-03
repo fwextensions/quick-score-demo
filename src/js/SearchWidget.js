@@ -44,6 +44,13 @@ export default class SearchWidget extends React.PureComponent {
 	}
 
 
+	scrollByPage(
+		direction)
+	{
+		this.resultsList.scrollByPage(direction);
+	}
+
+
 	handleResultsListRef = (
 		ref) =>
 	{
@@ -53,7 +60,7 @@ export default class SearchWidget extends React.PureComponent {
 
 	render()
 	{
-		const {query, items, onQueryChange, onKeyDown} = this.props;
+		const {query, items, selectedIndex, setSelectedIndex, onQueryChange, onKeyDown} = this.props;
 
 		return (
 			<Box>
@@ -68,6 +75,8 @@ export default class SearchWidget extends React.PureComponent {
 					itemComponent={ResultsListItem}
 					query={query}
 					maxItems={10}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
 				/>
 			</Box>
 		);

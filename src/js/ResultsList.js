@@ -20,10 +20,8 @@ export default class ResultsList extends React.Component{
 	scrollByPage(
 		direction)
 	{
-		var props = this.props,
-			selectedIndex = props.selectedIndex,
-			items = props.items,
-			itemCount = Math.min(props.maxItems, items.length) - 1;
+		let {items, maxItems, selectedIndex, setSelectedIndex} = this.props;
+		const itemCount = Math.min(maxItems, items.length) - 1;
 
 		if (direction == "down") {
 			if (selectedIndex == this.stopIndex) {
@@ -39,7 +37,7 @@ export default class ResultsList extends React.Component{
 			}
 		}
 
-		props.setSelectedIndex(selectedIndex);
+		setSelectedIndex(selectedIndex);
 	}
 
 
@@ -67,20 +65,21 @@ export default class ResultsList extends React.Component{
 	};
 
 
-	rowRenderer = (
-		data) =>
+	rowRenderer = ({
+		index,
+		key,
+		style}) =>
 	{
-		var props = this.props,
-			item = props.items[data.index],
-			ItemComponent = item.component || props.itemComponent;
+		const {items, itemComponent:ItemComponent, selectedIndex, query} = this.props;
+		const item = items[index];
 
 		return <ItemComponent
-			key={data.key}
+			key={key}
 			item={item}
-			index={data.index}
-			isSelected={props.selectedIndex == data.index}
-			style={data.style}
-			{...props}
+			index={index}
+			isSelected={selectedIndex == index}
+			style={style}
+			query={query}
 		/>
 	};
 
