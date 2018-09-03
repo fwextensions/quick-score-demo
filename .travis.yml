@@ -6,3 +6,13 @@ node_js:
 cache:
   directories:
     - node_modules
+
+deploy:
+  provider: pages
+  local-dir: dist
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  verbose: true
+  on:
+    branch: dev
