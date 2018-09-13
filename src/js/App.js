@@ -1,5 +1,5 @@
 import React from "react";
-import {createScorer, quickScore, QuicksilverConfig} from "quick-score";
+import {QuickScore, QuicksilverConfig} from "quick-score";
 import SearchWidget from "./SearchWidget";
 import bookmarks from "./bookmarks";
 
@@ -20,10 +20,11 @@ export default class App extends React.Component {
 
 	leftWidget = null;
 	rightWidget = null;
-	leftBookmarks = clone(bookmarks);
-	rightBookmarks = clone(bookmarks);
-	leftScorer = createScorer(["title", "url"], quickScore);
-	rightScorer = createScorer(["title", "url"], quickScore, QuicksilverConfig);
+	leftScorer = new QuickScore(clone(bookmarks), ["title", "url"]);
+	rightScorer = new QuickScore(clone(bookmarks), {
+		keys: ["title", "url"],
+		config: QuicksilverConfig
+	});
 
 
 	constructor(
@@ -108,7 +109,6 @@ export default class App extends React.Component {
 				<SearchWidget
 					ref={this.handleLeftWidgetRef}
 					query={query}
-					items={this.leftBookmarks}
 					scorer={this.leftScorer}
 					minScore={0}
 					selectedIndex={selectedIndex}
@@ -119,7 +119,6 @@ export default class App extends React.Component {
 				<SearchWidget
 					ref={this.handleRightWidgetRef}
 					query={query}
-					items={this.rightBookmarks}
 					scorer={this.rightScorer}
 					minScore={0}
 					selectedIndex={selectedIndex}

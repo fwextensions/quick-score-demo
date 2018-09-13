@@ -26,11 +26,10 @@ export default class SearchWidget extends React.PureComponent {
 
 
 	getMatchingItems(
-		query,
-		items)
+		query)
 	{
 		const {scorer, minScore} = this.props;
-		const matchingItems = scorer(items, query);
+		const matchingItems = scorer.search(query);
 
 			// don't filter 0 scores when the query is empty
 		return matchingItems.filter(({score}) => !query || score > minScore);
@@ -60,7 +59,7 @@ export default class SearchWidget extends React.PureComponent {
 
 	render()
 	{
-		const {query, items, selectedIndex, setSelectedIndex, onQueryChange, onKeyDown} = this.props;
+		const {query, selectedIndex, setSelectedIndex, onQueryChange, onKeyDown} = this.props;
 
 		return (
 			<Box>
@@ -71,7 +70,7 @@ export default class SearchWidget extends React.PureComponent {
 				/>
 				<ResultsList
 					ref={this.handleResultsListRef}
-					items={this.getMatchingItems(query, items)}
+					items={this.getMatchingItems(query)}
 					itemComponent={ResultsListItem}
 					query={query}
 					maxItems={10}
