@@ -4,13 +4,6 @@ import SearchWidget from "./SearchWidget";
 import bookmarks from "./bookmarks";
 
 
-function clone(
-	obj)
-{
-	return JSON.parse(JSON.stringify(obj));
-}
-
-
 export default class App extends React.Component {
 	state = {
 		query: "",
@@ -20,8 +13,8 @@ export default class App extends React.Component {
 
 	leftWidget = null;
 	rightWidget = null;
-	leftScorer = new QuickScore(clone(bookmarks), ["title", "url"]);
-	rightScorer = new QuickScore(clone(bookmarks), {
+	leftScorer = new QuickScore(bookmarks, ["title", "url"]);
+	rightScorer = new QuickScore(bookmarks, {
 		keys: ["title", "url"],
 		config: QuicksilverConfig
 	});

@@ -20,7 +20,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-virtualized": "^9.20.1",
-    "quick-score": "fwextensions/quick-score#quickscore-class",
+    "quick-score": "fwextensions/quick-score#develop",
     "styled-components": "^3.4.2"
   },
   "devDependencies": {
