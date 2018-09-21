@@ -1,7 +1,38 @@
 import React from "react";
-import {QuickScore, QuicksilverConfig} from "quick-score";
+import {QuickScore} from "quick-score";
+import Fuse	from "fuse.js";
 import SearchWidget from "./SearchWidget";
 import bookmarks from "./bookmarks";
+
+
+const getQSData = ({item: {title, url}, scores, matches}) => ({ title, url, scores, matches });
+const getFuseData = ({item: {title, url}, score, matches}) => {
+	const matchesHash = {};
+	const matchesByKey = {};
+	const qsScore = 1 - score;
+	const scores = {};
+	const bestMatch = matches[0];
+	const scoreKey = bestMatch && bestMatch.key || "";
+
+	for	(const match of matches) {
+			// add 1 to the end of the range so it can be passed to substring()
+		matchesByKey[match.key] = match.indices.map(([start, end]) => [start, end + 1]);
+	}
+
+	for	(const key of ["title", "url"]) {
+		scores[key] = key == scoreKey ? qsScore : 0;
+		matchesHash[key] = matchesByKey[key] || [];
+	}
+
+	return {
+		title,
+		url,
+		score: qsScore,
+		scoreKey,
+		scores,
+		matches: matchesHash
+	};
+};
 
 
 export default class App extends React.Component {
@@ -14,17 +45,12 @@ export default class App extends React.Component {
 	leftWidget = null;
 	rightWidget = null;
 	leftScorer = new QuickScore(bookmarks, ["title", "url"]);
-	rightScorer = new QuickScore(bookmarks, {
+	rightScorer = new Fuse(bookmarks, {
 		keys: ["title", "url"],
-		config: QuicksilverConfig
+		includeMatches: true,
+		includeScore: true,
+		shouldSort: true
 	});
-
-
-	constructor(
-		props)
-	{
-		super(props);
-	}
 
 
 	setSelectedIndex = (
@@ -106,6 +132,7 @@ export default class App extends React.Component {
 					minScore={0}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={this.setSelectedIndex}
+					getData={getQSData}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
@@ -116,6 +143,7 @@ export default class App extends React.Component {
 					minScore={0}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={this.setSelectedIndex}
+					getData={getFuseData}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>

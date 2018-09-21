@@ -61,9 +61,10 @@ export default function ResultsListItem({
 	item,
 	query,
 	isSelected,
+	getData,
 	style})
 {
-	const {item: {title, url}, scores, matches} = item;
+	const {title, url, scores, matches} = getData(item);
 	const tooltip = [
 		title.length > MaxTitleLength ? title : "",
 		url.length > MaxURLLength ? url : ""

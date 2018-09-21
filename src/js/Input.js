@@ -20,12 +20,6 @@ export default class Input extends React.Component {
 	input = null;
 
 
-	constructor(props)
-	{
-		super(props);
-	}
-
-
 	componentDidMount()
 	{
 		const queryLength = this.props.value.length;

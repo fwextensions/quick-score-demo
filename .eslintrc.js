@@ -1,13 +1,20 @@
 module.exports = {
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 2017,
+		"sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+	},
 	"env": {
 		"browser": true,
 		"es6": true
 	},
-	"extends": "eslint:recommended",
-	"parserOptions": {
-		"ecmaVersion": 2015,
-		"sourceType": "module"
-	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended"
+	],
 	"rules": {
 		"accessor-pairs": "error",
 		"array-bracket-newline": "error",
