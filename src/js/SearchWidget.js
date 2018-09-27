@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import memoize from "fast-memoize";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
@@ -29,18 +30,19 @@ export default class SearchWidget extends React.PureComponent {
 
 
 	constructor(
-		props)
+		...args)
 	{
-		super(props);
+		super(...args);
+
 		this.totalMS = 0;
 		this.searchCount = 0;
 	}
 
 
-	getMatchingItems(
-		query)
+	getMatchingItems = memoize((
+		query) =>
 	{
-		const {scorer, minScore} = this.props;
+		const {scorer, minScore, convertItems} = this.props;
 		const start = performance.now();
 		const matchingItems = scorer.search(query);
 
@@ -48,9 +50,15 @@ export default class SearchWidget extends React.PureComponent {
 		this.totalMS += performance.now() - start;
 		this.searchCount++;
 
-			// don't filter 0 scores when the query is empty
-		return matchingItems.filter(({score}) => !query || score > minScore);
-	}
+		const results = convertItems(matchingItems);
+
+		if (query) {
+			return results.filter(({score}) => !query || score > minScore);
+		} else {
+				// don't filter 0 scores when the query is empty
+			return results;
+		}
+	});
 
 
 	scrollToRow(

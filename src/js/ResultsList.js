@@ -77,7 +77,6 @@ export default class ResultsList extends React.Component{
 			key={key}
 			index={index}
 			item={item}
-			getData={getData}
 			isSelected={selectedIndex == index}
 			style={style}
 			query={query}

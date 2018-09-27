@@ -1,38 +1,14 @@
 import React from "react";
 import {QuickScore} from "quick-score";
 import Fuse	from "fuse.js";
+import LiquidMetal from "liquidmetal";
 import SearchWidget from "./SearchWidget";
+import FuzzySort from "./FuzzySort";
+import {createFuse, createFuzzysort, createQuickScore} from "./convert-items";
 import bookmarks from "./bookmarks";
 
 
-const getQSData = ({item: {title, url}, scores, matches}) => ({ title, url, scores, matches });
-const getFuseData = ({item: {title, url}, score, matches}) => {
-	const matchesHash = {};
-	const matchesByKey = {};
-	const qsScore = 1 - score;
-	const scores = {};
-	const bestMatch = matches[0];
-	const scoreKey = bestMatch && bestMatch.key || "";
-
-	for	(const match of matches) {
-			// add 1 to the end of the range so it can be passed to substring()
-		matchesByKey[match.key] = match.indices.map(([start, end]) => [start, end + 1]);
-	}
-
-	for	(const key of ["title", "url"]) {
-		scores[key] = key == scoreKey ? qsScore : 0;
-		matchesHash[key] = matchesByKey[key] || [];
-	}
-
-	return {
-		title,
-		url,
-		score: qsScore,
-		scoreKey,
-		scores,
-		matches: matchesHash
-	};
-};
+const Keys = ["title", "url"];
 
 
 export default class App extends React.Component {
@@ -44,13 +20,22 @@ export default class App extends React.Component {
 
 	leftWidget = null;
 	rightWidget = null;
-	leftScorer = new QuickScore(bookmarks, ["title", "url"]);
-	rightScorer = new Fuse(bookmarks, {
-		keys: ["title", "url"],
-		includeMatches: true,
-		includeScore: true,
-		shouldSort: true
-	});
+	leftScorer = new QuickScore(bookmarks, Keys);
+//	rightScorer = new Fuse(bookmarks, {
+//		keys: ["title", "url"],
+//		includeMatches: true,
+//		includeScore: true,
+//		shouldSort: true
+//	});
+	rightScorer = new FuzzySort(bookmarks, { keys: Keys });
+//	rightScorer = new QuickScore(bookmarks, {
+//		keys: Keys,
+//		scorer: (...args) => LiquidMetal.score(...args)
+//	});
+	leftConverter = createQuickScore(Keys);
+//	rightConverter = createFuse(Keys);
+	rightConverter = createFuzzysort(Keys);
+//	rightConverter = createQuickScore(Keys);
 
 
 	setSelectedIndex = (
@@ -132,7 +117,7 @@ export default class App extends React.Component {
 					minScore={0}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={this.setSelectedIndex}
-					getData={getQSData}
+					convertItems={this.leftConverter}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
@@ -140,10 +125,10 @@ export default class App extends React.Component {
 					ref={this.handleRightWidgetRef}
 					query={query}
 					scorer={this.rightScorer}
-					minScore={0}
+					minScore={-Infinity}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={this.setSelectedIndex}
-					getData={getFuseData}
+					convertItems={this.rightConverter}
 					onQueryChange={this.handleQueryChange}
 					onKeyDown={this.handleKeyDown}
 				/>
