@@ -7,6 +7,7 @@ import ResultsListItem from "./ResultsListItem";
 
 
 const Box = styled.div`
+	font-size: 14px;
 	border: 1px solid #ccc;
 	padding: .5em;
 	margin: 1em;
@@ -27,6 +28,7 @@ const SearchTime = styled.div`
 
 export default class SearchWidget extends React.PureComponent {
 	resultsList = null;
+	searchBox = null;
 
 
 	constructor(
@@ -34,30 +36,42 @@ export default class SearchWidget extends React.PureComponent {
 	{
 		super(...args);
 
-		this.totalMS = 0;
-		this.searchCount = 0;
+		this.times = {};
+		this.searchCounts = {};
 	}
 
 
 	getMatchingItems = memoize((
-		query) =>
+		query,
+			// although scorerName could be retrieved inside getMatchingItems,
+			// we pass it in from render() so that memoize() distinguishes the
+			// same queries on different scorers
+		scorerName) =>
 	{
-		const {scorer, minScore, convertItems} = this.props;
+		const {
+			scorerConfig: {
+				scorer,
+				converter
+			}
+		} = this.props;
+		const {
+			times,
+			searchCounts
+		} = this;
 		const start = performance.now();
 		const matchingItems = scorer.search(query);
+		const end = performance.now();
 
-			// track every query to get an average time
-		this.totalMS += performance.now() - start;
-		this.searchCount++;
-
-		const results = convertItems(matchingItems);
-
-		if (query) {
-			return results.filter(({score}) => !query || score > minScore);
-		} else {
-				// don't filter 0 scores when the query is empty
-			return results;
+		if (!times[scorerName]) {
+			times[scorerName] = 0;
+			searchCounts[scorerName] = 0;
 		}
+
+			// track every query to get an average time per scorer
+		times[scorerName] += end - start;
+		searchCounts[scorerName]++;
+
+		return converter(matchingItems);
 	});
 
 
@@ -75,6 +89,19 @@ export default class SearchWidget extends React.PureComponent {
 	}
 
 
+	focus()
+	{
+		this.searchBox.focus();
+	}
+
+
+	handleSearchBoxRef = (
+		ref) =>
+	{
+		this.searchBox = ref;
+	};
+
+
 	handleResultsListRef = (
 		ref) =>
 	{
@@ -84,17 +111,27 @@ export default class SearchWidget extends React.PureComponent {
 
 	render()
 	{
-		const {query, selectedIndex, setSelectedIndex, getData, onQueryChange, onKeyDown} = this.props;
-		const items = this.getMatchingItems(query);
+		const {
+			query,
+			scorerConfig: {name: scorerName},
+			selectedIndex,
+			setSelectedIndex,
+			onQueryChange,
+			onKeyDown
+		} = this.props;
+		const totalMS = this.times[scorerName];
+		const searchCount = this.searchCounts[scorerName];
+		const items = this.getMatchingItems(query, scorerName);
 		const count = items.length;
 		const countDisplay = `${count} result${count > 1 || count == 0 ? "s" : ""}`;
 			// limit the time to 1 decimal point, but convert the string back to
 			// a number so that 1.0 becomes 1
-		const ms = +(this.totalMS / this.searchCount).toFixed(1);
+		const ms = +(totalMS / searchCount).toFixed(1);
 
 		return (
 			<Box>
 				<SearchBox
+					ref={this.handleSearchBoxRef}
 					query={query}
 					onChange={onQueryChange}
 					onKeyDown={onKeyDown}
@@ -112,7 +149,6 @@ export default class SearchWidget extends React.PureComponent {
 					maxItems={10}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={setSelectedIndex}
-					getData={getData}
 				/>
 			</Box>
 		);

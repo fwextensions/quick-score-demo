@@ -5,7 +5,28 @@
 }
 
 body {
-	font-size: 14px;
+	font-size: 16px;
 	padding: 1em;
 	margin: 0;
+}
+
+code {
+	font-family: Consolas, monospace;
+	padding: 0.2em 0.4em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(27, 31, 35, 0.05);
+	border-radius: 3px;
+}
+
+p {
+	line-height: 1.4;
+}
+
+b {
+	color: #555;
+}
+
+select {
+	font-size: 16px;
 }

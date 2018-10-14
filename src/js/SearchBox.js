@@ -19,20 +19,41 @@ const StyledInput = styled(Input)`
 `;
 
 
-const SearchBox = (props) => (
-	<StyledInput
-		type="search"
-		tabIndex="0"
-		placeholder="Search for a title or URL"
-		spellCheck={false}
-		autoFocus={true}
-		value={props.query}
-		{...props}
-	/>
-);
+export default class SearchBox extends React.Component {
+	static defaultProps = {
+		query: ""
+	};
 
-SearchBox.defaultProps = {
-	query: ""
-};
 
-export default SearchBox;
+	focus()
+	{
+		this.input.focus();
+	}
+
+
+	handleInputRef = (
+		ref) =>
+	{
+			// the Input component adds a ref to the actual <input> DOM element
+			// as an input property
+		this.input = ref.input;
+	};
+
+
+	render()
+	{
+		const {props} = this;
+
+		return (
+			<StyledInput
+				type="search"
+				innerRef={this.handleInputRef}
+				tabIndex="0"
+				placeholder="Search for a title or URL"
+				spellCheck={false}
+				value={props.query}
+				{...props}
+			/>
+		);
+	}
+}

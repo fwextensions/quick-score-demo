@@ -70,7 +70,12 @@ export default class ResultsList extends React.Component{
 		key,
 		style}) =>
 	{
-		const {items, itemComponent:ItemComponent, selectedIndex, query, getData} = this.props;
+		const {
+			items,
+			itemComponent: ItemComponent,
+			selectedIndex,
+			query
+		} = this.props;
 		const item = items[index];
 
 		return <ItemComponent
@@ -87,7 +92,11 @@ export default class ResultsList extends React.Component{
 	render()
 	{
 		const {props} = this;
-		const {maxItems, selectedIndex, items} = this.props;
+		const {
+			maxItems,
+			selectedIndex,
+			items
+		} = this.props;
 		const itemCount = items.length;
 		const height = Math.min(itemCount, maxItems) * RowHeight;
 

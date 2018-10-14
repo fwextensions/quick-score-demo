@@ -1,47 +1,44 @@
 import React from "react";
-import {QuickScore} from "quick-score";
-import Fuse	from "fuse.js";
-import LiquidMetal from "liquidmetal";
+import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
-import FuzzySort from "./FuzzySort";
-import {createFuse, createFuzzysort, createQuickScore} from "./convert-items";
+import scorers from "./scorers";
 import bookmarks from "./bookmarks";
-
-
-const Keys = ["title", "url"];
 
 
 export default class App extends React.Component {
 	state = {
 		query: "",
-		selectedIndex: -1
+		selectedIndex: -1,
+		selectedConfig: scorers[1]
 	};
 
 
 	leftWidget = null;
 	rightWidget = null;
-	leftScorer = new QuickScore(bookmarks, Keys);
-//	rightScorer = new Fuse(bookmarks, {
-//		keys: ["title", "url"],
-//		includeMatches: true,
-//		includeScore: true,
-//		shouldSort: true
-//	});
-	rightScorer = new FuzzySort(bookmarks, { keys: Keys });
-//	rightScorer = new QuickScore(bookmarks, {
-//		keys: Keys,
-//		scorer: (...args) => LiquidMetal.score(...args)
-//	});
-	leftConverter = createQuickScore(Keys);
-//	rightConverter = createFuse(Keys);
-	rightConverter = createFuzzysort(Keys);
-//	rightConverter = createQuickScore(Keys);
+	leftScorerConfig = scorers[0];
+	scorerConfigs = scorers.slice(1);
+
+
+	componentDidMount() {
+		this.leftWidget.focus();
+	}
 
 
 	setSelectedIndex = (
 		index) =>
 	{
 		this.setState({ selectedIndex: index });
+	};
+
+
+	handleScorerChange = (
+		selectedConfig) =>
+	{
+		this.setState({
+			selectedConfig,
+			query: ""
+		});
+		this.rightWidget.focus();
 	};
 
 
@@ -106,32 +103,38 @@ export default class App extends React.Component {
 
 	render()
 	{
-		const {query, selectedIndex} = this.state;
+		const {
+			query,
+			selectedIndex,
+			selectedConfig: rightScorerConfig
+		} = this.state;
 
 		return (
 			<div>
-				<SearchWidget
-					ref={this.handleLeftWidgetRef}
-					query={query}
-					scorer={this.leftScorer}
-					minScore={0}
-					selectedIndex={selectedIndex}
-					setSelectedIndex={this.setSelectedIndex}
-					convertItems={this.leftConverter}
-					onQueryChange={this.handleQueryChange}
-					onKeyDown={this.handleKeyDown}
+				<ScorerSelector
+					scorers={this.scorerConfigs}
+					onChange={this.handleScorerChange}
 				/>
-				<SearchWidget
-					ref={this.handleRightWidgetRef}
-					query={query}
-					scorer={this.rightScorer}
-					minScore={-Infinity}
-					selectedIndex={selectedIndex}
-					setSelectedIndex={this.setSelectedIndex}
-					convertItems={this.rightConverter}
-					onQueryChange={this.handleQueryChange}
-					onKeyDown={this.handleKeyDown}
-				/>
+				<div>
+					<SearchWidget
+						ref={this.handleLeftWidgetRef}
+						query={query}
+						scorerConfig={this.leftScorerConfig}
+						selectedIndex={selectedIndex}
+						setSelectedIndex={this.setSelectedIndex}
+						onQueryChange={this.handleQueryChange}
+						onKeyDown={this.handleKeyDown}
+					/>
+					<SearchWidget
+						ref={this.handleRightWidgetRef}
+						query={query}
+						scorerConfig={rightScorerConfig}
+						selectedIndex={selectedIndex}
+						setSelectedIndex={this.setSelectedIndex}
+						onQueryChange={this.handleQueryChange}
+						onKeyDown={this.handleKeyDown}
+					/>
+				</div>
 			</div>
 		);
 	}

@@ -28,7 +28,7 @@ export default class Input extends React.Component {
 				// even if there's a default value, the insertion point gets set
 				// to the beginning of the input field, instead of at the end.
 				// so move it there after the field is created.
-			this.input.setSelectionRange(queryLength, queryLength);
+			this.setSelectionRange(queryLength, queryLength);
 		}
 	}
 
@@ -45,9 +45,7 @@ export default class Input extends React.Component {
 
 	setSelectionRange(start, end)
 	{
-		if (this.input) {
-			this.input.setSelectionRange(start, end);
-		}
+		this.input.setSelectionRange(start, end);
 	}
 
 
