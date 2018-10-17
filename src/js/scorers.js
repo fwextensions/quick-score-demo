@@ -53,6 +53,11 @@ export default [
 					open-source database for the realtime web</b> is the 39th
 					result.
 				</p>
+				<p>
+					Fuse.js scores usually go from <code>0</code> as the best
+					match to <code>1</code> as no match, but the scores below
+					have been inverted to match QuickScore's range.
+				</p>
 			</div>
 		]
 	},

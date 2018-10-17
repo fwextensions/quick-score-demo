@@ -36,8 +36,10 @@ export default class Input extends React.Component {
 	componentWillReceiveProps(nextProps)
 	{
 			// the parent can pass forceUpdate to force the input's value
-			// to change even if it's focused
-		if (!this.state.isFocused || nextProps.forceUpdate) {
+			// to change even if it's focused.  we treat an empty value as a
+			// forced update so the input is cleared.  this doesn't seem to be
+			// necessary on Chrome, but is on FF and edge.
+		if (!this.state.isFocused || nextProps.forceUpdate || nextProps.value == "") {
 			this.setState({ currentValue: nextProps.value });
 		}
 	}

@@ -14,7 +14,7 @@ const Scorer = styled.div`
 	width: 500px;
 `;
 const Selector = styled.div`
-	padding-bottom: .5em;
+	height: 2.5em;
 `;
 const Label = styled.label`
 	font-weight: bold;

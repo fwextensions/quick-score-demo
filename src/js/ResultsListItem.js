@@ -63,7 +63,7 @@ export default function ResultsListItem({
 	isSelected,
 	style})
 {
-	const {item: {title, url}, scores, matches} = item;
+	const {item: {title, url, domain}, scores, matches} = item;
 	const tooltip = [
 		title.length > MaxTitleLength ? title : "",
 		url.length > MaxURLLength ? url : ""
@@ -77,7 +77,7 @@ export default function ResultsListItem({
 			title={tooltip}
 			isSelected={isSelected}
 		>
-			<Favicon domain={item.domain}/>
+			<Favicon domain={domain} />
 			<Text>
 				<MatchedString
 					string={title}
