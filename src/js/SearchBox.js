@@ -12,7 +12,7 @@ const StyledInput = styled(Input)`
 	border-bottom: 1px solid #ddd;
 	padding: 2px 2px 5px 27px;
 	outline: none;
-	&::-webkit-input-placeholder {
+	&::placeholder {
 		font-weight: normal;
 		font-style: italic;
 	} 
