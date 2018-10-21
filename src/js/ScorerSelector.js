@@ -4,22 +4,23 @@ import styled from "styled-components";
 
 
 const SearchWidgetContainer = styled.div`
-	margin: 1em 1em 0 1em;
-	padding: 5px;
 	vertical-align: top;
 	display: inline-block;
 	position: relative;
+	& ~ & {
+		margin-left: 30px;
+	} 
 `;
 const Scorer = styled.div`
-	width: 500px;
+	width: 516px;
 `;
 const Selector = styled.div`
-	height: 2.5em;
+	height: 1.5em;
 `;
 const Label = styled.label`
 	font-weight: bold;
 	margin-right: .5em;
-	color:#666;
+	color: #666;
 `;
 
 

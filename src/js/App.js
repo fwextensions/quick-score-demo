@@ -1,8 +1,22 @@
 import React from "react";
+import styled from "styled-components";
 import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
 import scorers from "./scorers";
 import bookmarks from "./bookmarks";
+
+
+const AppContainer = styled.div`
+	border-top: 1px solid #aaa;
+	padding: 2em 0;
+`;
+const Title = styled.h2`
+	font-size: 1.25em;
+	margin-bottom: 1.5em;
+	& ~ p {
+		margin-bottom: 4em;
+	}	
+`;
 
 
 export default class App extends React.Component {
@@ -19,11 +33,6 @@ export default class App extends React.Component {
 	scorerConfigs = scorers.slice(1);
 
 
-	componentDidMount() {
-		this.leftWidget.focus();
-	}
-
-
 	setSelectedIndex = (
 		index) =>
 	{
@@ -38,7 +47,7 @@ export default class App extends React.Component {
 			selectedConfig,
 			query: ""
 		});
-		this.rightWidget.focus();
+		this.leftWidget.focus();
 	};
 
 
@@ -60,6 +69,7 @@ export default class App extends React.Component {
 		event) =>
 	{
 		const {selectedIndex} = this.state;
+		let cancel = true;
 
 		switch (event.key) {
 			case "Escape":
@@ -83,6 +93,15 @@ export default class App extends React.Component {
 				this.leftWidget.scrollByPage("up");
 				this.rightWidget.scrollByPage("up");
 				break;
+
+			default:
+				cancel = false;
+				break;
+		}
+
+		if (cancel) {
+				// don't scroll the page when the user is paging up/down
+			event.preventDefault();
 		}
 	};
 
@@ -110,7 +129,16 @@ export default class App extends React.Component {
 		} = this.state;
 
 		return (
-			<div>
+			<AppContainer>
+				<Title id="demo">Demo</Title>
+				<p>
+					Below you can test the QuickScore algorithm and compare it
+					to some other string-scoring libraries.  Typing a query in
+					either search box will use QuickScore to match and sort
+					bookmarks on the left, while you can choose among other
+					scoring algorithms on the right.  Your typed query will be
+					matched against the title and URL of about 300 bookmarks.
+				</p>
 				<ScorerSelector
 					scorers={this.scorerConfigs}
 					onChange={this.handleScorerChange}
@@ -135,7 +163,7 @@ export default class App extends React.Component {
 						onKeyDown={this.handleKeyDown}
 					/>
 				</div>
-			</div>
+			</AppContainer>
 		);
 	}
 }

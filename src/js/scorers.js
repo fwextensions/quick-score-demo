@@ -46,12 +46,12 @@ export default [
 					The fuzziness of Fuse.js means it often returns surprising
 					results for a given query, especially when searching through
 					long strings like webpage titles or URLs.  For instance,
-					typing <b>real</b> in order to match page titles that
-					contain <b>realtime</b> returns <b>Material-UI</b> as the
-					top result, which has the query characters in a different
-					order, while the bookmark titled <b>RethinkDB: the
-					open-source database for the realtime web</b> is the 39th
-					result.
+					if you type <b>real</b> to match page titles that
+					contain the word <b>realtime</b>, Fuse.js
+					returns <b>Material-UI</b> as the top result, which has the
+					query characters in a different order, while the bookmark
+					titled <b>RethinkDB: the open-source database for the
+					realtime web</b> is the 39th result.
 				</p>
 				<p>
 					Fuse.js scores usually go from <code>0</code> as the best
@@ -104,14 +104,14 @@ export default [
 					fuzzysort is usually faster than QuickScore, thanks to its
 					aggressive caching, and generally produces similar results.
 					The scores it returns range from <code>&#8209;Infinity</code>
-					to <code>0</code>, which is a bit quirky, though.
+					to <code>0</code>, though, which is a bit quirky.
 				</p>
 			</div>,
 			<div>
 				<p>
 					fuzzysort's results are very similar to QuickScore's, though
 					there are occasional misses.  If you wanted to find
-					the <b>jQuery Zoom</b> item and typed just <b>zom</b>,
+					the <b>jQuery Zoom</b> bookmark and typed just <b>zom</b>,
 					fuzzysort's first result is <b>phonegap.com</b>, due to the
 					query letters appearing somewhere in the extremely long
 					tracking parameter that happened to be saved with the

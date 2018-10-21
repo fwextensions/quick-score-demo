@@ -10,7 +10,7 @@ const StyledInput = styled(Input)`
 	margin: 0 0 .5em 0;
 	border: none;
 	border-bottom: 1px solid #ddd;
-	padding: 2px 2px 5px 27px;
+	padding: 2px 2px 5px 28px;
 	outline: none;
 	&::placeholder {
 		font-weight: normal;

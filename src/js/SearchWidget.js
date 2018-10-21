@@ -9,15 +9,17 @@ import ResultsListItem from "./ResultsListItem";
 const Box = styled.div`
 	font-size: 14px;
 	border: 1px solid #ccc;
-	padding: .5em;
-	margin: 1em;
+	padding: 7px;
 	vertical-align: top;
 	display: inline-block;
 	position: relative;
+	& ~ & {
+		margin-left: 30px;
+	} 
 `;
 const SearchTime = styled.div`
 	top: 9px; 
-	right: 35px;
+	right: 30px;
 	text-align: right;
 	font-style: italic;
 	font-size: smaller;
