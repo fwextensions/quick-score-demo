@@ -10,6 +10,8 @@ copy(JSON.stringify(b, null, 2));
 
 
 <!--
+list available scorers
+
 fuzzysort, very fast, good results
 json has results that are slightly off
 
