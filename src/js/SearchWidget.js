@@ -121,9 +121,11 @@ export default class SearchWidget extends React.PureComponent {
 			onQueryChange,
 			onKeyDown
 		} = this.props;
+		const items = this.getMatchingItems(query, scorerName);
+			// get the search timing after calling getMatchingItems() so that we
+			// don't miss the first call
 		const totalMS = this.times[scorerName];
 		const searchCount = this.searchCounts[scorerName];
-		const items = this.getMatchingItems(query, scorerName);
 		const count = items.length;
 		const countDisplay = `${count} result${count > 1 || count == 0 ? "s" : ""}`;
 			// limit the time to 1 decimal point, but convert the string back to

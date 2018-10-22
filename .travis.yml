@@ -14,3 +14,6 @@ deploy:
   github-token: $GITHUB_TOKEN
   on:
     branch: dev
+
+git:
+  depth: 99999

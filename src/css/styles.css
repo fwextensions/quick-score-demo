@@ -26,12 +26,31 @@ code {
 	border-radius: 3px;
 }
 
+a {
+	color: #a00;
+}
+
+a:visited {
+	color: #600;
+}
+
 p {
 	line-height: 1.4;
 }
 
 b {
 	color: #555;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	display: inline-block;
+	margin-right: 1em;
 }
 
 select {
@@ -45,4 +64,15 @@ section {
 section.description {
 	font-size: 125%;
 	padding-bottom: 1.5em;
+}
+
+section.description h2 {
+	font-size: 1em;
+	color: #666;
+	margin-top: -1em;
+}
+
+.github-fork-ribbon:after {
+	font: 700 1em -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
