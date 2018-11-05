@@ -101,10 +101,11 @@ export default [
 		description: [
 			<div>
 				<p>
-					fuzzysort is usually faster than QuickScore, thanks to its
-					aggressive caching, and generally produces similar results.
-					The scores it returns range from <code>&#8209;Infinity</code>
-					to <code>0</code>, though, which is a bit quirky.
+					fuzzysort is usually a bit faster than QuickScore, thanks to
+					its aggressive caching and pre-processing, and generally
+					produces very similar results.  The scores it returns range
+					from <code>&#8209;Infinity</code> to <code>0</code>, though,
+					which is a bit quirky.
 				</p>
 			</div>,
 			<div>
@@ -112,11 +113,13 @@ export default [
 					fuzzysort's results are very similar to QuickScore's, though
 					there are occasional misses.  If you wanted to find
 					the <b>jQuery Zoom</b> bookmark and typed just <b>zom</b>,
-					fuzzysort's first result is <b>phonegap.com</b>, due to the
-					query letters appearing somewhere in the extremely long
-					tracking parameter that happened to be saved with the
-					bookmark.  QuickScore sorts <b>jQuery Zoom</b> to the top
-					with that query.
+					fuzzysort's top two results look completely unrelated to the
+					query.  They're included because the query letters appear
+					somewhere in the extremely long tracking parameter that
+					happened to be saved with the bookmark.  QuickScore
+					sorts <b>jQuery Zoom</b> to the top with that query, and
+					sorts the <b>PhoneGap</b> and <b>jQuery Sparklines</b> items
+					to the very bottom.
 				</p>
 			</div>
 		]
