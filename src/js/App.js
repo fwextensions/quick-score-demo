@@ -1,42 +1,53 @@
 import React from "react";
-import {createScorer, quickScore, QuicksilverConfig} from "quick-score";
+import styled from "styled-components";
+import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
+import scorers from "./scorers";
 import bookmarks from "./bookmarks";
 
 
-function clone(
-	obj)
-{
-	return JSON.parse(JSON.stringify(obj));
-}
+const AppContainer = styled.div`
+	border-top: 1px solid #aaa;
+	padding: 2em 0;
+`;
+const Title = styled.h2`
+	font-size: 2em;
+	margin: 0 0 1.5em 0;
+	& ~ p {
+		margin-bottom: 3em;
+	}	
+`;
 
 
 export default class App extends React.Component {
 	state = {
 		query: "",
-		selectedIndex: -1
+		selectedIndex: -1,
+		selectedConfig: scorers[1]
 	};
 
 
 	leftWidget = null;
 	rightWidget = null;
-	leftBookmarks = clone(bookmarks);
-	rightBookmarks = clone(bookmarks);
-	leftScorer = createScorer(["title", "url"], quickScore);
-	rightScorer = createScorer(["title", "url"], quickScore, QuicksilverConfig);
-
-
-	constructor(
-		props)
-	{
-		super(props);
-	}
+	leftScorerConfig = scorers[0];
+	scorerConfigs = scorers.slice(1);
 
 
 	setSelectedIndex = (
 		index) =>
 	{
 		this.setState({ selectedIndex: index });
+	};
+
+
+	handleScorerChange = (
+		selectedConfig) =>
+	{
+		this.setState({
+			selectedConfig,
+			query: ""
+		});
+		this.leftWidget.focus();
 	};
 
 
@@ -58,6 +69,7 @@ export default class App extends React.Component {
 		event) =>
 	{
 		const {selectedIndex} = this.state;
+		let cancel = true;
 
 		switch (event.key) {
 			case "Escape":
@@ -81,6 +93,15 @@ export default class App extends React.Component {
 				this.leftWidget.scrollByPage("up");
 				this.rightWidget.scrollByPage("up");
 				break;
+
+			default:
+				cancel = false;
+				break;
+		}
+
+		if (cancel) {
+				// don't scroll the page when the user is paging up/down
+			event.preventDefault();
 		}
 	};
 
@@ -101,33 +122,48 @@ export default class App extends React.Component {
 
 	render()
 	{
-		const {query, selectedIndex} = this.state;
+		const {
+			query,
+			selectedIndex,
+			selectedConfig: rightScorerConfig
+		} = this.state;
 
 		return (
-			<div>
-				<SearchWidget
-					ref={this.handleLeftWidgetRef}
-					query={query}
-					items={this.leftBookmarks}
-					scorer={this.leftScorer}
-					minScore={0}
-					selectedIndex={selectedIndex}
-					setSelectedIndex={this.setSelectedIndex}
-					onQueryChange={this.handleQueryChange}
-					onKeyDown={this.handleKeyDown}
+			<AppContainer>
+				<Title id="demo">Demo</Title>
+				<p>
+					Below you can test the QuickScore algorithm and compare it
+					to some other string-scoring libraries.  Typing a query in
+					either search box will use QuickScore to match and sort
+					bookmarks on the left, while you can choose among other
+					scoring algorithms on the right.  Your typed query will be
+					matched against the title and URL of about 300 bookmarks.
+				</p>
+				<ScorerSelector
+					scorers={this.scorerConfigs}
+					onChange={this.handleScorerChange}
 				/>
-				<SearchWidget
-					ref={this.handleRightWidgetRef}
-					query={query}
-					items={this.rightBookmarks}
-					scorer={this.rightScorer}
-					minScore={0}
-					selectedIndex={selectedIndex}
-					setSelectedIndex={this.setSelectedIndex}
-					onQueryChange={this.handleQueryChange}
-					onKeyDown={this.handleKeyDown}
-				/>
-			</div>
+				<div>
+					<SearchWidget
+						ref={this.handleLeftWidgetRef}
+						query={query}
+						scorerConfig={this.leftScorerConfig}
+						selectedIndex={selectedIndex}
+						setSelectedIndex={this.setSelectedIndex}
+						onQueryChange={this.handleQueryChange}
+						onKeyDown={this.handleKeyDown}
+					/>
+					<SearchWidget
+						ref={this.handleRightWidgetRef}
+						query={query}
+						scorerConfig={rightScorerConfig}
+						selectedIndex={selectedIndex}
+						setSelectedIndex={this.setSelectedIndex}
+						onQueryChange={this.handleQueryChange}
+						onKeyDown={this.handleKeyDown}
+					/>
+				</div>
+			</AppContainer>
 		);
 	}
 }

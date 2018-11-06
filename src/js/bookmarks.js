@@ -1181,6 +1181,14 @@ const bookmarks = [
 	{
 		"title": "fast-memoize - npm",
 		"url": "https://www.npmjs.com/package/fast-memoize"
+	},
+	{
+		"title": "QuicKey – The quick tab switcher - Chrome Web Store",
+		"url": "https://chrome.google.com/webstore/detail/quickey-%E2%80%93-the-quick-tab-s/ldlghkoiihaelfnggonhjnfiabmaficg"
+	},
+	{
+		"title": "QuicKey | Jump between recent tabs in Chrome via keyboard or menu",
+		"url": "https://fwextensions.github.io/QuicKey/"
 	}
 ];
 

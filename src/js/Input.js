@@ -20,12 +20,6 @@ export default class Input extends React.Component {
 	input = null;
 
 
-	constructor(props)
-	{
-		super(props);
-	}
-
-
 	componentDidMount()
 	{
 		const queryLength = this.props.value.length;
@@ -34,7 +28,7 @@ export default class Input extends React.Component {
 				// even if there's a default value, the insertion point gets set
 				// to the beginning of the input field, instead of at the end.
 				// so move it there after the field is created.
-			this.input.setSelectionRange(queryLength, queryLength);
+			this.setSelectionRange(queryLength, queryLength);
 		}
 	}
 
@@ -42,8 +36,10 @@ export default class Input extends React.Component {
 	componentWillReceiveProps(nextProps)
 	{
 			// the parent can pass forceUpdate to force the input's value
-			// to change even if it's focused
-		if (!this.state.isFocused || nextProps.forceUpdate) {
+			// to change even if it's focused.  we treat an empty value as a
+			// forced update so the input is cleared.  this doesn't seem to be
+			// necessary on Chrome, but is on FF and edge.
+		if (!this.state.isFocused || nextProps.forceUpdate || nextProps.value == "") {
 			this.setState({ currentValue: nextProps.value });
 		}
 	}
@@ -51,9 +47,7 @@ export default class Input extends React.Component {
 
 	setSelectionRange(start, end)
 	{
-		if (this.input) {
-			this.input.setSelectionRange(start, end);
-		}
+		this.input.setSelectionRange(start, end);
 	}
 
 

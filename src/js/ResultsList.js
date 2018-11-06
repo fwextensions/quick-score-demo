@@ -70,13 +70,18 @@ export default class ResultsList extends React.Component{
 		key,
 		style}) =>
 	{
-		const {items, itemComponent:ItemComponent, selectedIndex, query} = this.props;
+		const {
+			items,
+			itemComponent: ItemComponent,
+			selectedIndex,
+			query
+		} = this.props;
 		const item = items[index];
 
 		return <ItemComponent
 			key={key}
-			item={item}
 			index={index}
+			item={item}
 			isSelected={selectedIndex == index}
 			style={style}
 			query={query}
@@ -86,9 +91,14 @@ export default class ResultsList extends React.Component{
 
 	render()
 	{
-		var props = this.props,
-			itemCount = props.items.length,
-			height = Math.min(itemCount, props.maxItems) * RowHeight;
+		const {props} = this;
+		const {
+			maxItems,
+			selectedIndex,
+			items
+		} = this.props;
+		const itemCount = items.length;
+		const height = Math.min(itemCount, maxItems) * RowHeight;
 
 		return (
 			<List
@@ -99,7 +109,7 @@ export default class ResultsList extends React.Component{
 				rowCount={itemCount}
 				rowHeight={RowHeight}
 				rowRenderer={this.rowRenderer}
-				scrollToIndex={props.selectedIndex}
+				scrollToIndex={selectedIndex}
 				onRowsRendered={this.handleRowsRendered}
 				{...props}
 			/>

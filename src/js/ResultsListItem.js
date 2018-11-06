@@ -23,7 +23,7 @@ const Text = styled.div`
 	text-overflow: ellipsis;
 	overflow: hidden;
 `;
-const URLText = Text.extend`
+const URLText = styled(Text)`
 	font-size: 12px;
 	opacity: 0.7;
 `;
@@ -45,7 +45,7 @@ const Score = styled.div`
 	text-align: right;
 	position: absolute;
 `;
-const URLScore = Score.extend`
+const URLScore = styled(Score)`
 	top: 23px;
 `;
 
@@ -63,7 +63,7 @@ export default function ResultsListItem({
 	isSelected,
 	style})
 {
-	const {title, url, scores, matches} = item;
+	const {item: {title, url, domain}, scores, matches} = item;
 	const tooltip = [
 		title.length > MaxTitleLength ? title : "",
 		url.length > MaxURLLength ? url : ""
@@ -77,18 +77,16 @@ export default function ResultsListItem({
 			title={tooltip}
 			isSelected={isSelected}
 		>
-			<Favicon domain={item.domain}/>
+			<Favicon domain={domain} />
 			<Text>
 				<MatchedString
-					text={title}
-					query={query}
+					string={title}
 					matches={matches.title}
 				/>
 			</Text>
 			<URLText>
 				<MatchedString
-					text={url}
-					query={query}
+					string={url}
 					matches={matches.url}
 				/>
 			</URLText>
