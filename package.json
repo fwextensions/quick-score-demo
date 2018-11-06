@@ -15,6 +15,14 @@
     "build": "webpack --mode production",
     "test": "npm run build"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/*.js",
+      "!src/index.js"
+    ],
+    "setupTestFrameworkScriptFile": "./test/setup.js"
+  },
   "dependencies": {
     "fast-memoize": "^2.5.1",
     "fuse.js": "^3.2.1",
