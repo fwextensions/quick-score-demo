@@ -8,7 +8,9 @@ This is a demo of the [QuickScore](https://github.com/fwextensions/quick-score) 
 * fuzzysort
 * liquidmetal
 
-The demo UI is built with React.
+The UI is built with React, but the QuickScore library itself doesn't require it and has no dependencies.
+
+[See the demo.](https://fwextensions.github.io/quick-score-demo)
 
 <!--
 const s = bookmarks.Store.getInstance().data;
