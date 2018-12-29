@@ -1,11 +1,11 @@
-export function createQuickScore(
+export function convertQuickScore(
 	keys)
 {
 	return items => items;
 }
 
 
-export function createFuse(
+export function convertFuse(
 	keys)
 {
 	return items => items.map(item => {
@@ -38,7 +38,7 @@ export function createFuse(
 }
 
 
-export function createFuzzysort(
+export function convertFuzzysort(
 	keys)
 {
 	return items => items.map(item => {

@@ -1,7 +1,4 @@
-const ProtocolPattern = /https?:\/\/(www\.)?/;
-
-
-const bookmarks = [
+export default [
 	{
 		"title": "24 ways Flickr Photos On Demand with getFlickr",
 		"url": "http://24ways.org/2006/flickr-photos-on-demand"
@@ -1191,9 +1188,3 @@ const bookmarks = [
 		"url": "https://fwextensions.github.io/QuicKey/"
 	}
 ];
-
-export default bookmarks.map(({title, url}) => ({
-	title,
-	url: url.replace(ProtocolPattern, ""),
-	domain: new URL(url).hostname
-}));
