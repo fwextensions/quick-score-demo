@@ -61,7 +61,7 @@ export default class ScorerSelector extends React.Component {
 						<Selector>
 							<Label>Scorer:</Label>QuickScore
 						</Selector>
-						<div>
+						<div onClick={this.props.onKbdClick}>
 							{leftDescription}
 						</div>
 					</Scorer>
@@ -76,7 +76,7 @@ export default class ScorerSelector extends React.Component {
 								{items}
 							</select>
 						</Selector>
-						<div>
+						<div onClick={this.props.onKbdClick}>
 							{rightDescription}
 						</div>
 					</Scorer>

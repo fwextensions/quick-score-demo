@@ -3,28 +3,102 @@ import {QuickScore, QuicksilverConfig} from "quick-score";
 import Fuse	from "fuse.js";
 import LiquidMetal from "liquidmetal";
 import FuzzySort from "./FuzzySort";
-import bookmarks from "./bookmarks";
-import {createFuse, createFuzzysort, createQuickScore} from "./convert-items";
+import MatchSorter from "./MatchSorter";
+import Bookmarks from "./Bookmarks";
+import {
+	convertFuse,
+	convertFuzzysort,
+	convertMatchSorter,
+	convertQuickScore
+} from "./convert-items";
 
 
-const Keys = ["title", "url"];
+const DefaultItems = Bookmarks.items;
+const DefaultKeys = ["title", "url"];
+
+
+function createQuickScore(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new QuickScore(items, keys);
+}
+
+
+function createQuicksilver(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new QuickScore(items, {
+		keys,
+		config: QuicksilverConfig
+	});
+}
+
+
+function createLiquidMetal(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new QuickScore(items, {
+		keys,
+		scorer: (...args) => LiquidMetal.score(...args)
+	});
+}
+
+
+function createFuse(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new Fuse(items, {
+		keys,
+		includeMatches: true,
+		includeScore: true,
+		shouldSort: true
+	});
+}
+
+
+function createFuzzySort(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new FuzzySort(items, { keys });
+}
+
+
+function createMatchSorter(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new MatchSorter(items, { keys });
+}
+
+
+function updateQuickScore(
+	items)
+{
+	this.scorer.setItems(items);
+}
 
 
 export default [
 	{
 		name: "QuickScore",
-		scorer: new QuickScore(bookmarks, Keys),
-		converter: createQuickScore(Keys)
+		scorer: createQuickScore(),
+		update: updateQuickScore,
+		converter: convertQuickScore(DefaultKeys)
 	},
 	{
 		name: "Fuse.js",
-		scorer: new Fuse(bookmarks, {
-			keys: Keys,
-			includeMatches: true,
-			includeScore: true,
-			shouldSort: true
-		}),
-		converter: createFuse(Keys),
+		scorer: createFuse(),
+		update: function(
+			items)
+		{
+			this.scorer = createFuse(items);
+		},
+		converter: convertFuse(DefaultKeys),
 		description: [
 			<div>
 				<p>
@@ -37,16 +111,21 @@ export default [
 				<p>
 					When the query string is empty, QuickScore returns all the
 					items sorted alphabetically.  Fuse.js doesn't return any
-					results in that case, which is why there are no items shown
-					on the right by default.
+					results in that case, so the list on the right is empty initially.
+				</p>
+				<p>
+					Fuse.js scores usually go from <code>0</code> as the best
+					match to <code>1</code> as no match, but the scores in its
+					list have been inverted to match QuickScore's range.
 				</p>
 			</div>,
 			<div>
 				<p>
-					The fuzziness of Fuse.js means it often returns surprising
-					results for a given query, especially when searching through
+					The fuzziness of <a href="https://fusejs.io/">Fuse.js</a> means
+					it often returns surprising results for a
+					given query, especially when searching through
 					long strings like webpage titles or URLs.  For instance,
-					if you type <b>real</b> to match page titles that
+					if you type <kbd>real</kbd> to match page titles that
 					contain the word <b>realtime</b>, Fuse.js
 					returns <b>Material-UI</b> as the top result, which has the
 					query characters in a different order, while the bookmark
@@ -54,20 +133,127 @@ export default [
 					realtime web</b> is the 39th result.
 				</p>
 				<p>
-					Fuse.js scores usually go from <code>0</code> as the best
-					match to <code>1</code> as no match, but the scores below
-					have been inverted to match QuickScore's range.
+					Or if you type <kbd>revi</kbd> to pull up
+					the <b>react-virtualized</b> bookmark, Fuse.js puts that item
+					on the second-to-last page of results.  Or
+					typing <kbd>zom</kbd> to match <b>jQuery Zoom</b> returns <b>Moment.js</b> as
+					the first result.
+				</p>
+			</div>
+		]
+	},
+	{
+		name: "liquidmetal",
+		scorer: createLiquidMetal(),
+		update: updateQuickScore,
+		converter: convertQuickScore(DefaultKeys),
+		description: [
+			<div>
+				<p>
+					liquidmetal is another implementation of the Quicksilver
+					algorithm that often produces identical scores as
+					QuickScore. It's about half as fast as QuickScore, though,
+					and suffers from some of the same weaknesses of the original
+					algorithm, like over-emphasizing longer strings and not
+					prioritizing denser matches.
+				</p>
+			</div>,
+			<div>
+				<p>
+					There are sometimes misses
+					with <a href="https://www.npmjs.com/package/liquidmetal">liquidmetal</a>'s results.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and typed
+					just <kbd>zom</kbd>, liquidmetal's top two results look
+					completely unrelated to the query.  They're included because
+					the query letters appear somewhere in the extremely long
+					tracking parameter that happened to be saved with the bookmark.
+					QuickScore sorts <b>jQuery Zoom</b> to the top with that query,
+					and sorts the <b>PhoneGap</b> and
+					<b>jQuery Sparklines</b> items to the very bottom.
+				</p>
+				<p>
+					liquidmetal doesn't return information about where the query
+					matches each string, so nothing is bolded in this list.
+				</p>
+			</div>
+		]
+	},
+	{
+		name: "fuzzysort",
+		scorer: createFuzzySort(),
+		update: function(
+			items)
+		{
+			this.scorer = createFuzzySort(items);
+		},
+		converter: convertFuzzysort(DefaultKeys),
+		description: [
+			<div>
+				<p>
+					fuzzysort is usually faster than QuickScore, thanks to its
+					aggressive caching and pre-processing, and generally
+					produces very similar results.  The scores it returns range
+					from <code>-Infinity</code> to <code>0</code>, though,
+					which is a bit quirky.
+				</p>
+			</div>,
+			<div>
+				<p>
+					There are occasional misses
+					with <a href="https://github.com/farzher/fuzzysort">fuzzysort</a>'s results.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and typed
+					just <kbd>zom</kbd>, fuzzysort's top two results look
+					completely unrelated to the query.  They're included because
+					the query letters appear somewhere in the extremely long
+					tracking parameter that happened to be saved with the bookmark.
+					QuickScore sorts <b>jQuery Zoom</b> to the top with that query,
+					and sorts the <b>PhoneGap</b> and
+					<b>jQuery Sparklines</b> items to the very bottom.
+				</p>
+			</div>
+		]
+	},
+	{
+		name: "match-sorter",
+		scorer: createMatchSorter(),
+		update: function(
+			items)
+		{
+			this.scorer = createMatchSorter(items);
+		},
+		converter: convertMatchSorter(DefaultKeys),
+		description: [
+			<div>
+				<p>
+					match-sorter and QuickScore almost always return the same
+					results, though sometimes with differences in the sort order.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and
+					typed just <kbd>zom</kbd>, match-sorter does return the correct
+					result first, though QuickScore is usually about twice as
+					fast.
+				</p>
+			</div>,
+			<div>
+				<p>
+					<a href="https://github.com/kentcdodds/match-sorter">match-sorter</a> doesn't
+					prioritize camelCase matches, so if you type <kbd>gh</kbd> to
+					find all the <b>GitHub</b> bookmarks, QuickScore sorts the
+					ones starting with <b>GitHub</b> to the top, while match-sorter
+					returns them starting about a quarter of the way down the list.
+				</p>
+				<p>
+					match-sorter doesn't return information about where the query
+					matches each string, so nothing is bolded in this list, and
+					it doesn't return scores for individual results.
 				</p>
 			</div>
 		]
 	},
 	{
 		name: "Quicksilver (original algorithm)",
-		scorer: new QuickScore(bookmarks, {
-			keys: Keys,
-			config: QuicksilverConfig
-		}),
-		converter: createQuickScore(Keys),
+		scorer: createQuicksilver(),
+		update: updateQuickScore,
+		converter: convertQuickScore(DefaultKeys),
 		description: [
 			<div>
 				<p>
@@ -76,9 +262,13 @@ export default [
 					matches that are denser (fewer skipped characters in between
 					each matched letter) and that start earlier in the string.
 					This reduces the scores of irrelevant matches on strings
-					like URLs that have long guids or tokens at the end, and
+					like URLs that have long GUIDs or tokens at the end, and
 					which often contain enough letters to match almost any short
 					query.
+				</p>
+				<p>
+					The precise behavior of the QuickScore algorithm can be
+					tweaked via a <code>config</code> parameter to the constructor.
 				</p>
 			</div>,
 			<div>
@@ -86,76 +276,10 @@ export default [
 					The Quicksilver config generally produces very similar
 					results to the default QuickScore config, and is a hair
 					faster.  But you can see some differences when
-					typing <b>libr</b> to match page titles that
+					typing <kbd>libr</kbd> to match page titles that
 					contain <b>library</b>.  The first ten QuickScore results all
 					contain <b>library</b>, while there are some less relevant
 					pages mixed in on the Quicksilver side.
-				</p>
-			</div>
-		]
-	},
-	{
-		name: "fuzzysort",
-		scorer: new FuzzySort(bookmarks, { keys: Keys }),
-		converter: createFuzzysort(Keys),
-		description: [
-			<div>
-				<p>
-					fuzzysort is usually a bit faster than QuickScore, thanks to
-					its aggressive caching and pre-processing, and generally
-					produces very similar results.  The scores it returns range
-					from <code>&#8209;Infinity</code> to <code>0</code>, though,
-					which is a bit quirky.
-				</p>
-			</div>,
-			<div>
-				<p>
-					fuzzysort's results are very similar to QuickScore's, though
-					there are occasional misses.  If you wanted to find
-					the <b>jQuery Zoom</b> bookmark and typed just <b>zom</b>,
-					fuzzysort's top two results look completely unrelated to the
-					query.  They're included because the query letters appear
-					somewhere in the extremely long tracking parameter that
-					happened to be saved with the bookmark.  QuickScore
-					sorts <b>jQuery Zoom</b> to the top with that query, and
-					sorts the <b>PhoneGap</b> and <b>jQuery Sparklines</b> items
-					to the very bottom.
-				</p>
-			</div>
-		]
-	},
-	{
-		name: "liquidmetal",
-		scorer: new QuickScore(bookmarks, {
-			keys: Keys,
-			scorer: (...args) => LiquidMetal.score(...args)
-		}),
-		converter: createQuickScore(Keys),
-		description: [
-			<div>
-				<p>
-					liquidmetal is another implementation of the Quicksilver
-					algorithm.  It's about as fast as QuickScore, but suffers
-					from some of the same weaknesses of the original algorithm,
-					like over-emphasizing longer strings and not prioritizing
-					denser matches.
-				</p>
-			</div>,
-			<div>
-				<p>
-					liquidmetal's results are usually similar to QuickScore's,
-					though there are sometimes misses.  If you wanted to find
-					the <b>jQuery Zoom</b> item and typed just <b>zom</b>,
-					liquidmetal's first result is <b>jQuery Sparklines</b>, due to
-					the query letters appearing somewhere in the extremely long
-					tracking parameter that happened to be saved with the
-					bookmark.  QuickScore sorts <b>jQuery Zoom</b> to the top
-					with that query.
-				</p>
-				<p>
-					liquidmetal doesn't return information about where the query
-					matches each string, which is why nothing is bolded in this
-					list.
 				</p>
 			</div>
 		]

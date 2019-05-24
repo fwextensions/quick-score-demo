@@ -1,11 +1,11 @@
-export function createQuickScore(
+export function convertQuickScore(
 	keys)
 {
 	return items => items;
 }
 
 
-export function createFuse(
+export function convertFuse(
 	keys)
 {
 	return items => items.map(item => {
@@ -38,7 +38,7 @@ export function createFuse(
 }
 
 
-export function createFuzzysort(
+export function convertFuzzysort(
 	keys)
 {
 	return items => items.map(item => {
@@ -83,6 +83,30 @@ export function createFuzzysort(
 		return {
 			item: obj,
 			score,
+			scoreKey,
+			scores,
+			matches
+		};
+	});
+}
+
+
+export function convertMatchSorter(
+	keys)
+{
+	const scores = {};
+	const scoreKey = keys[0];
+	const matches = [];
+
+	keys.forEach(key => {
+		scores[key] = 0;
+		matches[key] = [];
+	});
+
+	return items => items.map(item => {
+		return {
+			item,
+			score: 0,
 			scoreKey,
 			scores,
 			matches

@@ -48,7 +48,10 @@ export default class SearchWidget extends React.PureComponent {
 			// although scorerName could be retrieved inside getMatchingItems,
 			// we pass it in from render() so that memoize() distinguishes the
 			// same queries on different scorers
-		scorerName) =>
+		scorerName,
+			// this param isn't used, but it's included so that if the items
+			// change, memoize() won't return the old result
+		itemsHash) =>
 	{
 		const {
 			scorerConfig: {
@@ -115,15 +118,16 @@ export default class SearchWidget extends React.PureComponent {
 	{
 		const {
 			query,
+			itemsHash,
 			scorerConfig: {name: scorerName},
 			selectedIndex,
 			setSelectedIndex,
 			onQueryChange,
 			onKeyDown
 		} = this.props;
-		const items = this.getMatchingItems(query, scorerName);
+		const items = this.getMatchingItems(query, scorerName, itemsHash);
 			// get the search timing after calling getMatchingItems() so that we
-			// don't miss the first call
+			// don't miss the first call to it made after load
 		const totalMS = this.times[scorerName];
 		const searchCount = this.searchCounts[scorerName];
 		const count = items.length;
@@ -137,6 +141,7 @@ export default class SearchWidget extends React.PureComponent {
 				<SearchBox
 					ref={this.handleSearchBoxRef}
 					query={query}
+					scorerName={scorerName}
 					onChange={onQueryChange}
 					onKeyDown={onKeyDown}
 				/>

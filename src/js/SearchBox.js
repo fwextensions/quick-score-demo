@@ -42,16 +42,16 @@ export default class SearchBox extends React.Component {
 
 	render()
 	{
-		const {props} = this;
+		const {query, scorerName, ...props} = this.props;
 
 		return (
 			<StyledInput
 				type="search"
 				innerRef={this.handleInputRef}
 				tabIndex="0"
-				placeholder="Search for a title or URL"
+				placeholder={`Search for a title or URL using ${scorerName}`}
 				spellCheck={false}
-				value={props.query}
+				value={query}
 				{...props}
 			/>
 		);

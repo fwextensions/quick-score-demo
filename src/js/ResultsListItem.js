@@ -53,7 +53,10 @@ const URLScore = styled(Score)`
 function clip(
 	value)
 {
-	return value.toPrecision(5);
+		// for display purposes, ignore the rounding issues with toFixed().
+		// fuzzysort returns whole numbers <= 0, so don't add unnecessary
+		// decimal places to those scores (we'll live with 0.00000).
+	return value < 0 ? value : value.toFixed(5);
 }
 
 
@@ -68,6 +71,11 @@ export default function ResultsListItem({
 		title.length > MaxTitleLength ? title : "",
 		url.length > MaxURLLength ? url : ""
 	].join("\n").trim();
+	const titleScore = clip(scores.title);
+	const urlScore = clip(scores.url);
+	const scoresTooltip = `Scores:
+title: ${titleScore}
+url: ${urlScore}`;
 
 		// make sure to apply props.style to the row container so it gets
 		// positioned correctly in the virtual list
@@ -90,8 +98,8 @@ export default function ResultsListItem({
 					matches={matches.url}
 				/>
 			</URLText>
-			<Score>{clip(scores.title)}</Score>
-			<URLScore>{clip(scores.url)}</URLScore>
+			<Score title={scoresTooltip}>{titleScore}</Score>
+			<URLScore title={scoresTooltip}>{urlScore}</URLScore>
 		</Item>
 	);
 }

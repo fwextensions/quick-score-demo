@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
+import ItemsEditor from "./ItemsEditor";
 import scorers from "./scorers";
-import bookmarks from "./bookmarks";
+import Bookmarks from "./Bookmarks";
 
 
 const AppContainer = styled.div`
@@ -12,9 +13,10 @@ const AppContainer = styled.div`
 `;
 const Title = styled.h2`
 	font-size: 2em;
-	margin: 0 0 1.5em 0;
+	margin: 0 0 1em 0;
 	& ~ p {
-		margin-bottom: 3em;
+		font-size: 1.25em;
+		margin-bottom: 2em;
 	}	
 `;
 
@@ -22,6 +24,7 @@ const Title = styled.h2`
 export default class App extends React.Component {
 	state = {
 		query: "",
+		itemsHash: Bookmarks.hash,
 		selectedIndex: -1,
 		selectedConfig: scorers[1]
 	};
@@ -37,6 +40,25 @@ export default class App extends React.Component {
 		index) =>
 	{
 		this.setState({ selectedIndex: index });
+	};
+
+
+	setItems = (
+		items) =>
+	{
+			// update the Bookmarks singleton, and then update all of the
+			// scorers, so that when the user switches to a different one, it's
+			// got the right items
+		Bookmarks.setItems(items);
+		scorers.forEach(scorer => scorer.update(Bookmarks.items));
+
+		this.setState({
+				// use a hash of the JSON text, so that the memoized search
+				// function in SearchWidget will return a different value when
+				// the items are changed.  this is faster than making memoize()
+				// run stringify on the whole items array every time.
+			itemsHash: Bookmarks.hash
+		});
 	};
 
 
@@ -77,7 +99,7 @@ export default class App extends React.Component {
 				break;
 
 			case "ArrowDown":
-				this.setState({ selectedIndex: Math.min(selectedIndex + 1, bookmarks.length) });
+				this.setState({ selectedIndex: Math.min(selectedIndex + 1, Bookmarks.items.length) });
 				break;
 
 			case "ArrowUp":
@@ -107,10 +129,10 @@ export default class App extends React.Component {
 
 
 	handleQueryChange = (
-		event) =>
+		{target}) =>
 	{
 		this.setState({
-			query: event.target.value,
+			query: target.value,
 			selectedIndex: 0
 		});
 
@@ -120,9 +142,24 @@ export default class App extends React.Component {
 	};
 
 
+	handleKbdClick = (
+		{target}) =>
+	{
+		if (target.tagName == "KBD") {
+			this.leftWidget.focus();
+			this.handleQueryChange({
+				target: {
+					value: target.textContent
+				}
+			});
+		}
+	};
+
+
 	render()
 	{
 		const {
+			itemsHash,
 			query,
 			selectedIndex,
 			selectedConfig: rightScorerConfig
@@ -132,20 +169,22 @@ export default class App extends React.Component {
 			<AppContainer>
 				<Title id="demo">Demo</Title>
 				<p>
-					Below you can test the QuickScore algorithm and compare it
-					to some other string-scoring libraries.  Typing a query in
-					either search box will use QuickScore to match and sort
-					bookmarks on the left, while you can choose among other
+					Type a query in either search box below to use QuickScore to
+					match and sort bookmarks on the left, and choose among other
 					scoring algorithms on the right.  Your typed query will be
 					matched against the title and URL of about 300 bookmarks.
+					Click text formatted as <kbd>keycaps</kbd> to quickly set
+					the query to that string.  Edit the bookmarks <a href="#editor">below</a>.
 				</p>
 				<ScorerSelector
 					scorers={this.scorerConfigs}
 					onChange={this.handleScorerChange}
+					onKbdClick={this.handleKbdClick}
 				/>
 				<div>
 					<SearchWidget
 						ref={this.handleLeftWidgetRef}
+						itemsHash={itemsHash}
 						query={query}
 						scorerConfig={this.leftScorerConfig}
 						selectedIndex={selectedIndex}
@@ -155,6 +194,7 @@ export default class App extends React.Component {
 					/>
 					<SearchWidget
 						ref={this.handleRightWidgetRef}
+						itemsHash={itemsHash}
 						query={query}
 						scorerConfig={rightScorerConfig}
 						selectedIndex={selectedIndex}
@@ -163,6 +203,10 @@ export default class App extends React.Component {
 						onKeyDown={this.handleKeyDown}
 					/>
 				</div>
+				<ItemsEditor
+					itemsJSON={Bookmarks.toString()}
+					setItems={this.setItems}
+				/>
 			</AppContainer>
 		);
 	}
