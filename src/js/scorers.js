@@ -3,8 +3,14 @@ import {QuickScore, QuicksilverConfig} from "quick-score";
 import Fuse	from "fuse.js";
 import LiquidMetal from "liquidmetal";
 import FuzzySort from "./FuzzySort";
+import MatchSorter from "./MatchSorter";
 import Bookmarks from "./Bookmarks";
-import {convertFuse, convertFuzzysort, convertQuickScore} from "./convert-items";
+import {
+	convertFuse,
+	convertFuzzysort,
+	convertMatchSorter,
+	convertQuickScore
+} from "./convert-items";
 
 
 const DefaultItems = Bookmarks.items;
@@ -62,6 +68,14 @@ function createFuzzySort(
 }
 
 
+function createMatchSorter(
+	items = DefaultItems,
+	keys = DefaultKeys)
+{
+	return new MatchSorter(items, { keys });
+}
+
+
 function updateQuickScore(
 	items)
 {
@@ -107,8 +121,9 @@ export default [
 			</div>,
 			<div>
 				<p>
-					The fuzziness of Fuse.js means it often returns surprising
-					results for a given query, especially when searching through
+					The fuzziness of <a href="https://fusejs.io/">Fuse.js</a> means
+					it often returns surprising results for a
+					given query, especially when searching through
 					long strings like webpage titles or URLs.  For instance,
 					if you type <kbd>real</kbd> to match page titles that
 					contain the word <b>realtime</b>, Fuse.js
@@ -145,8 +160,9 @@ export default [
 			</div>,
 			<div>
 				<p>
-					There are sometimes misses with liquidmetal's results.  If
-					you wanted to find the <b>jQuery Zoom</b> bookmark and typed
+					There are sometimes misses
+					with <a href="https://www.npmjs.com/package/liquidmetal">liquidmetal</a>'s results.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and typed
 					just <kbd>zom</kbd>, liquidmetal's top two results look
 					completely unrelated to the query.  They're included because
 					the query letters appear somewhere in the extremely long
@@ -174,8 +190,8 @@ export default [
 		description: [
 			<div>
 				<p>
-					fuzzysort is usually a bit faster than QuickScore, thanks to
-					its aggressive caching and pre-processing, and generally
+					fuzzysort is usually faster than QuickScore, thanks to its
+					aggressive caching and pre-processing, and generally
 					produces very similar results.  The scores it returns range
 					from <code>-Infinity</code> to <code>0</code>, though,
 					which is a bit quirky.
@@ -183,8 +199,9 @@ export default [
 			</div>,
 			<div>
 				<p>
-					There are occasional misses with fuzzysort's results.  If
-					you wanted to find the <b>jQuery Zoom</b> bookmark and typed
+					There are occasional misses
+					with <a href="https://github.com/farzher/fuzzysort">fuzzysort</a>'s results.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and typed
 					just <kbd>zom</kbd>, fuzzysort's top two results look
 					completely unrelated to the query.  They're included because
 					the query letters appear somewhere in the extremely long
@@ -192,6 +209,42 @@ export default [
 					QuickScore sorts <b>jQuery Zoom</b> to the top with that query,
 					and sorts the <b>PhoneGap</b> and
 					<b>jQuery Sparklines</b> items to the very bottom.
+				</p>
+			</div>
+		]
+	},
+	{
+		name: "match-sorter",
+		scorer: createMatchSorter(),
+		update: function(
+			items)
+		{
+			this.scorer = createMatchSorter(items);
+		},
+		converter: convertMatchSorter(DefaultKeys),
+		description: [
+			<div>
+				<p>
+					match-sorter and QuickScore almost always return the same
+					results, though sometimes with differences in the sort order.
+					If you wanted to find the <b>jQuery Zoom</b> bookmark and
+					typed just <kbd>zom</kbd>, match-sorter does return the correct
+					result first, though QuickScore is usually about twice as
+					fast.
+				</p>
+			</div>,
+			<div>
+				<p>
+					<a href="https://github.com/kentcdodds/match-sorter">match-sorter</a> doesn't
+					prioritize camelCase matches, so if you type <kbd>gh</kbd> to
+					find all the <b>GitHub</b> bookmarks, QuickScore sorts the
+					ones starting with <b>GitHub</b> to the top, while match-sorter
+					returns them starting about a quarter of the way down the list.
+				</p>
+				<p>
+					match-sorter doesn't return information about where the query
+					matches each string, so nothing is bolded in this list, and
+					it doesn't return scores for individual results.
 				</p>
 			</div>
 		]

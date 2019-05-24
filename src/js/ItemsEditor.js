@@ -87,7 +87,7 @@ export default class ItemsEditor extends React.PureComponent {
 					be edited here.  If you're using Chrome, you can copy and
 					paste your own bookmarks by following the directions below,
 					which may make it a little easier to evaluate the QuickScore
-					algorithm.
+					algorithm by searching for familiar bookmarks.
 				</p>
 				<ItemsTextArea
 					innerRef={this.handleEditorRef}

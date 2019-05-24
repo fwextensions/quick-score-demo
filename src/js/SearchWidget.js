@@ -141,6 +141,7 @@ export default class SearchWidget extends React.PureComponent {
 				<SearchBox
 					ref={this.handleSearchBoxRef}
 					query={query}
+					scorerName={scorerName}
 					onChange={onQueryChange}
 					onKeyDown={onKeyDown}
 				/>

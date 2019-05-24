@@ -89,3 +89,27 @@ export function convertFuzzysort(
 		};
 	});
 }
+
+
+export function convertMatchSorter(
+	keys)
+{
+	const scores = {};
+	const scoreKey = keys[0];
+	const matches = [];
+
+	keys.forEach(key => {
+		scores[key] = 0;
+		matches[key] = [];
+	});
+
+	return items => items.map(item => {
+		return {
+			item,
+			score: 0,
+			scoreKey,
+			scores,
+			matches
+		};
+	});
+}
