@@ -90,7 +90,7 @@ export default class ItemsEditor extends React.PureComponent {
 					algorithm by searching for familiar bookmarks.
 				</p>
 				<ItemsTextArea
-					innerRef={this.handleEditorRef}
+					ref={this.handleEditorRef}
 					autoComplete="off"
 					autoCorrect="off"
 					autoCapitalize="off"

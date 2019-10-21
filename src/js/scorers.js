@@ -179,6 +179,42 @@ export default [
 		]
 	},
 	{
+		name: "match-sorter",
+		scorer: createMatchSorter(),
+		update: function(
+			items)
+		{
+			this.scorer = createMatchSorter(items);
+		},
+		converter: convertMatchSorter(DefaultKeys),
+		description: [
+			<div>
+				<p>
+					match-sorter and QuickScore almost always return the same
+					results, though sometimes with differences in the sort order.
+					For instance, if you wanted to find the <b>jQuery Zoom</b> bookmark
+					and typed just <kbd>zom</kbd>, match-sorter does return the
+					correct result first, though QuickScore is usually about
+					twice as fast.
+				</p>
+			</div>,
+			<div>
+				<p>
+					<a href="https://github.com/kentcdodds/match-sorter">match-sorter</a> doesn't
+					prioritize camelCase matches, so if you type <kbd>gh</kbd> to
+					find all the <b>GitHub</b> bookmarks, QuickScore sorts the
+					ones starting with <b>GitHub</b> to the top, while match-sorter
+					returns them starting about a quarter of the way down the list.
+				</p>
+				<p>
+					match-sorter doesn't return information about where the query
+					matches each string, so nothing is bolded in this list, and
+					it doesn't return scores for individual results.
+				</p>
+			</div>
+		]
+	},
+	{
 		name: "fuzzysort",
 		scorer: createFuzzySort(),
 		update: function(
@@ -209,42 +245,6 @@ export default [
 					QuickScore sorts <b>jQuery Zoom</b> to the top with that query,
 					and sorts the <b>PhoneGap</b> and
 					<b>jQuery Sparklines</b> items to the very bottom.
-				</p>
-			</div>
-		]
-	},
-	{
-		name: "match-sorter",
-		scorer: createMatchSorter(),
-		update: function(
-			items)
-		{
-			this.scorer = createMatchSorter(items);
-		},
-		converter: convertMatchSorter(DefaultKeys),
-		description: [
-			<div>
-				<p>
-					match-sorter and QuickScore almost always return the same
-					results, though sometimes with differences in the sort order.
-					If you wanted to find the <b>jQuery Zoom</b> bookmark and
-					typed just <kbd>zom</kbd>, match-sorter does return the correct
-					result first, though QuickScore is usually about twice as
-					fast.
-				</p>
-			</div>,
-			<div>
-				<p>
-					<a href="https://github.com/kentcdodds/match-sorter">match-sorter</a> doesn't
-					prioritize camelCase matches, so if you type <kbd>gh</kbd> to
-					find all the <b>GitHub</b> bookmarks, QuickScore sorts the
-					ones starting with <b>GitHub</b> to the top, while match-sorter
-					returns them starting about a quarter of the way down the list.
-				</p>
-				<p>
-					match-sorter doesn't return information about where the query
-					matches each string, so nothing is bolded in this list, and
-					it doesn't return scores for individual results.
 				</p>
 			</div>
 		]
