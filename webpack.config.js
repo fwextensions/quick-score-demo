@@ -1,4 +1,4 @@
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 //const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -35,7 +35,7 @@ module.exports = (env, argv) => {
 			contentBase: "./dist"
 		},
 		plugins: [
-			new CleanWebpackPlugin(["dist"]),
+			new CleanWebpackPlugin(),
 			new CopyWebpackPlugin([
 				{ from: "./src/css/", to: "css" }
 			]),

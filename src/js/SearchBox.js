@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "./Input";
 
 
-const StyledInput = styled(Input)`	
+const StyledInput = styled.input`
 	font-weight: bold;
 	width: 500px;
 	height: 25px;
@@ -15,7 +14,7 @@ const StyledInput = styled(Input)`
 	&::placeholder {
 		font-weight: normal;
 		font-style: italic;
-	} 
+	}
 `;
 
 
@@ -34,9 +33,7 @@ export default class SearchBox extends React.Component {
 	handleInputRef = (
 		ref) =>
 	{
-			// the Input component adds a ref to the actual <input> DOM element
-			// as an input property
-		this.input = ref.input;
+		this.input = ref;
 	};
 
 
@@ -47,7 +44,7 @@ export default class SearchBox extends React.Component {
 		return (
 			<StyledInput
 				type="search"
-				innerRef={this.handleInputRef}
+				ref={this.handleInputRef}
 				tabIndex="0"
 				placeholder={`Search for a title or URL using ${scorerName}`}
 				spellCheck={false}

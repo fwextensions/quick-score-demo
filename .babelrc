@@ -2,21 +2,24 @@
   "env": {
     "test": {
       "presets": [
-        "env"
+        "@babel/preset-env"
       ]
     }
   },
   "presets": [
-    "react",
-    ["env", {
-      "targets": {
-        "chrome": 62
+    "@babel/preset-react",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": 62
+        }
       }
-    }]
+    ]
   ],
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
     "styled-components"
   ]
 }
