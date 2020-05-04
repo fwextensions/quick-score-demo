@@ -25,11 +25,19 @@ class Bookmarks {
 	processItems(
 		items)
 	{
-		return items.map(({title, url}) => ({
-			title,
-			url: url.replace(ProtocolPattern, ""),
-			domain: new URL(url).hostname
-		}));
+		return items.map(({title, url}) => {
+			let domain = url;
+
+			try {
+				domain = new URL(url).hostname;
+			} catch (e) {}
+
+			return {
+				title,
+				domain,
+				url: url.replace(ProtocolPattern, "")
+			};
+		});
 	}
 
 
