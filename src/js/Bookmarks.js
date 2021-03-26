@@ -48,4 +48,13 @@ class Bookmarks {
 }
 
 
-export default new Bookmarks(bookmarks);
+//let data = [];
+//
+//for (let i = 0; i < 18; i++) {
+//	data = data.concat(JSON.parse(JSON.stringify(bookmarks)));
+//}
+
+//export default new Bookmarks(data);
+
+//export default new Bookmarks(bookmarks);
+export default new Bookmarks(bookmarks.slice(0, 10));

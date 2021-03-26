@@ -62,14 +62,15 @@ function clip(
 
 export default function ResultsListItem({
 	item,
-	query,
 	isSelected,
 	style})
 {
 	const {item: {title, url, domain}, scores, matches} = item;
 	const tooltip = [
 		title.length > MaxTitleLength ? title : "",
-		url.length > MaxURLLength ? url : ""
+		url.length > MaxURLLength ? url : "",
+		JSON.stringify(matches.title),
+		JSON.stringify(matches.url)
 	].join("\n").trim();
 	const titleScore = clip(scores.title);
 	const urlScore = clip(scores.url);

@@ -131,6 +131,8 @@ export default class App extends React.Component {
 	handleQueryChange = (
 		{target}) =>
 	{
+console.time("search");
+
 		this.setState({
 			query: target.value,
 			selectedIndex: 0
@@ -165,7 +167,7 @@ export default class App extends React.Component {
 			selectedConfig: rightScorerConfig
 		} = this.state;
 
-		return (
+		const result =(
 			<AppContainer>
 				<Title id="demo">Demo</Title>
 				<p>
@@ -192,6 +194,7 @@ export default class App extends React.Component {
 						onQueryChange={this.handleQueryChange}
 						onKeyDown={this.handleKeyDown}
 					/>
+{
 					<SearchWidget
 						ref={this.handleRightWidgetRef}
 						itemsHash={itemsHash}
@@ -202,12 +205,18 @@ export default class App extends React.Component {
 						onQueryChange={this.handleQueryChange}
 						onKeyDown={this.handleKeyDown}
 					/>
+}
 				</div>
+{/*
 				<ItemsEditor
 					itemsJSON={Bookmarks.toString()}
 					setItems={this.setItems}
 				/>
+*/}
 			</AppContainer>
 		);
+console.timeEnd("search");
+
+		return result;
 	}
 }

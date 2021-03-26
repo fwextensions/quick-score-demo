@@ -21,7 +21,11 @@ function createQuickScore(
 	items = DefaultItems,
 	keys = DefaultKeys)
 {
-	return new QuickScore(items, keys);
+	return new QuickScore(items, {
+		keys,
+		minimumScore: -1
+	});
+//	return new QuickScore(items, keys);
 }
 
 
