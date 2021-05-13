@@ -11,9 +11,10 @@ script:
   - npm run build
 
 deploy:
+  strategy: git
   provider: pages
-  local-dir: dist
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
+  local_dir: dist
+  skip_cleanup: true
+  token: $GITHUB_TOKEN
   on:
     branch: dev
