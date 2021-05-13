@@ -130,14 +130,13 @@ export default [
 					returns <b>Material-UI</b> as the top result, which has the
 					query characters in a different order, while the bookmark
 					titled <b>RethinkDB: the open-source database for the
-					realtime web</b> is the 39th result.
+					realtime web</b> is the 49th result.
 				</p>
 				<p>
 					Or if you type <kbd>revi</kbd> to pull up
 					the <b>react-virtualized</b> bookmark, Fuse.js puts that item
-					on the second-to-last page of results.  Or
-					typing <kbd>zom</kbd> to match <b>jQuery Zoom</b> returns <b>Moment.js</b> as
-					the first result.
+					on the last page of results.  Or typing <kbd>zom</kbd> to
+					match <b>jQuery Zoom</b> returns <b>Moment.js</b> before it.
 				</p>
 			</div>
 		]
