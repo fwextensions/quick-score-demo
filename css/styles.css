@@ -1,0 +1,96 @@
+* {
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+	font-size: 16px;
+	padding: 4em 1em;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	flex-flow: column;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+code {
+	font-family: Consolas, monospace;
+	padding: 0.2em 0.4em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(27, 31, 35, 0.05);
+	border-radius: 3px;
+}
+
+a {
+	color: #a00;
+}
+
+a:visited {
+	color: #600;
+}
+
+p {
+	line-height: 1.4;
+}
+
+b {
+	color: #555;
+}
+
+ul.link-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.link-list li {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+select {
+	font-size: 16px;
+}
+
+section {
+	width: 1062px;
+	margin: auto;
+}
+
+section.description {
+	font-size: 1.25em;
+	padding-bottom: 2em;
+}
+
+section.description h2 {
+	font-size: 1em;
+	color: #666;
+	margin-top: -1em;
+}
+
+kbd {
+	font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 3px 5px;
+	line-height: 10px;
+	vertical-align: middle;
+	color: #444d56;
+	background-color: #fafbfc;
+	border: solid 1px #c6cbd1;
+	border-bottom-color: #959da5;
+	border-radius: 3px;
+	box-shadow: inset 0 -1px 0 #959da5;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.github-fork-ribbon:after {
+	font: 700 1em -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
