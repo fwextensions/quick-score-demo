@@ -62,8 +62,8 @@ function clip(
 
 export default function ResultsListItem({
 	item,
-	query,
 	isSelected,
+	index,
 	style})
 {
 	const {item: {title, url, domain}, scores, matches} = item;
@@ -73,7 +73,7 @@ export default function ResultsListItem({
 	].join("\n").trim();
 	const titleScore = clip(scores.title);
 	const urlScore = clip(scores.url);
-	const scoresTooltip = `Scores:
+	const scoresTooltip = `#${index + 1} scores:
 title: ${titleScore}
 url: ${urlScore}`;
 

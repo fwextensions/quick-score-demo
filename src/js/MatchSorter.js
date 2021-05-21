@@ -1,4 +1,4 @@
-import matchSorter from "match-sorter";
+import {matchSorter} from "match-sorter";
 
 
 export default class MatchSorter {
