@@ -41,7 +41,8 @@ module.exports = (env, argv) => {
 			]),
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
-				filename: "index.html"
+				filename: "index.html",
+				minify: false
 			})
 		]
 	}
