@@ -25,6 +25,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "npm run build && webpack-dev-server --open --mode development",
+    "start:snowpack": "snowpack dev",
     "watch": "webpack --watch --mode development",
     "update": "npm update quick-score"
   },
@@ -47,6 +48,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@snowpack/plugin-babel": "^2.1.7",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-styled-components": "^2.0.2",
@@ -55,6 +57,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.28.0",
     "html-webpack-plugin": "^4.5.2",
+    "snowpack": "^3.8.8",
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",
