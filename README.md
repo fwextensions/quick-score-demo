@@ -1,6 +1,6 @@
 # QuickScore Demo
 
-[![Build Status][build-badge]][build]
+[![GitHub Pages][gh-pages-badge]][gh-pages]
 
 This is a demo of the [QuickScore](https://github.com/fwextensions/quick-score) string-scoring and fuzzy-matching library, which is based on the Quicksilver algorithm and is designed for smart auto-complete.  The demo lets you auto-complete your query against a few hundred bookmarks (title and URL) and to compare the results and speed against these string matching libraries:
 
@@ -19,6 +19,5 @@ The UI is built with React, but the [QuickScore](https://github.com/fwextensions
 
 [MIT](./LICENSE) © John Dunning
 
-
-[build-badge]: https://img.shields.io/travis/com/fwextensions/quick-score-demo.svg?style=flat-square&branch=dev
-[build]: https://travis-ci.com/fwextensions/quick-score-demo
+[gh-pages-badge]: https://github.com/fwextensions/quick-score-demo/actions/workflows/gh-pages.yml/badge.svg
+[gh-pages]: https://github.com/fwextensions/quick-score-demo/actions/workflows/gh-pages.yml
