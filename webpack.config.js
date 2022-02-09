@@ -36,9 +36,11 @@ module.exports = (env, argv) => {
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
-			new CopyWebpackPlugin([
-				{ from: "./src/css/", to: "css" }
-			]),
+			new CopyWebpackPlugin({
+				patterns: [
+					{ from: "./src/css/", to: "css" }
+				]
+			}),
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
 				filename: "index.html",
