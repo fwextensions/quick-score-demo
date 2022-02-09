@@ -32,7 +32,9 @@ module.exports = (env, argv) => {
 			filename: "bundle.js"
 		},
 		devServer: {
-			contentBase: "./dist"
+			static: {
+				directory: "./dist"
+			}
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
