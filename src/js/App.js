@@ -17,7 +17,7 @@ const Title = styled.h2`
 	& ~ p {
 		font-size: 1.25em;
 		margin-bottom: 2em;
-	}	
+	}
 `;
 
 
