@@ -3,19 +3,25 @@
 
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
-  mount: {
-    src: "/"
-  },
-  plugins: [
-    "@snowpack/plugin-babel"
-  ],
-  packageOptions: {
-    /* ... */
-  },
-  devOptions: {
-    /* ... */
-  },
-  buildOptions: {
-    /* ... */
-  },
+	mount: {
+		src: "/"
+	},
+	plugins: [
+		"@snowpack/plugin-babel",
+		[
+			"@snowpack/plugin-webpack",
+			{
+				htmlMinifierOptions: false,
+			},
+		]
+	],
+	packageOptions: {
+		/* ... */
+	},
+	devOptions: {
+		/* ... */
+	},
+	buildOptions: {
+		/* ... */
+	},
 };

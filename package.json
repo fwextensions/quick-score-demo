@@ -24,6 +24,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "webpack --mode production",
+    "build:snowpack": "snowpack build",
     "start": "npm run build && webpack-dev-server --open --mode development",
     "start:snowpack": "snowpack dev",
     "watch": "webpack --watch --mode development",
@@ -49,6 +50,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@snowpack/plugin-babel": "^2.1.7",
+    "@snowpack/plugin-webpack": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-styled-components": "^2.0.2",
