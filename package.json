@@ -23,7 +23,7 @@
   "main": "src/js/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "npm run build:snowpack && webpack --mode production",
     "build:snowpack": "snowpack build",
     "start": "npm run build && webpack-dev-server --open --mode development",
     "start:snowpack": "snowpack dev",

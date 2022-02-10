@@ -5,12 +5,13 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const {getIfUtils, removeEmpty} = require("webpack-config-utils");
 
 
+	// use the build/ dir created by snowpack as the source directory
 module.exports = (env, argv) => {
 	const {ifProduction} = getIfUtils(argv.mode);
 
 	return {
 		devtool: ifProduction() ? "source-map" : "eval-sourcemap",
-		entry: "./src/js/index.js",
+		entry: "./build/js/index.js",
 		module: {
 			rules: [
 				{
@@ -40,11 +41,11 @@ module.exports = (env, argv) => {
 			new CleanWebpackPlugin(),
 			new CopyWebpackPlugin({
 				patterns: [
-					{ from: "./src/css/", to: "css" }
+					{ from: "./build/css/", to: "css" }
 				]
 			}),
 			new HtmlWebpackPlugin({
-				template: "./src/index.html",
+				template: "./build/index.html",
 				filename: "index.html",
 				minify: false
 			})

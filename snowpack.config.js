@@ -8,12 +8,6 @@ module.exports = {
 	},
 	plugins: [
 		"@snowpack/plugin-babel",
-		[
-			"@snowpack/plugin-webpack",
-			{
-				htmlMinifierOptions: false,
-			},
-		]
 	],
 	packageOptions: {
 		/* ... */
