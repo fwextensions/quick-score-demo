@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
 	const {ifProduction} = getIfUtils(argv.mode);
 
 	return {
-		devtool: ifProduction() ? "source-map" : "eval-sourcemap",
+		devtool: ifProduction("source-map", "eval-source-map"),
 		entry: "./src/js/index.js",
 		module: {
 			rules: [
