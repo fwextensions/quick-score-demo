@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
-import getMatchingItems from "@/scorers/getMatchingItems";
+import getMatchingItems from "./getMatchingItems";
 
 
 const Box = styled.div`
@@ -46,9 +46,6 @@ export default forwardRef(function SearchWidget(
 	const [items, ms] = getMatchingItems(query, scorerConfig, itemsHash);
 	const count = items.length;
 	const countDisplay = `${count} result${count > 1 || count == 0 ? "s" : ""}`;
-		// don't let the selection go beyond the last item in this SearchWidget,
-		// even if the other one has more items
-	const maxIndex = Math.min(selectedIndex, count - 1);
 
 
 	useImperativeHandle(ref, () => ({
@@ -93,7 +90,7 @@ export default forwardRef(function SearchWidget(
 				itemComponent={ResultsListItem}
 				query={query}
 				maxItems={10}
-				selectedIndex={maxIndex}
+				selectedIndex={selectedIndex}
 				setSelectedIndex={setSelectedIndex}
 			/>
 		</Box>

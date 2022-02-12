@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
 
 	return {
 		devtool: ifProduction("source-map", "eval-source-map"),
-		entry: "./src/js/index.js",
+		entry: "./src/index.js",
 		module: {
 			rules: [
 				{
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
 				filename: "index.html",
 				minify: false,
 					// add a timestamp that's injected into an HTML comment
-				buildTime: new Date().toLocaleString()
+				buildTime: new Date().toISOString()
 			})
 		]
 	}

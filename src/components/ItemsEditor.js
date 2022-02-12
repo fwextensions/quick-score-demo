@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import styled from "styled-components";
-import copy from "@/utils/copy-to-clipboard";
+import copy from "./copy-to-clipboard";
 
 
 const ItemsContainer = styled.div`
