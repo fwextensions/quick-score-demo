@@ -3,8 +3,8 @@ import styled from "styled-components";
 import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
 import ItemsEditor from "./ItemsEditor";
-import scorers from "./scorers";
-import Bookmarks from "./Bookmarks";
+import scorers from "@/scorers/scorers";
+import Bookmarks from "@/data/Bookmarks";
 
 
 const AppContainer = styled.div`

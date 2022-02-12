@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
-import getMatchingItems from "./getMatchingItems";
+import getMatchingItems from "@/scorers/getMatchingItems";
 
 
 const Box = styled.div`

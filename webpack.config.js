@@ -1,31 +1,21 @@
+const path = require("path");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 //const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const {getIfUtils, removeEmpty} = require("webpack-config-utils");
+const {getIfUtils} = require("webpack-config-utils");
 
 
-module.exports = (env, argv) => {
-	const {ifProduction} = getIfUtils(argv.mode);
+module.exports = (env) => {
+	const {ifProduction} = getIfUtils(env);
 
 	return {
 		devtool: ifProduction("source-map", "eval-source-map"),
 		entry: "./src/index.js",
-		module: {
-			rules: [
-				{
-					test: /\.css$/,
-					use: ["style-loader", "css-loader"]
-				},
-				{
-					test: /\.(js|jsx)$/,
-					exclude: /node_modules/,
-					use: ["babel-loader"]
-				}
-			]
-		},
 		resolve: {
-			extensions: ["*", ".js", ".jsx"]
+			alias: {
+				"@": path.resolve(__dirname, "src"),
+			},
 		},
 		output: {
 			path: __dirname + "/dist",
@@ -39,6 +29,19 @@ module.exports = (env, argv) => {
 		stats: {
 				// log the build time in the console
 			builtAt: true
+		},
+		module: {
+			rules: [
+				{
+					test: /\.css$/,
+					use: ["style-loader", "css-loader"]
+				},
+				{
+					test: /\.(js|jsx)$/,
+					exclude: /node_modules/,
+					use: ["babel-loader"]
+				}
+			]
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
