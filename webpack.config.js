@@ -36,6 +36,10 @@ module.exports = (env, argv) => {
 				directory: "./dist"
 			}
 		},
+		stats: {
+				// log the build time in the console
+			builtAt: true
+		},
 		plugins: [
 			new CleanWebpackPlugin(),
 			new CopyWebpackPlugin({
@@ -46,7 +50,9 @@ module.exports = (env, argv) => {
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
 				filename: "index.html",
-				minify: false
+				minify: false,
+					// add a timestamp that's injected into an HTML comment
+				buildTime: new Date().toLocaleString()
 			})
 		]
 	}
