@@ -46,6 +46,9 @@ export default forwardRef(function SearchWidget(
 	const [items, ms] = getMatchingItems(query, scorerConfig, itemsHash);
 	const count = items.length;
 	const countDisplay = `${count} result${count > 1 || count == 0 ? "s" : ""}`;
+		// don't let the selection go beyond the last item in this SearchWidget,
+		// even if the other one has more items
+	const maxIndex = Math.min(selectedIndex, count - 1);
 
 
 	useImperativeHandle(ref, () => ({
@@ -90,7 +93,7 @@ export default forwardRef(function SearchWidget(
 				itemComponent={ResultsListItem}
 				query={query}
 				maxItems={10}
-				selectedIndex={selectedIndex}
+				selectedIndex={maxIndex}
 				setSelectedIndex={setSelectedIndex}
 			/>
 		</Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useRef, useState} from "react";
 import styled from "styled-components";
 import ScorerSelector from "./ScorerSelector";
 import SearchWidget from "./SearchWidget";
@@ -22,30 +22,21 @@ const Title = styled.h2`
 `;
 
 
-export default class App extends React.Component {
-	state = {
-		query: "",
-		itemsHash: Bookmarks.hash,
-		selectedIndex: -1,
-		selectedConfig: scorers[1]
-	};
+const leftScorerConfig = scorers[0];
+const scorerConfigs = scorers.slice(1);
 
 
-	leftWidget = null;
-	rightWidget = null;
-	leftScorerConfig = scorers[0];
-	scorerConfigs = scorers.slice(1);
+export default function App()
+{
+	const [query, setQuery] = useState("");
+	const [selectedIndex, setSelectedIndex] = useState(-1);
+	const [rightScorerConfig, setRightScorerConfig] = useState(scorers[1]);
+	const [itemsHash, setItemsHash] = useState(Bookmarks.hash);
+	const leftWidgetRef = useRef(null);
+	const rightWidgetRef = useRef(null);
 
-
-	setSelectedIndex = (
-		index) =>
-	{
-		this.setState({ selectedIndex: index });
-	};
-
-
-	setItems = (
-		items) =>
+	const setItems = useCallback(
+		items =>
 	{
 			// update the Bookmarks singleton, and then update all of the
 			// scorers, so that when the user switches to a different one, it's
@@ -53,68 +44,54 @@ export default class App extends React.Component {
 		Bookmarks.setItems(items);
 		scorers.forEach(scorer => scorer.update(Bookmarks.items));
 
-		this.setState({
-				// use a hash of the JSON text, so that the memoized search
-				// function in SearchWidget will return a different value when
-				// the items are changed.  this is faster than making memoize()
-				// run stringify on the whole items array every time.
-			itemsHash: Bookmarks.hash
-		});
-	};
+			// use a hash of the JSON text, so that the memoized search
+			// function in SearchWidget will return a different value when
+			// the items are changed.  this is faster than making memoize()
+			// run stringify on the whole items array every time.
+		setItemsHash(Bookmarks.hash);
+	}, [setItemsHash]);
 
 
-	handleScorerChange = (
-		selectedConfig) =>
+	const handleScorerChange = useCallback(
+		selectedConfig =>
 	{
-		this.setState({
-			selectedConfig,
-			query: ""
-		});
-		this.leftWidget.focus();
-	};
+		setRightScorerConfig(selectedConfig);
+		setQuery("");
+		leftWidgetRef.current.focus();
+	}, [setQuery, setRightScorerConfig, leftWidgetRef]);
 
 
-	handleLeftWidgetRef = (
-		ref) =>
+	const handleKeyDown = useCallback(
+		event =>
 	{
-		this.leftWidget = ref;
-	};
-
-
-	handleRightWidgetRef = (
-		ref) =>
-	{
-		this.rightWidget = ref;
-	};
-
-
-	handleKeyDown = (
-		event) =>
-	{
-		const {selectedIndex} = this.state;
 		let cancel = true;
 
 		switch (event.key) {
 			case "Escape":
-				this.setState({ query: "" });
+				setQuery("");
 				break;
 
 			case "ArrowDown":
-				this.setState({ selectedIndex: Math.min(selectedIndex + 1, Bookmarks.items.length) });
+					// since we're wrapped in useCallback(), selectedIndex will
+					// be stale, so use a function to get the current index and
+					// calculate the new one
+				setSelectedIndex(selectedIndex =>
+					Math.min(selectedIndex + 1, Bookmarks.items.length));
 				break;
 
 			case "ArrowUp":
-				this.setState({ selectedIndex: Math.max(selectedIndex - 1, 0) });
+				setSelectedIndex(selectedIndex =>
+					Math.max(selectedIndex - 1, 0));
 				break;
 
 			case "PageDown":
-				this.leftWidget.scrollByPage("down");
-				this.rightWidget.scrollByPage("down");
+				leftWidgetRef.current.scrollByPage("down");
+				rightWidgetRef.current.scrollByPage("down");
 				break;
 
 			case "PageUp":
-				this.leftWidget.scrollByPage("up");
-				this.rightWidget.scrollByPage("up");
+				leftWidgetRef.current.scrollByPage("up");
+				rightWidgetRef.current.scrollByPage("up");
 				break;
 
 			default:
@@ -126,89 +103,77 @@ export default class App extends React.Component {
 				// don't scroll the page when the user is paging up/down
 			event.preventDefault();
 		}
-	};
+	}, [setSelectedIndex, leftWidgetRef, rightWidgetRef]);
 
 
-	handleQueryChange = (
-		{target}) =>
+	const handleQueryChange = useCallback((
+		{target: {value}}) =>
 	{
-		this.setState({
-			query: target.value,
-			selectedIndex: 0
-		});
+		setQuery(value);
+		setSelectedIndex(0);
 
 			// reset the scroll to show the first match
-		this.leftWidget.scrollToRow(0);
-		this.rightWidget.scrollToRow(0);
-	};
+		leftWidgetRef.current.scrollToRow(0);
+		rightWidgetRef.current.scrollToRow(0);
+	}, [setQuery, setSelectedIndex, leftWidgetRef, rightWidgetRef]);
 
 
-	handleKbdClick = (
+	const handleKbdClick = useCallback((
 		{target}) =>
 	{
 		if (target.tagName == "KBD") {
-			this.leftWidget.focus();
-			this.handleQueryChange({
+			leftWidgetRef.current.focus();
+			handleQueryChange({
 				target: {
 					value: target.textContent
 				}
 			});
 		}
-	};
+	}, [leftWidgetRef]);
 
 
-	render()
-	{
-		const {
-			itemsHash,
-			query,
-			selectedIndex,
-			selectedConfig: rightScorerConfig
-		} = this.state;
-
-		return (
-			<AppContainer>
-				<Title id="demo">Demo</Title>
-				<p>
-					Type a query in either search box below to use QuickScore to
-					match and sort bookmarks on the left, and choose among other
-					scoring algorithms on the right.  Your typed query will be
-					matched against the title and URL of about 300 bookmarks.
-					Click text formatted as <kbd>keycaps</kbd> to quickly set
-					the query to that string.  Edit the bookmarks <a href="#editor">below</a>.
-				</p>
-				<ScorerSelector
-					scorers={this.scorerConfigs}
-					onChange={this.handleScorerChange}
-					onKbdClick={this.handleKbdClick}
+	return (
+		<AppContainer>
+			<Title id="demo">Demo</Title>
+			<p>
+				Type a query in either search box below to use QuickScore to
+				match and sort bookmarks on the left, and choose among other
+				scoring algorithms on the right.  Your typed query will be
+				matched against the title and URL of about 300 bookmarks.
+				Click text formatted as <kbd>keycaps</kbd> to quickly set
+				the query to that string.  Edit the bookmarks <a href="#editor">below</a>.
+			</p>
+			<ScorerSelector
+				scorers={scorerConfigs}
+				onChange={handleScorerChange}
+				onKbdClick={handleKbdClick}
+			/>
+			<div>
+				<SearchWidget
+					ref={leftWidgetRef}
+					itemsHash={itemsHash}
+					query={query}
+					scorerConfig={leftScorerConfig}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+					onQueryChange={handleQueryChange}
+					onKeyDown={handleKeyDown}
 				/>
-				<div>
-					<SearchWidget
-						ref={this.handleLeftWidgetRef}
-						itemsHash={itemsHash}
-						query={query}
-						scorerConfig={this.leftScorerConfig}
-						selectedIndex={selectedIndex}
-						setSelectedIndex={this.setSelectedIndex}
-						onQueryChange={this.handleQueryChange}
-						onKeyDown={this.handleKeyDown}
-					/>
-					<SearchWidget
-						ref={this.handleRightWidgetRef}
-						itemsHash={itemsHash}
-						query={query}
-						scorerConfig={rightScorerConfig}
-						selectedIndex={selectedIndex}
-						setSelectedIndex={this.setSelectedIndex}
-						onQueryChange={this.handleQueryChange}
-						onKeyDown={this.handleKeyDown}
-					/>
-				</div>
-				<ItemsEditor
-					itemsJSON={Bookmarks.toString()}
-					setItems={this.setItems}
+				<SearchWidget
+					ref={rightWidgetRef}
+					itemsHash={itemsHash}
+					query={query}
+					scorerConfig={rightScorerConfig}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+					onQueryChange={handleQueryChange}
+					onKeyDown={handleKeyDown}
 				/>
-			</AppContainer>
-		);
-	}
+			</div>
+			<ItemsEditor
+				itemsJSON={Bookmarks.toString()}
+				setItems={setItems}
+			/>
+		</AppContainer>
+	);
 }
