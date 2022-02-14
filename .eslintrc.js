@@ -1,11 +1,15 @@
 module.exports = {
-	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 2017,
 		"sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
         }
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
 	},
 	"env": {
 		"browser": true,

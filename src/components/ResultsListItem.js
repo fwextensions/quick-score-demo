@@ -33,7 +33,9 @@ const Favicon = styled.div`
 	width: 16px;
 	height: 16px;
 	background-size: cover;
-	background: url(https://www.google.com/s2/favicons?domain=${props => props.domain}) no-repeat;
+	background-repeat: no-repeat;
+		// we seem to have to pass https:// before the domain to avoid lots of 404s
+	background-image: url(https://www.google.com/s2/favicons?domain=https://${props => props.domain});
 	position: absolute;
 `;
 const Score = styled.div`

@@ -4,7 +4,7 @@ import Fuse	from "fuse.js";
 import LiquidMetal from "liquidmetal";
 import FuzzySort from "./FuzzySort";
 import MatchSorter from "./MatchSorter";
-import Bookmarks from "./Bookmarks";
+import Bookmarks from "@/data/Bookmarks";
 import {
 	convertFuse,
 	convertFuzzysort,

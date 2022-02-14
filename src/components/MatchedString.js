@@ -10,14 +10,14 @@ const Match = styled.span`
 
 	// memoize this, since it could get called multiple times by render() with
 	// the same values, such as when the selection changes but the query doesn't
-const wrapMatches = memoize(function(
+const wrapMatches = memoize((
 	string,
-	matches)
+	matches) =>
 {
 	const substrings = [];
 	let previousEnd = 0;
 
-	for (let [start, end] of matches) {
+	for (const [start, end] of matches) {
 		const prefix = string.substring(previousEnd, start);
 		const match = <Match>{string.substring(start, end)}</Match>;
 
@@ -41,4 +41,4 @@ export default function MatchedString({
 	return (
 		<span>{wrapMatches(string, matches)}</span>
 	);
-};
+}

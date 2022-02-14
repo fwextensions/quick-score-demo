@@ -1,16 +1,35 @@
+const path = require("path");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 //const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const {getIfUtils, removeEmpty} = require("webpack-config-utils");
+const {getIfUtils} = require("webpack-config-utils");
 
 
-module.exports = (env, argv) => {
-	const {ifProduction} = getIfUtils(argv.mode);
+module.exports = (env) => {
+	const {ifProduction} = getIfUtils(env);
 
 	return {
-		devtool: ifProduction() ? "source-map" : "eval-sourcemap",
-		entry: "./src/js/index.js",
+		devtool: ifProduction("source-map", "eval-source-map"),
+		entry: "./src/index.js",
+		resolve: {
+			alias: {
+				"@": path.resolve(__dirname, "src"),
+			},
+		},
+		output: {
+			path: __dirname + "/dist",
+			filename: "bundle.js"
+		},
+		devServer: {
+			static: {
+				directory: "./dist"
+			}
+		},
+		stats: {
+				// log the build time in the console
+			builtAt: true
+		},
 		module: {
 			rules: [
 				{
@@ -24,18 +43,6 @@ module.exports = (env, argv) => {
 				}
 			]
 		},
-		resolve: {
-			extensions: ["*", ".js", ".jsx"]
-		},
-		output: {
-			path: __dirname + "/dist",
-			filename: "bundle.js"
-		},
-		devServer: {
-			static: {
-				directory: "./dist"
-			}
-		},
 		plugins: [
 			new CleanWebpackPlugin(),
 			new CopyWebpackPlugin({
@@ -46,7 +53,9 @@ module.exports = (env, argv) => {
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
 				filename: "index.html",
-				minify: false
+				minify: false,
+					// add a timestamp that's injected into an HTML comment
+				buildTime: new Date().toISOString()
 			})
 		]
 	}

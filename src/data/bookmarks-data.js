@@ -1,179 +1,179 @@
 export default [
 	{
 		"title": "24 ways Flickr Photos On Demand with getFlickr",
-		"url": "http://24ways.org/2006/flickr-photos-on-demand"
+		"url": "https://24ways.org/2006/flickr-photos-on-demand"
 	},
 	{
 		"title": "Amberjack",
-		"url": "http://amberjack.org/"
+		"url": "https://amberjack.org/"
 	},
 	{
 		"title": "DD_belatedPNG better PNG background-image support in IE6",
-		"url": "http://www.dillerdesign.com/experiment/DD_belatedPNG/"
+		"url": "https://www.dillerdesign.com/experiment/DD_belatedPNG/"
 	},
 	{
 		"title": "DD_roundies Another (better) round-corner HTML box concept",
-		"url": "http://dillerdesign.com/experiment/DD_roundies/"
+		"url": "https://dillerdesign.com/experiment/DD_roundies/"
 	},
 	{
 		"title": "DEfusion.org.uk » JavaScript Image Cropper UI, using Prototype & script.aculo.us",
-		"url": "http://www.defusion.org.uk/code/javascript-image-cropper-ui-using-prototype-scriptaculous/"
+		"url": "https://www.defusion.org.uk/code/javascript-image-cropper-ui-using-prototype-scriptaculous/"
 	},
 	{
 		"title": "Date Parsing [Universal Feed Parser]",
-		"url": "http://feedparser.org/docs/date-parsing.html"
+		"url": "https://feedparser.org/docs/date-parsing.html"
 	},
 	{
 		"title": "Dav Glass YUI",
-		"url": "http://blog.davglass.com/files/yui/docs/"
+		"url": "https://blog.davglass.com/files/yui/docs/"
 	},
 	{
 		"title": "Django The Web framework for perfectionists with deadlines",
-		"url": "http://www.djangoproject.com/"
+		"url": "https://www.djangoproject.com/"
 	},
 	{
 		"title": "Enumerating JavaScript Objects",
-		"url": "http://dean.edwards.name/weblog/2006/07/enum/"
+		"url": "https://dean.edwards.name/weblog/2006/07/enum/"
 	},
 	{
 		"title": "Fleegix.js JavaScript Toolkit",
-		"url": "http://js.fleegix.org/?ref"
+		"url": "https://js.fleegix.org/?ref"
 	},
 	{
 		"title": "Google Map Parameters - Google Mapki",
-		"url": "http://mapki.com/wiki/Google_Map_Parameters"
+		"url": "https://mapki.com/wiki/Google_Map_Parameters"
 	},
 	{
 		"title": "IE PNG Fix - TwinHelix",
-		"url": "http://www.twinhelix.com/css/iepngfix/"
+		"url": "https://www.twinhelix.com/css/iepngfix/"
 	},
 	{
 		"title": "JSL JavaScript Standard Library",
-		"url": "http://www.devpro.it/JSL/"
+		"url": "https://www.devpro.it/JSL/"
 	},
 	{
 		"title": "JSONRequest",
-		"url": "http://json.org/JSONRequest.html"
+		"url": "https://json.org/JSONRequest.html"
 	},
 	{
 		"title": "Jack Slocum's Blog » Adding built-in editing support to the Yahoo! UI Extensions Grid",
-		"url": "http://www.jackslocum.com/yui/2006/09/10/adding-built-in-editing-support-to-the-yahoo-ui-extensions-grid/"
+		"url": "https://www.jackslocum.com/yui/2006/09/10/adding-built-in-editing-support-to-the-yahoo-ui-extensions-grid/"
 	},
 	{
 		"title": "Javascript Toolbox Reusable Libraries And Scripts Plus Information",
-		"url": "http://www.javascripttoolbox.com/"
+		"url": "https://www.javascripttoolbox.com/"
 	},
 	{
 		"title": "Javascript date parsing and formatting, Part 2 - Xaprb",
-		"url": "http://www.xaprb.com/blog/2005/12/20/javascript-date-parsing/"
+		"url": "https://www.xaprb.com/blog/2005/12/20/javascript-date-parsing/"
 	},
 	{
 		"title": "JsonT - Transforming Json",
-		"url": "http://goessner.net/articles/jsont/"
+		"url": "https://goessner.net/articles/jsont/"
 	},
 	{
 		"title": "Merlyn - Time Miscellany - J R Stockton",
-		"url": "http://www.merlyn.demon.co.uk/misctime.htm"
+		"url": "https://www.merlyn.demon.co.uk/misctime.htm"
 	},
 	{
 		"title": "Minikit",
-		"url": "http://candyscript.com/projects/minikit/"
+		"url": "https://candyscript.com/projects/minikit/"
 	},
 	{
 		"title": "NextApp . Welcome",
-		"url": "http://www.nextapp.com/"
+		"url": "https://www.nextapp.com/"
 	},
 	{
 		"title": "PhoneGap Bridging the iPhone GAP",
-		"url": "http://phonegap.com/?__vid__=Y29sbGVjdGlvblR5cGU9YWxpYXMBY29sbGVjdGlvbklEPXNjaHZlbmsBc291cmNlPXkuZGVsaWNpb3VzAWNsYXNzPWJvb2ttYXJrAXR5cGU9Ym9va21hcmsBc3VpZD1kNzE2ZGNmNWNmMTBlY2VjNjc5OGQxN2IxOTIzYTU4MA--"
+		"url": "https://phonegap.com/?__vid__=Y29sbGVjdGlvblR5cGU9YWxpYXMBY29sbGVjdGlvbklEPXNjaHZlbmsBc291cmNlPXkuZGVsaWNpb3VzAWNsYXNzPWJvb2ttYXJrAXR5cGU9Ym9va21hcmsBc3VpZD1kNzE2ZGNmNWNmMTBlY2VjNjc5OGQxN2IxOTIzYTU4MA--"
 	},
 	{
 		"title": "Protoscript - Home",
-		"url": "http://protoscript.com/"
+		"url": "https://protoscript.com/"
 	},
 	{
 		"title": "SIMILE Exhibit 2.0",
-		"url": "http://simile.mit.edu/exhibit/"
+		"url": "https://simile.mit.edu/exhibit/"
 	},
 	{
 		"title": "SIMILE Timeline",
-		"url": "http://simile.mit.edu/timeline/"
+		"url": "https://simile.mit.edu/timeline/"
 	},
 	{
 		"title": "SoundManager 2 Javascript Sound for the Web",
-		"url": "http://www.schillmania.com/projects/soundmanager2/"
+		"url": "https://www.schillmania.com/projects/soundmanager2/"
 	},
 	{
 		"title": "Sun Labs Lively Kernel",
-		"url": "http://research.sun.com/projects/lively/"
+		"url": "https://research.sun.com/projects/lively/"
 	},
 	{
 		"title": "The Decorator Pattern for JavaScript",
-		"url": "http://beppu.lbox.org/articles/2006/08/22/the-decorator-pattern-for-javascript"
+		"url": "https://beppu.lbox.org/articles/2006/08/22/the-decorator-pattern-for-javascript"
 	},
 	{
 		"title": "TrimJunctionCommunity - trimpath - Google Code",
-		"url": "http://code.google.com/p/trimpath/wiki/TrimJunctionCommunity"
+		"url": "https://code.google.com/p/trimpath/wiki/TrimJunctionCommunity"
 	},
 	{
 		"title": "Truncate A jQuery Plugin",
-		"url": "http://www.reindel.com/truncate/"
+		"url": "https://www.reindel.com/truncate/"
 	},
 	{
 		"title": "Windows Media Object Model Reference for Scripting",
-		"url": "http://msdn2.microsoft.com/en-us/library/aa392281.aspx"
+		"url": "https://msdn2.microsoft.com/en-us/library/aa392281.aspx"
 	},
 	{
 		"title": "YUI Loader Script",
-		"url": "http://blog.davglass.com/files/yui/loader/"
+		"url": "https://blog.davglass.com/files/yui/loader/"
 	},
 	{
 		"title": "YouTube Chromeless Player Reference - YouTube APIs and Tools - Google Code",
-		"url": "http://code.google.com/apis/youtube/chromeless_player_reference.html"
+		"url": "https://code.google.com/apis/youtube/chromeless_player_reference.html"
 	},
 	{
 		"title": "[haXe.org]",
-		"url": "http://haxe.org/intro"
+		"url": "https://haxe.org/intro"
 	},
 	{
 		"title": "actsAsAspect()",
-		"url": "http://beppu.lbox.org/articles/2006/09/06/actsasaspect"
+		"url": "https://beppu.lbox.org/articles/2006/09/06/actsasaspect"
 	},
 	{
 		"title": "http--www.odessa.net-docs-javascr-DOSFILES-COLORS-CSET.HTM",
-		"url": "http://www.odessa.net/docs/javascr/DOSFILES/COLORS/CSET.HTM"
+		"url": "https://www.odessa.net/docs/javascr/DOSFILES/COLORS/CSET.HTM"
 	},
 	{
 		"title": "jQuery Sparklines",
-		"url": "http://www.omnipotent.net/jquery.sparkline/?__vid__=Y29sbGVjdGlvblR5cGU9YWxpYXMBY29sbGVjdGlvbklEPWNhbnRvbmliAXNvdXJjZT15LmRlbGljaW91cwFjbGFzcz1ib29rbWFyawF0eXBlPWJvb2ttYXJrAXN1aWQ9ZTZkODhhYzc3NDg5ZDA3YTY5Y2QxOWFkMmZiZmNhMWY-"
+		"url": "https://www.omnipotent.net/jquery.sparkline/?__vid__=Y29sbGVjdGlvblR5cGU9YWxpYXMBY29sbGVjdGlvbklEPWNhbnRvbmliAXNvdXJjZT15LmRlbGljaW91cwFjbGFzcz1ib29rbWFyawF0eXBlPWJvb2ttYXJrAXN1aWQ9ZTZkODhhYzc3NDg5ZDA3YTY5Y2QxOWFkMmZiZmNhMWY-"
 	},
 	{
 		"title": "jsonxml",
-		"url": "http://goessner.net/download/prj/jsonxml/"
+		"url": "https://goessner.net/download/prj/jsonxml/"
 	},
 	{
 		"title": "jspax documentations",
-		"url": "http://www.jspax.org/"
+		"url": "https://www.jspax.org/"
 	},
 	{
 		"title": "moo.fx - size does matter",
-		"url": "http://moofx.mad4milk.net/"
+		"url": "https://moofx.mad4milk.net/"
 	},
 	{
 		"title": "oEmbed",
-		"url": "http://www.oembed.com/"
+		"url": "https://www.oembed.com/"
 	},
 	{
 		"title": "qooxdoo » Home",
-		"url": "http://qooxdoo.org/"
+		"url": "https://qooxdoo.org/"
 	},
 	{
 		"title": "strftime strftime for Javascript",
-		"url": "http://hacks.bluesmoon.info/strftime/"
+		"url": "https://hacks.bluesmoon.info/strftime/"
 	},
 	{
 		"title": "Online Documentation",
-		"url": "http://www.jackslocum.com/docs/"
+		"url": "https://www.jackslocum.com/docs/"
 	},
 	{
 		"title": "bartaz/impress.js - GitHub",
@@ -181,27 +181,27 @@ export default [
 	},
 	{
 		"title": "Xmarks Features: Overview",
-		"url": "http://www.xmarks.com/about/features/overview"
+		"url": "https://www.xmarks.com/about/features/overview"
 	},
 	{
 		"title": "Bootstrap, from Twitter",
-		"url": "http://twitter.github.com/bootstrap/"
+		"url": "https://twitter.github.com/bootstrap/"
 	},
 	{
 		"title": "slimbox - The ultimate lightweight Lightbox clone - Google Project Hosting",
-		"url": "http://code.google.com/p/slimbox/"
+		"url": "https://code.google.com/p/slimbox/"
 	},
 	{
 		"title": "blur.js",
-		"url": "http://www.blurjs.com/"
+		"url": "https://www.blurjs.com/"
 	},
 	{
 		"title": "Foundation: Rapid Prototyping and Building Framework from ZURB",
-		"url": "http://foundation.zurb.com/docs/index.php"
+		"url": "https://foundation.zurb.com/docs/index.php"
 	},
 	{
 		"title": "canvg - Javascript SVG parser and renderer on Canvas - Google Project Hosting",
-		"url": "http://code.google.com/p/canvg/"
+		"url": "https://code.google.com/p/canvg/"
 	},
 	{
 		"title": "kangax/fabric.js",
@@ -209,11 +209,11 @@ export default [
 	},
 	{
 		"title": "Moment.js - A lightweight javascript date library",
-		"url": "http://momentjs.com/"
+		"url": "https://momentjs.com/"
 	},
 	{
 		"title": "Esprima",
-		"url": "http://esprima.org/"
+		"url": "https://esprima.org/"
 	},
 	{
 		"title": "Constellation/escodegen · GitHub",
@@ -221,15 +221,15 @@ export default [
 	},
 	{
 		"title": "log4javascript - a JavaScript logging framework",
-		"url": "http://log4javascript.org/"
+		"url": "https://log4javascript.org/"
 	},
 	{
 		"title": "dgrid - A New Dojo grid created by SitePen",
-		"url": "http://dojofoundation.org/packages/dgrid/"
+		"url": "https://dojofoundation.org/packages/dgrid/"
 	},
 	{
 		"title": "FuseJS JavaScript Framework",
-		"url": "http://fusejs.com/"
+		"url": "https://fusejs.com/"
 	},
 	{
 		"title": "bestiejs/maddy",
@@ -237,7 +237,7 @@ export default [
 	},
 	{
 		"title": "GLUEscript | Glueing Libraries Using EcmaScript",
-		"url": "http://gluescript.sourceforge.net/"
+		"url": "https://gluescript.sourceforge.net/"
 	},
 	{
 		"title": "object.watch polyfill — Gist",
@@ -249,11 +249,11 @@ export default [
 	},
 	{
 		"title": "Vows « Asynchronous BDD for Node",
-		"url": "http://vowsjs.org/"
+		"url": "https://vowsjs.org/"
 	},
 	{
 		"title": "Jasmine: BDD for your JavaScript",
-		"url": "http://pivotal.github.com/jasmine/"
+		"url": "https://pivotal.github.com/jasmine/"
 	},
 	{
 		"title": "JSON-js/json2.js at master · douglascrockford/JSON-js · GitHub",
@@ -261,15 +261,15 @@ export default [
 	},
 	{
 		"title": "Underscore.string",
-		"url": "http://epeli.github.com/underscore.string/"
+		"url": "https://epeli.github.com/underscore.string/"
 	},
 	{
 		"title": "PEG.js – Parser Generator for JavaScript",
-		"url": "http://pegjs.majda.cz/"
+		"url": "https://pegjs.majda.cz/"
 	},
 	{
 		"title": "Brunch",
-		"url": "http://brunch.io/"
+		"url": "https://brunch.io/"
 	},
 	{
 		"title": "chaplinjs/chaplin",
@@ -281,27 +281,27 @@ export default [
 	},
 	{
 		"title": "requestAnimationFrame for smart animating « Paul Irish",
-		"url": "http://paulirish.com/2011/requestanimationframe-for-smart-animating/"
+		"url": "https://paulirish.com/2011/requestanimationframe-for-smart-animating/"
 	},
 	{
 		"title": "Backbone UI",
-		"url": "http://perka.github.com/backbone-ui/"
+		"url": "https://perka.github.com/backbone-ui/"
 	},
 	{
 		"title": "REST API - Evri",
-		"url": "http://www.evri.com/developer/rest"
+		"url": "https://www.evri.com/developer/rest"
 	},
 	{
 		"title": "Redactor WYSIWYG editor on jQuery",
-		"url": "http://redactorjs.com/"
+		"url": "https://redactorjs.com/"
 	},
 	{
 		"title": "Wirefy | The Responsive Wireframe Boilerplate",
-		"url": "http://cjdsie.github.com/wirefy/"
+		"url": "https://cjdsie.github.com/wirefy/"
 	},
 	{
 		"title": "TaffyDB - The JavaScript Database",
-		"url": "http://www.taffydb.com/"
+		"url": "https://www.taffydb.com/"
 	},
 	{
 		"title": "slightlyoff/cassowary-js-refactor",
@@ -309,27 +309,27 @@ export default [
 	},
 	{
 		"title": "AppJS",
-		"url": "http://appjs.org/"
+		"url": "https://appjs.org/"
 	},
 	{
 		"title": "IndexedDB Polyfill",
-		"url": "http://nparashuram.com/IndexedDBShim/"
+		"url": "https://nparashuram.com/IndexedDBShim/"
 	},
 	{
 		"title": "Rich JavaScript Applications – the Seven Frameworks (Throne of JS, 2012) - Steve Sanderson’s blog - As seen on YouTube™",
-		"url": "http://blog.stevensanderson.com/2012/08/01/rich-javascript-applications-the-seven-frameworks-throne-of-js-2012/"
+		"url": "https://blog.stevensanderson.com/2012/08/01/rich-javascript-applications-the-seven-frameworks-throne-of-js-2012/"
 	},
 	{
 		"title": "AngularJS — Superheroic JavaScript MVW Framework",
-		"url": "http://angularjs.org/"
+		"url": "https://angularjs.org/"
 	},
 	{
 		"title": "Meteor",
-		"url": "http://www.meteor.com/main"
+		"url": "https://www.meteor.com/main"
 	},
 	{
 		"title": "JSCSSP, a CSS parser in JavaScript",
-		"url": "http://www.glazman.org/JSCSSP/"
+		"url": "https://www.glazman.org/JSCSSP/"
 	},
 	{
 		"title": "NV/CSSOM",
@@ -337,11 +337,11 @@ export default [
 	},
 	{
 		"title": "Jison / Demos",
-		"url": "http://zaach.github.com/jison/demos/"
+		"url": "https://zaach.github.com/jison/demos/"
 	},
 	{
 		"title": "jQuery Zoom",
-		"url": "http://www.jacklmoore.com/zoom"
+		"url": "https://www.jacklmoore.com/zoom"
 	},
 	{
 		"title": "lukaszkorecki/RequestPack",
@@ -349,7 +349,7 @@ export default [
 	},
 	{
 		"title": "Jade - Template Engine",
-		"url": "http://jade-lang.com/"
+		"url": "https://jade-lang.com/"
 	},
 	{
 		"title": "evilstreak/markdown-js · GitHub",
@@ -357,7 +357,7 @@ export default [
 	},
 	{
 		"title": "Magnific Popup: Responsive jQuery Lightbox Plugin",
-		"url": "http://dimsemenov.com/plugins/magnific-popup/?utm_source=twitter&utm_medium=twitter"
+		"url": "https://dimsemenov.com/plugins/magnific-popup/?utm_source=twitter&utm_medium=twitter"
 	},
 	{
 		"title": "Home · kripken/emscripten Wiki · GitHub",
@@ -369,15 +369,15 @@ export default [
 	},
 	{
 		"title": "Two.js",
-		"url": "http://jonobr1.github.io/two.js/"
+		"url": "https://jonobr1.github.io/two.js/"
 	},
 	{
 		"title": "Ratchet",
-		"url": "http://maker.github.io/ratchet/"
+		"url": "https://maker.github.io/ratchet/"
 	},
 	{
 		"title": "D3.js - Data-Driven Documents",
-		"url": "http://d3js.org/"
+		"url": "https://d3js.org/"
 	},
 	{
 		"title": "ashima/webgl-noise",
@@ -389,31 +389,31 @@ export default [
 	},
 	{
 		"title": "Experiments with Perlin noise - Blog - Clicktorelease",
-		"url": "http://www.clicktorelease.com/blog/experiments-with-perlin-noise"
+		"url": "https://www.clicktorelease.com/blog/experiments-with-perlin-noise"
 	},
 	{
 		"title": "lunr.js - A bit like Solr, but much smaller and not as bright",
-		"url": "http://lunrjs.com/"
+		"url": "https://lunrjs.com/"
 	},
 	{
 		"title": "Faster UI Animations With Velocity.js | Smashing Magazine",
-		"url": "http://www.smashingmagazine.com/2014/06/18/faster-ui-animations-with-velocity-js/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://www.smashingmagazine.com/2014/06/18/faster-ui-animations-with-velocity-js/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "PhysicsJS - A modular, extendable, and easy-to-use physics engine for javascript",
-		"url": "http://wellcaffeinated.net/PhysicsJS/"
+		"url": "https://wellcaffeinated.net/PhysicsJS/"
 	},
 	{
 		"title": "Papa Parse - Powerful CSV parser for Javascript",
-		"url": "http://papaparse.com/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://papaparse.com/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "Machina.js - Finite State Machines in JavaScript",
-		"url": "http://machina-js.org/"
+		"url": "https://machina-js.org/"
 	},
 	{
 		"title": "hello.js - Javascript API for OAuth2 authentication and REST services",
-		"url": "http://adodson.com/hello.js/?utm_source=javascriptweekly&utm_medium=email#core-methods"
+		"url": "https://adodson.com/hello.js/?utm_source=javascriptweekly&utm_medium=email#core-methods"
 	},
 	{
 		"title": "trueinteractions/tint2 · GitHub",
@@ -421,7 +421,7 @@ export default [
 	},
 	{
 		"title": "☆ sweep.js ☆",
-		"url": "http://rileyjshaw.com/sweep/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://rileyjshaw.com/sweep/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "mortzdk/localStorage · GitHub",
@@ -441,11 +441,11 @@ export default [
 	},
 	{
 		"title": "gifshot - JavaScript library that can create animated GIFs from media streams, videos, or images",
-		"url": "http://yahoo.github.io/gifshot/"
+		"url": "https://yahoo.github.io/gifshot/"
 	},
 	{
 		"title": "Nunjucks",
-		"url": "http://mozilla.github.io/nunjucks/"
+		"url": "https://mozilla.github.io/nunjucks/"
 	},
 	{
 		"title": "cthackers/adm-zip",
@@ -453,7 +453,7 @@ export default [
 	},
 	{
 		"title": "FormatJS",
-		"url": "http://formatjs.io/"
+		"url": "https://formatjs.io/"
 	},
 	{
 		"title": "nodejitsu/forever",
@@ -477,7 +477,7 @@ export default [
 	},
 	{
 		"title": "Page.js by visionmedia",
-		"url": "http://visionmedia.github.io/page.js/"
+		"url": "https://visionmedia.github.io/page.js/"
 	},
 	{
 		"title": "flatiron/cradle",
@@ -485,7 +485,7 @@ export default [
 	},
 	{
 		"title": "Fuse.js | K. Risk - JavaScript Refined",
-		"url": "http://kiro.me/projects/fuse.html"
+		"url": "https://kiro.me/projects/fuse.html"
 	},
 	{
 		"title": "rmm5t/liquidmetal",
@@ -501,15 +501,15 @@ export default [
 	},
 	{
 		"title": "Web Services v2 Documentation | Climate Data Online (CDO) | National Climatic Data Center (NCDC)",
-		"url": "http://www.ncdc.noaa.gov/cdo-web/webservices/v2#gettingStarted"
+		"url": "https://www.ncdc.noaa.gov/cdo-web/webservices/v2#gettingStarted"
 	},
 	{
 		"title": "API | Weather Underground",
-		"url": "http://www.wunderground.com/weather/api/d/pricing.html"
+		"url": "https://www.wunderground.com/weather/api/d/pricing.html"
 	},
 	{
 		"title": "API Guide | restify",
-		"url": "http://mcavage.me/node-restify/"
+		"url": "https://mcavage.me/node-restify/"
 	},
 	{
 		"title": "seatgeek/react-infinite",
@@ -529,7 +529,7 @@ export default [
 	},
 	{
 		"title": "Tuxx",
-		"url": "http://www.tuxedojs.org/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://www.tuxedojs.org/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "gabelerner/canvg · GitHub",
@@ -545,7 +545,7 @@ export default [
 	},
 	{
 		"title": "Hjson, the Human JSON",
-		"url": "http://hjson.org/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://hjson.org/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "mpowaga/react-slider",
@@ -553,7 +553,7 @@ export default [
 	},
 	{
 		"title": "TheaterJS, a typing effect mimicking human behavior.",
-		"url": "http://gabinaureche.com/TheaterJS/#"
+		"url": "https://gabinaureche.com/TheaterJS/#"
 	},
 	{
 		"title": "mrdoob/texgen.js",
@@ -561,7 +561,7 @@ export default [
 	},
 	{
 		"title": "Defiant.js",
-		"url": "http://defiantjs.com/"
+		"url": "https://defiantjs.com/"
 	},
 	{
 		"title": "henrikingo/xml2json",
@@ -569,11 +569,11 @@ export default [
 	},
 	{
 		"title": "Rickshaw: A JavaScript toolkit for creating interactive time-series graphs",
-		"url": "http://code.shutterstock.com/rickshaw/"
+		"url": "https://code.shutterstock.com/rickshaw/"
 	},
 	{
 		"title": "Immutable.js",
-		"url": "http://facebook.github.io/immutable-js/"
+		"url": "https://facebook.github.io/immutable-js/"
 	},
 	{
 		"title": "Flipboard/react-canvas",
@@ -581,7 +581,7 @@ export default [
 	},
 	{
 		"title": "PDFKit",
-		"url": "http://pdfkit.org/"
+		"url": "https://pdfkit.org/"
 	},
 	{
 		"title": "yahoo/fluxible",
@@ -589,15 +589,15 @@ export default [
 	},
 	{
 		"title": "vivus.js - svg animation",
-		"url": "http://maxwellito.github.io/vivus/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://maxwellito.github.io/vivus/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "parse5 by inikulin",
-		"url": "http://inikulin.github.io/parse5/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://inikulin.github.io/parse5/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "Adding Audio to Web Apps -Telerik Developer Network",
-		"url": "http://developer.telerik.com/featured/adding-audio-to-web-apps/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://developer.telerik.com/featured/adding-audio-to-web-apps/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "Cross-Platform Native Development with Javascript",
@@ -605,19 +605,19 @@ export default [
 	},
 	{
 		"title": "Strand Web Components",
-		"url": "http://mediamath.github.io/strand/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://mediamath.github.io/strand/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "ramjet",
-		"url": "http://www.rich-harris.co.uk/ramjet/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://www.rich-harris.co.uk/ramjet/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "Manipulating Images on Web Pages with CamanJS",
-		"url": "http://www.sitepoint.com/manipulating-images-web-pages-camanjs/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://www.sitepoint.com/manipulating-images-web-pages-camanjs/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "ExpandJS",
-		"url": "http://www.expandjs.com/?utm_source=html5weekly&utm_medium=email"
+		"url": "https://www.expandjs.com/?utm_source=html5weekly&utm_medium=email"
 	},
 	{
 		"title": "spoike/refluxjs",
@@ -649,11 +649,11 @@ export default [
 	},
 	{
 		"title": "Substance",
-		"url": "http://substance.io/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://substance.io/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "json.human.js - Json Formatting for Human Beings",
-		"url": "http://marianoguerra.github.io/json.human.js/"
+		"url": "https://marianoguerra.github.io/json.human.js/"
 	},
 	{
 		"title": "beautify-web/js-beautify · GitHub",
@@ -669,7 +669,7 @@ export default [
 	},
 	{
 		"title": "reactabular - Spectacular tables for React.js",
-		"url": "http://bebraw.github.io/reactabular/"
+		"url": "https://bebraw.github.io/reactabular/"
 	},
 	{
 		"title": "nmn/react-infinity · GitHub",
@@ -681,11 +681,11 @@ export default [
 	},
 	{
 		"title": "vis.js - A dynamic, browser based visualization library.",
-		"url": "http://visjs.org/"
+		"url": "https://visjs.org/"
 	},
 	{
 		"title": "Datavisualization.ch Selected Tools",
-		"url": "http://selection.datavisualization.ch/"
+		"url": "https://selection.datavisualization.ch/"
 	},
 	{
 		"title": "flitbit/diff · GitHub",
@@ -721,7 +721,7 @@ export default [
 	},
 	{
 		"title": "HTML Cleaner - Word To HTML Converter",
-		"url": "http://www.html-cleaner.com/"
+		"url": "https://www.html-cleaner.com/"
 	},
 	{
 		"title": "marsdb",
@@ -733,15 +733,15 @@ export default [
 	},
 	{
 		"title": "NW.js",
-		"url": "http://nwjs.io/"
+		"url": "https://nwjs.io/"
 	},
 	{
 		"title": "laktek.github.io/jQuery-Smart-Auto-Complete/demo/qs_score.js",
-		"url": "http://laktek.github.io/jQuery-Smart-Auto-Complete/demo/qs_score.js"
+		"url": "https://laktek.github.io/jQuery-Smart-Auto-Complete/demo/qs_score.js"
 	},
 	{
 		"title": "Master Complex Redux Workflows with Sagas",
-		"url": "http://konkle.us/master-complex-redux-workflows-with-sagas/?utm_source=javascriptweekly&utm_medium=email"
+		"url": "https://konkle.us/master-complex-redux-workflows-with-sagas/?utm_source=javascriptweekly&utm_medium=email"
 	},
 	{
 		"title": "GitHub - BlueOakJS/blueoak-server: express.js-based, swagger-matic, server runtime",
@@ -749,7 +749,7 @@ export default [
 	},
 	{
 		"title": "Our Justified Layout Goes Open Source | code.flickr.com",
-		"url": "http://code.flickr.net/2016/04/05/our-justified-layout-goes-open-source/"
+		"url": "https://code.flickr.net/2016/04/05/our-justified-layout-goes-open-source/"
 	},
 	{
 		"title": "RethinkDB: the open-source database for the realtime web",
@@ -765,7 +765,7 @@ export default [
 	},
 	{
 		"title": "Cleave.js - Format input text content when you are typing",
-		"url": "http://nosir.github.io/cleave.js/"
+		"url": "https://nosir.github.io/cleave.js/"
 	},
 	{
 		"title": "lodash documentation",
@@ -785,7 +785,7 @@ export default [
 	},
 	{
 		"title": "Sinon.JS - Documentation",
-		"url": "http://sinonjs.org/docs/"
+		"url": "https://sinonjs.org/docs/"
 	},
 	{
 		"title": "GitHub - nolanlawson/optimize-js: Optimize a JavaScript file for faster initial load by wrapping eagerly-invoked functions",
@@ -805,7 +805,7 @@ export default [
 	},
 	{
 		"title": "Rebass",
-		"url": "http://jxnblk.com/rebass/"
+		"url": "https://jxnblk.com/rebass/"
 	},
 	{
 		"title": "GitHub - sindresorhus/electron-debug: Adds useful debug features to your Electron app",
@@ -813,7 +813,7 @@ export default [
 	},
 	{
 		"title": "Elemental UI",
-		"url": "http://elemental-ui.com/"
+		"url": "https://elemental-ui.com/"
 	},
 	{
 		"title": "GitHub - brillout/awesome-react-components: Catalog of React Components & Libraries",
@@ -833,7 +833,7 @@ export default [
 	},
 	{
 		"title": "EmojiOne | The Open Emoji Standard",
-		"url": "http://emojione.com/"
+		"url": "https://emojione.com/"
 	},
 	{
 		"title": "twitter/twemoji: Twitter Emoji for Everyone",
@@ -845,7 +845,7 @@ export default [
 	},
 	{
 		"title": "Photon · Components",
-		"url": "http://photonkit.com/components/"
+		"url": "https://photonkit.com/components/"
 	},
 	{
 		"title": "electron-userland/electron-forge: A complete tool for creating, publishing, and installing modern Electron applications",
@@ -937,7 +937,7 @@ export default [
 	},
 	{
 		"title": "Diet.js",
-		"url": "http://dietjs.com/"
+		"url": "https://dietjs.com/"
 	},
 	{
 		"title": "zeit/next.js: Framework for server-rendered React apps",
@@ -1088,12 +1088,12 @@ export default [
 		"url": "https://www.iconbros.com/?ref=producthunt"
 	},
 	{
-		"title": "NUKnightLab/TimelineJS3: TimelineJS v3: A Storytelling Timeline built in JavaScript. http://timeline.knightlab.com",
+		"title": "NUKnightLab/TimelineJS3: TimelineJS v3: A Storytelling Timeline built in JavaScript. https://timeline.knightlab.com",
 		"url": "https://github.com/NUKnightLab/TimelineJS3"
 	},
 	{
 		"title": "timeline - vis.js - A dynamic, browser based visualization library.",
-		"url": "http://visjs.org/docs/timeline/"
+		"url": "https://visjs.org/docs/timeline/"
 	},
 	{
 		"title": "jamiebuilds/unstated: State so simple, it goes without saying",
@@ -1113,7 +1113,7 @@ export default [
 	},
 	{
 		"title": "slick - the last carousel you'll ever need",
-		"url": "http://kenwheeler.github.io/slick/"
+		"url": "https://kenwheeler.github.io/slick/"
 	},
 	{
 		"title": "jakesgordon/javascript-state-machine: A javascript finite state machine library",
@@ -1129,7 +1129,7 @@ export default [
 	},
 	{
 		"title": "Epic Spinners",
-		"url": "http://epic-spinners.epicmax.co/#/"
+		"url": "https://epic-spinners.epicmax.co/#/"
 	},
 	{
 		"title": "planttheidea/fast-copy: A blazing fast deep object copier",
@@ -1164,7 +1164,7 @@ export default [
 		"url": "https://github.com/acvetkov/sinon-chrome"
 	},
 	{
-		"title": "adazzle/react-data-grid: Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like http://adazzle.github.io/react-data-grid/",
+		"title": "adazzle/react-data-grid: Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like https://adazzle.github.io/react-data-grid/",
 		"url": "https://github.com/adazzle/react-data-grid"
 	},
 	{
