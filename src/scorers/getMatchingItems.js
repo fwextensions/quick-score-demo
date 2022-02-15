@@ -10,6 +10,7 @@ const search = memoize((
 	scorer,
 		// this param isn't used, but it's included so that if the items
 		// change, memoize() won't return the old result
+		// eslint-disable-next-line no-unused-vars
 	itemsHash) =>
 {
 	const start = performance.now();
@@ -46,5 +47,5 @@ export default function getMatchingItems(
 
 		// limit the average time to 1 decimal point, but convert the string
 		// back to a number so that 1.0 becomes 1
-	return [converter(items), +(data.time / data.count).toFixed(1)];
+	return [converter(items), Number((data.time / data.count).toFixed(1))];
 }

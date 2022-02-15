@@ -21,8 +21,7 @@ const Title = styled.h2`
 	}
 `;
 
-
-const leftScorerConfig = scorers[0];
+const [leftScorerConfig] = scorers;
 const scorerConfigs = scorers.slice(1);
 
 
@@ -34,6 +33,7 @@ export default function App()
 	const [itemsHash, setItemsHash] = useState(Bookmarks.hash);
 	const leftWidgetRef = useRef(null);
 	const rightWidgetRef = useRef(null);
+
 
 	const setItems = useCallback(
 		items =>
@@ -49,7 +49,7 @@ export default function App()
 			// the items are changed.  this is faster than making memoize()
 			// run stringify on the whole items array every time.
 		setItemsHash(Bookmarks.hash);
-	}, [setItemsHash]);
+	}, []);
 
 
 	const handleScorerChange = useCallback(
@@ -58,7 +58,7 @@ export default function App()
 		setRightScorerConfig(selectedConfig);
 		setQuery("");
 		leftWidgetRef.current.focus();
-	}, [setQuery, setRightScorerConfig, leftWidgetRef]);
+	}, [leftWidgetRef]);
 
 
 	const handleKeyDown = useCallback(
@@ -75,13 +75,11 @@ export default function App()
 					// since we're wrapped in useCallback(), selectedIndex will
 					// be stale, so use a function to get the current index and
 					// calculate the new one
-				setSelectedIndex(selectedIndex =>
-					Math.min(selectedIndex + 1, Bookmarks.items.length));
+				setSelectedIndex(current => Math.min(current + 1, Bookmarks.items.length));
 				break;
 
 			case "ArrowUp":
-				setSelectedIndex(selectedIndex =>
-					Math.max(selectedIndex - 1, 0));
+				setSelectedIndex(current => Math.max(current - 1, 0));
 				break;
 
 			case "PageDown":
@@ -103,7 +101,7 @@ export default function App()
 				// don't scroll the page when the user is paging up/down
 			event.preventDefault();
 		}
-	}, [setSelectedIndex, leftWidgetRef, rightWidgetRef]);
+	}, [leftWidgetRef, rightWidgetRef]);
 
 
 	const handleQueryChange = useCallback((
@@ -115,13 +113,13 @@ export default function App()
 			// reset the scroll to show the first match
 		leftWidgetRef.current.scrollToRow(0);
 		rightWidgetRef.current.scrollToRow(0);
-	}, [setQuery, setSelectedIndex, leftWidgetRef, rightWidgetRef]);
+	}, [leftWidgetRef, rightWidgetRef]);
 
 
 	const handleKbdClick = useCallback((
 		{target}) =>
 	{
-		if (target.tagName == "KBD") {
+		if (target.tagName === "KBD") {
 			leftWidgetRef.current.focus();
 			handleQueryChange({
 				target: {

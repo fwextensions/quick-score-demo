@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default [
 	{
 		"title": "24 ways Flickr Photos On Demand with getFlickr",
