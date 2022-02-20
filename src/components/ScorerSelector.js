@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 
@@ -24,8 +25,7 @@ const Label = styled.label`
 `;
 
 
-export default function ScorerSelector({
-	scorers,
+export default function ScorerSelector({scorers,
 	onChange,
 	onKbdClick})
 {
@@ -41,14 +41,14 @@ export default function ScorerSelector({
 	const [leftDescription, rightDescription] = scorers[selectedIndex].description;
 
 
-	const handleChange = (
-		event) =>
+	function handleChange(
+		event)
 	{
-		const newSelectedIndex = +event.target.value;
+		const newSelectedIndex = Number(event.target.value);
 
 		onChange(scorers[newSelectedIndex]);
 		setSelectedIndex(newSelectedIndex);
-	};
+	}
 
 
 	return (
@@ -81,3 +81,10 @@ export default function ScorerSelector({
 		</div>
 	);
 }
+
+
+ScorerSelector.propTypes = {
+	scorers: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onChange: PropTypes.func.isRequired,
+	onKbdClick: PropTypes.func.isRequired
+};

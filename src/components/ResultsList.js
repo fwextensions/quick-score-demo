@@ -1,4 +1,5 @@
 import React, {forwardRef, useImperativeHandle, useRef} from "react";
+import PropTypes from "prop-types";
 import List from "react-virtualized/dist/es/List";
 
 
@@ -6,7 +7,7 @@ const RowHeight = 45;
 const Width = 500;
 
 
-export default forwardRef(function ResultsList(
+const ResultsList = forwardRef(function ResultsList(
 	{
 		maxItems = 20,
 		itemComponent: ItemComponent,
@@ -36,21 +37,19 @@ export default forwardRef(function ResultsList(
 		scrollByPage(
 			direction)
 		{
-			const itemCount = Math.min(maxItems, items.length) - 1;
+			const pageIncrement = Math.min(maxItems, items.length) - 1;
 			let newIndex = selectedIndex;
 
-			if (direction == "down") {
+			if (direction === "down") {
 				if (selectedIndex === stopIndex.current) {
-					newIndex = Math.min(selectedIndex + itemCount, items.length - 1);
+					newIndex = Math.min(selectedIndex + pageIncrement, items.length - 1);
 				} else {
 					newIndex = stopIndex.current;
 				}
+			} else if (selectedIndex === startIndex.current) {
+				newIndex = Math.max(selectedIndex - pageIncrement, 0);
 			} else {
-				if (selectedIndex === startIndex.current) {
-					newIndex = Math.max(selectedIndex - itemCount, 0);
-				} else {
-					newIndex = startIndex.current;
-				}
+				newIndex = startIndex.current;
 			}
 
 			setSelectedIndex(newIndex);
@@ -58,33 +57,35 @@ export default forwardRef(function ResultsList(
 	}));
 
 
-	const rowRenderer = ({
+	function rowRenderer({
 		index,
 		key,
-		style}) =>
+		style})
 	{
 		const item = items[index];
 
-		return <ItemComponent
-			key={key}
-			index={index}
-			item={item}
-			isSelected={selectedIndex === index}
-			style={style}
-			query={query}
-		/>
-	};
+		return (
+			<ItemComponent
+				key={key}
+				index={index}
+				item={item}
+				isSelected={selectedIndex === index}
+				style={style}
+				query={query}
+			/>
+		);
+	}
 
 
-	const handleRowsRendered = (
-		event) =>
+	function handleRowsRendered(
+		event)
 	{
 			// track the visible rendered rows so we know how to change the
 			// selection when the App tells us to page up/down, since the App
 			// doesn't know what's visible
 		startIndex.current = event.startIndex;
 		stopIndex.current = event.stopIndex;
-	};
+	}
 
 
 	return (
@@ -102,3 +103,16 @@ export default forwardRef(function ResultsList(
 		/>
 	);
 });
+
+
+ResultsList.propTypes = {
+	maxItems: PropTypes.number,
+	itemComponent: PropTypes.elementType.isRequired,
+	items: PropTypes.arrayOf(PropTypes.object).isRequired,
+	query: PropTypes.string.isRequired,
+	selectedIndex: PropTypes.number.isRequired,
+	setSelectedIndex: PropTypes.func.isRequired
+};
+
+
+export default ResultsList;

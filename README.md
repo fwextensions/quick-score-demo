@@ -10,7 +10,7 @@ This is a demo of the [QuickScore](https://github.com/fwextensions/quick-score) 
 * match-sorter
 * original Quicksilver algorithm
 
-The UI is built with React, but the [QuickScore](https://github.com/fwextensions/quick-score) library itself doesn't require it and has no dependencies.
+The demo UI is built with React, but the [QuickScore](https://github.com/fwextensions/quick-score) library itself doesn't require it and has no dependencies.
 
 [See the demo.](https://fwextensions.github.io/quick-score-demo)
 

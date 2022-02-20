@@ -2,20 +2,21 @@ export default function copyTextToClipboard(
 	text)
 {
 	const copyFrom = document.createElement("textarea");
-	const body = document.body;
-	const activeElement = document.activeElement;
-	let result;
+	const {body} = document;
+	const {activeElement} = document;
 
 	copyFrom.textContent = text;
 	body.appendChild(copyFrom);
 	copyFrom.focus();
 	copyFrom.select();
-	result = document.execCommand("copy");
-	body.removeChild(copyFrom);
 
-	if (!result) {
+	if (!document.execCommand("copy")) {
+		// eslint-disable-next-line no-alert
 		alert("The browser blocked the copy action for some reason.");
 	}
+
+		// now that the selected text is copied, remove the copy source
+	body.removeChild(copyFrom);
 
 	if (activeElement) {
 			// refocus the previously active element, since we stole the

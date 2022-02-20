@@ -30,7 +30,9 @@ class Bookmarks {
 
 			try {
 				domain = new URL(url).hostname;
-			} catch (e) {}
+			} catch (e) {
+				// ignore errors
+			}
 
 			return {
 				title,

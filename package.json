@@ -1,6 +1,6 @@
 {
   "name": "quick-score-demo",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "keywords": [
     "string",
@@ -23,9 +23,10 @@
   "main": "src/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "npm run build && webpack-dev-server --open --mode development",
-    "watch": "webpack --watch --mode development",
+    "prebuild": "npm run lint",
+    "build": "webpack --env production",
+    "start": "webpack-dev-server --open --mode development",
+    "watch": "webpack --watch --env development",
     "lint": "eslint src",
     "update": "npm update quick-score"
   },
@@ -55,6 +56,7 @@
     "eslint": "^8.9.0",
     "eslint-plugin-react": "^7.28.0",
     "html-webpack-plugin": "^5.5.0",
+    "prop-types": "^15.8.1",
     "webpack": "^5.68.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",

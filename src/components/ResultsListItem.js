@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled, {css} from "styled-components";
 import MatchedString from "./MatchedString";
 
@@ -105,3 +106,11 @@ url: ${urlScore}`;
 		</Item>
 	);
 }
+
+
+ResultsListItem.propTypes = {
+	item: PropTypes.object.isRequired,
+	isSelected: PropTypes.bool.isRequired,
+	index: PropTypes.number.isRequired,
+	style: PropTypes.object.isRequired
+};

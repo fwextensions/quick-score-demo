@@ -1,4 +1,5 @@
 import React, {forwardRef, useImperativeHandle, useRef} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 
@@ -19,7 +20,7 @@ const StyledInput = styled.input`
 `;
 
 
-export default forwardRef(function SearchBox(
+const SearchBox = forwardRef(function SearchBox(
 	{
 		query = "",
 		scorerName,
@@ -45,3 +46,12 @@ export default forwardRef(function SearchBox(
 		/>
 	);
 });
+
+
+SearchBox.propTypes = {
+	query: PropTypes.string,
+	scorerName: PropTypes.string.isRequired
+};
+
+
+export default SearchBox;

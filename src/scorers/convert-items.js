@@ -1,5 +1,4 @@
-export function convertQuickScore(
-	keys)
+export function convertQuickScore()
 {
 	return items => items;
 }
@@ -14,8 +13,8 @@ export function convertFuse(
 		const matchesByKey = {};
 		const qsScore = 1 - score;
 		const scores = {};
-		const bestMatch = matches[0];
-		const scoreKey = bestMatch && bestMatch.key || "";
+		const [bestMatch] = matches;
+		const scoreKey = (bestMatch && bestMatch.key) || "";
 
 		for (const match of matches) {
 				// add 1 to the end of the range so it can be passed to substring()
@@ -23,7 +22,7 @@ export function convertFuse(
 		}
 
 		for (const key of keys) {
-			scores[key] = key == scoreKey ? qsScore : 0;
+			scores[key] = key === scoreKey ? qsScore : 0;
 			matchesHash[key] = matchesByKey[key] || [];
 		}
 
@@ -52,7 +51,7 @@ export function convertFuzzysort(
 			const key = keys[i];
 
 			if (itemMatch) {
-				const indexes = itemMatch.indexes;
+				const {indexes} = itemMatch;
 
 				scores[key] = itemMatch.score;
 				matches[key] = [];
@@ -62,7 +61,7 @@ export function convertFuzzysort(
 					let current = start;
 					let next = j + 1;
 
-					while (next < jLen && indexes[next] == current + 1) {
+					while (next < jLen && indexes[next] === current + 1) {
 						current = indexes[next];
 						next++;
 						j++;
@@ -71,7 +70,7 @@ export function convertFuzzysort(
 					matches[key].push([start, current + 1]);
 				}
 
-				if (itemMatch.score == score) {
+				if (itemMatch.score === score) {
 					scoreKey = key;
 				}
 			} else {
@@ -95,7 +94,7 @@ export function convertMatchSorter(
 	keys)
 {
 	const scores = {};
-	const scoreKey = keys[0];
+	const [scoreKey] = keys;
 	const matches = [];
 
 	keys.forEach(key => {
@@ -103,13 +102,11 @@ export function convertMatchSorter(
 		matches[key] = [];
 	});
 
-	return items => items.map(item => {
-		return {
-			item,
-			score: 0,
-			scoreKey,
-			scores,
-			matches
-		};
-	});
+	return items => items.map(item => ({
+		item,
+		score: 0,
+		scoreKey,
+		scores,
+		matches
+	}));
 }

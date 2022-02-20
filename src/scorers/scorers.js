@@ -1,3 +1,6 @@
+// the JSX blobs in the description arrays are rendered in separate parents,
+// not a single array, so they don't need keys
+/* eslint-disable react/jsx-key */
 import React from "react";
 import {QuickScore, QuicksilverConfig} from "quick-score";
 import Fuse	from "fuse.js";
@@ -76,18 +79,15 @@ function createMatchSorter(
 }
 
 
-function updateQuickScore(
-	items)
-{
-	this.scorer.setItems(items);
-}
-
-
 export default [
 	{
 		name: "QuickScore",
 		scorer: createQuickScore(),
-		update: updateQuickScore,
+		update: function(
+			items)
+		{
+			this.scorer.setItems(items);
+		},
 		converter: convertQuickScore(DefaultKeys)
 	},
 	{
@@ -144,7 +144,11 @@ export default [
 	{
 		name: "liquidmetal",
 		scorer: createLiquidMetal(),
-		update: updateQuickScore,
+		update: function(
+			items)
+		{
+			this.scorer.setItems(items);
+		},
 		converter: convertQuickScore(DefaultKeys),
 		description: [
 			<div>
@@ -251,7 +255,11 @@ export default [
 	{
 		name: "Quicksilver (original algorithm)",
 		scorer: createQuicksilver(),
-		update: updateQuickScore,
+		update: function(
+			items)
+		{
+			this.scorer.setItems(items);
+		},
 		converter: convertQuickScore(DefaultKeys),
 		description: [
 			<div>

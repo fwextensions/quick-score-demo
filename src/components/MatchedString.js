@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import memoize from "fast-memoize";
 
@@ -42,3 +43,9 @@ export default function MatchedString({
 		<span>{wrapMatches(string, matches)}</span>
 	);
 }
+
+
+MatchedString.propTypes = {
+	string: PropTypes.string.isRequired,
+	matches: PropTypes.arrayOf(PropTypes.object).isRequired
+};

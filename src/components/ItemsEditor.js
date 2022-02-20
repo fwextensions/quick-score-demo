@@ -1,4 +1,5 @@
 import React, {useRef} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import copy from "@/utils/copy-to-clipboard";
 
@@ -47,29 +48,34 @@ export default function ItemsEditor({
 	const editorRef = useRef(null);
 
 
-	const handleCopyClick = () => copy(BookmarksCopyCode);
+	function handleCopyClick()
+	{
+		return copy(BookmarksCopyCode);
+	}
 
 
-	const handleDelete = () =>
+	function handleDelete()
 	{
 		editorRef.current.value = "";
 		editorRef.current.focus();
-	};
+	}
 
 
-	const handleTextChange = (
-		{target: {value}}) =>
+	function handleTextChange(
+		{target: {value}})
 	{
-		let items;
+		let items = null;
 
 		try {
 			items = JSON.parse(value);
-		} catch (e) {}
+		} catch (e) {
+			// ignore parse errors while the user is typing
+		}
 
 		if (items) {
 			setItems(items);
 		}
-	};
+	}
 
 
 	return (
@@ -97,7 +103,7 @@ export default function ItemsEditor({
 					<Code>{BookmarksCopyCode}</Code>
 				</li>
 				<li>
-					Open the Bookmark manager from <i>Main menu > Bookmarks >
+					Open the Bookmark manager from <i>Main menu &gt; Bookmarks &gt;
 					Bookmark manager</i>.
 				</li>
 				<li>
@@ -112,7 +118,7 @@ export default function ItemsEditor({
 					macOS to open the Chrome Developer tools console.
 				</li>
 				<li>
-					Paste the copied code next to the > in the console.
+					Paste the copied code next to the &gt; in the console.
 				</li>
 				<li>
 					Press <kbd>enter</kbd> to execute the code.
@@ -126,3 +132,9 @@ export default function ItemsEditor({
 		</ItemsContainer>
 	);
 }
+
+
+ItemsEditor.propTypes = {
+	itemsJSON: PropTypes.string.isRequired,
+	setItems: PropTypes.func.isRequired
+};

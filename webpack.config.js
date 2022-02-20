@@ -6,16 +6,19 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const {getIfUtils} = require("webpack-config-utils");
 
 
-module.exports = (env) => {
+	// we don't access the argv param here because including it confuses Webstorm
+	// and causes it to not parse this config
+module.exports = env => {
 	const {ifProduction} = getIfUtils(env);
 
 	return {
+		mode: ifProduction("production", "development"),
 		devtool: ifProduction("source-map", "eval-source-map"),
 		entry: "./src/index.js",
 		resolve: {
 			alias: {
-				"@": path.resolve(__dirname, "src"),
-			},
+				"@": path.resolve(__dirname, "src")
+			}
 		},
 		output: {
 			path: __dirname + "/dist",
@@ -58,5 +61,5 @@ module.exports = (env) => {
 				buildTime: new Date().toISOString()
 			})
 		]
-	}
+	};
 };

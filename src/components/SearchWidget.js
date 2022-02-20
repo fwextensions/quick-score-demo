@@ -1,4 +1,5 @@
 import React, {forwardRef, useImperativeHandle, useRef} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import ResultsList from "./ResultsList";
@@ -29,7 +30,7 @@ const SearchTime = styled.div`
 `;
 
 
-export default forwardRef(function SearchWidget(
+const SearchWidget = forwardRef(function SearchWidget(
 	{
 		query,
 		itemsHash,
@@ -45,7 +46,7 @@ export default forwardRef(function SearchWidget(
 	const searchBoxRef = useRef(null);
 	const [items, ms] = getMatchingItems(query, scorerConfig, itemsHash);
 	const count = items.length;
-	const countDisplay = `${count} result${count > 1 || count == 0 ? "s" : ""}`;
+	const countDisplay = `${count} result${count > 1 || count === 0 ? "s" : ""}`;
 		// don't let the selection go beyond the last item in this SearchWidget,
 		// even if the other one has more items
 	const maxIndex = Math.min(selectedIndex, count - 1);
@@ -99,3 +100,17 @@ export default forwardRef(function SearchWidget(
 		</Box>
 	);
 });
+
+
+SearchWidget.propTypes = {
+	query: PropTypes.string.isRequired,
+	itemsHash: PropTypes.number.isRequired,
+	scorerConfig: PropTypes.object.isRequired,
+	selectedIndex: PropTypes.number.isRequired,
+	setSelectedIndex: PropTypes.func.isRequired,
+	onQueryChange: PropTypes.func.isRequired,
+	onKeyDown: PropTypes.func.isRequired
+};
+
+
+export default SearchWidget;
