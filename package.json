@@ -1,6 +1,6 @@
 {
   "name": "quick-score-demo",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "keywords": [
     "string",
@@ -41,33 +41,33 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-virtualized": "^9.22.3",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.7",
+    "@babel/core": "^7.17.9",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
-    "@types/react": "^17.0.40",
-    "@types/react-dom": "^17.0.14",
-    "@types/react-virtualized": "^9.21.20",
-    "@types/styled-components": "^5.1.24",
-    "babel-loader": "^8.2.3",
-    "babel-plugin-styled-components": "^2.0.6",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.15",
+    "@types/react-virtualized": "^9.21.21",
+    "@types/styled-components": "^5.1.25",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-styled-components": "^2.0.7",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
-    "eslint": "^8.11.0",
+    "eslint": "^8.13.0",
     "eslint-plugin-react": "^7.29.4",
     "html-webpack-plugin": "^5.5.0",
     "prop-types": "^15.8.1",
     "source-map-loader": "^3.0.1",
     "ts-loader": "^9.2.8",
-    "typescript": "^4.6.2",
-    "webpack": "^5.70.0",
+    "typescript": "^4.6.3",
+    "webpack": "^5.72.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",
     "webpack-config-utils": "^2.3.1",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.8.1"
   }
 }
