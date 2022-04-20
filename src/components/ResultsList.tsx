@@ -1,13 +1,33 @@
-import React, {forwardRef, useImperativeHandle, useRef} from "react";
-import PropTypes from "prop-types";
-import List from "react-virtualized/dist/es/List";
+import React, {
+	ComponentType,
+	forwardRef,
+	useImperativeHandle,
+	useRef
+} from "react";
+import List, {ListRowProps} from "react-virtualized/dist/es/List";
+import {ResultsListItemProps} from "@/components/ResultsListItem";
+import {IndexRange} from "react-virtualized";
 
 
 const RowHeight = 45;
 const Width = 500;
 
 
-const ResultsList = forwardRef(function ResultsList(
+export interface ResultsListHandle {
+	scrollToRow: (row: number) => void,
+	scrollByPage: (direction: "up" | "down") => void
+}
+
+interface ResultsListProps {
+	maxItems?: number,
+	itemComponent: ComponentType<ResultsListItemProps>,
+	items: any[], // TODO: specify items type
+	query: string,
+	selectedIndex: number,
+	setSelectedIndex: (index: number) => void
+}
+
+const ResultsList = forwardRef<ResultsListHandle, ResultsListProps>(function ResultsList(
 	{
 		maxItems = 20,
 		itemComponent: ItemComponent,
@@ -19,7 +39,7 @@ const ResultsList = forwardRef(function ResultsList(
 	},
 	ref)
 {
-	const listRef = useRef(null);
+	const listRef = useRef<List>(null);
 	const startIndex = useRef(0);
 	const stopIndex = useRef(0);
 	const itemCount = items.length;
@@ -30,7 +50,7 @@ const ResultsList = forwardRef(function ResultsList(
 		scrollToRow(
 			index)
 		{
-			listRef.current.scrollToRow(index);
+			listRef.current?.scrollToRow(index);
 		},
 
 
@@ -60,7 +80,8 @@ const ResultsList = forwardRef(function ResultsList(
 	function rowRenderer({
 		index,
 		key,
-		style})
+		style
+	}: ListRowProps)
 	{
 		const item = items[index];
 
@@ -71,14 +92,13 @@ const ResultsList = forwardRef(function ResultsList(
 				item={item}
 				isSelected={selectedIndex === index}
 				style={style}
-				query={query}
 			/>
 		);
 	}
 
 
 	function handleRowsRendered(
-		event)
+		event: IndexRange)
 	{
 			// track the visible rendered rows so we know how to change the
 			// selection when the App tells us to page up/down, since the App
@@ -103,16 +123,6 @@ const ResultsList = forwardRef(function ResultsList(
 		/>
 	);
 });
-
-
-ResultsList.propTypes = {
-	maxItems: PropTypes.number,
-	itemComponent: PropTypes.elementType.isRequired,
-	items: PropTypes.arrayOf(PropTypes.object).isRequired,
-	query: PropTypes.string.isRequired,
-	selectedIndex: PropTypes.number.isRequired,
-	setSelectedIndex: PropTypes.func.isRequired
-};
 
 
 export default ResultsList;

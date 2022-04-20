@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+import {AdapterConfig} from "@/adapters/configs";
 
 
 const SearchWidgetContainer = styled.div`
@@ -25,12 +25,20 @@ const Label = styled.label`
 `;
 
 
-export default function ScorerSelector({scorers,
+interface ScorerSelectorProps {
+	configs: AdapterConfig[],
+	onChange: (e: AdapterConfig) => void,
+	onKbdClick: (e: React.MouseEvent) => void
+}
+
+export default function ScorerSelector({
+	configs,
 	onChange,
-	onKbdClick})
+	onKbdClick
+}: ScorerSelectorProps)
 {
 	const [selectedIndex, setSelectedIndex] = useState(0);
-	const items = scorers.map(({name}, i) => (
+	const items = configs.map(({adapter: {name}}, i) => (
 		<option
 			key={i}
 			value={i}
@@ -38,15 +46,15 @@ export default function ScorerSelector({scorers,
 			{name}
 		</option>
 	));
-	const [leftDescription, rightDescription] = scorers[selectedIndex].description;
+	const [leftDescription, rightDescription] = configs[selectedIndex].description;
 
 
 	function handleChange(
-		event)
+		event: React.ChangeEvent<HTMLSelectElement>)
 	{
-		const newSelectedIndex = Number(event.target.value);
+		const newSelectedIndex = Number(event.target?.value);
 
-		onChange(scorers[newSelectedIndex]);
+		onChange(configs[newSelectedIndex]);
 		setSelectedIndex(newSelectedIndex);
 	}
 
@@ -81,10 +89,3 @@ export default function ScorerSelector({scorers,
 		</div>
 	);
 }
-
-
-ScorerSelector.propTypes = {
-	scorers: PropTypes.arrayOf(PropTypes.object).isRequired,
-	onChange: PropTypes.func.isRequired,
-	onKbdClick: PropTypes.func.isRequired
-};

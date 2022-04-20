@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import memoize from "fast-memoize";
 
@@ -35,17 +34,17 @@ const wrapMatches = memoize((
 });
 
 
+interface MatchedStringProps {
+	string: string,
+	matches: object[]
+}
+
 export default function MatchedString({
 	string,
-	matches})
+	matches
+}: MatchedStringProps)
 {
 	return (
 		<span>{wrapMatches(string, matches)}</span>
 	);
 }
-
-
-MatchedString.propTypes = {
-	string: PropTypes.string.isRequired,
-	matches: PropTypes.arrayOf(PropTypes.object).isRequired
-};

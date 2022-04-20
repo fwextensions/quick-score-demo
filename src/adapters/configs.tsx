@@ -2,103 +2,35 @@
 // not a single array, so they don't need keys
 /* eslint-disable react/jsx-key */
 import React from "react";
-import {QuickScore, QuicksilverConfig} from "quick-score";
-import Fuse	from "fuse.js";
-import LiquidMetal from "liquidmetal";
-import FuzzySort from "./FuzzySort";
-import MatchSorter from "./MatchSorter";
-import Bookmarks from "@/data/Bookmarks";
-import {
-	convertFuse,
-	convertFuzzysort,
-	convertMatchSorter,
-	convertQuickScore
-} from "./convert-items";
+import Bookmarks, {Bookmark} from "@/data/Bookmarks";
+import {Adapter} from "./Adapter";
+import {FuseAdapter} from "./FuseAdapter";
+import {FuzzySortAdapter} from "./FuzzySortAdapter";
+import {LiquidmetalAdapter} from "./LiquidmetalAdapter";
+import {MatchSorterAdapter} from "./MatchSorterAdapter";
+import {QuickScoreAdapter} from "./QuickScoreAdapter";
+import {QuicksilverAdapter} from "./QuicksilverAdapter";
 
 
-const DefaultItems = Bookmarks.items;
-const DefaultKeys = ["title", "url"];
+const defaults: [Bookmark[], (keyof Bookmark)[], number] = [
+	Bookmarks.items,
+	["title", "url"],
+	Bookmarks.hash
+];
 
 
-function createQuickScore(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new QuickScore(items, keys);
+export interface AdapterConfig {
+	adapter: Adapter,
+	description: JSX.Element[]
 }
-
-
-function createQuicksilver(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new QuickScore(items, {
-		keys,
-		config: QuicksilverConfig
-	});
-}
-
-
-function createLiquidMetal(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new QuickScore(items, {
-		keys,
-		scorer: (...args) => LiquidMetal.score(...args)
-	});
-}
-
-
-function createFuse(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new Fuse(items, {
-		keys,
-		includeMatches: true,
-		includeScore: true,
-		shouldSort: true
-	});
-}
-
-
-function createFuzzySort(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new FuzzySort(items, { keys });
-}
-
-
-function createMatchSorter(
-	items = DefaultItems,
-	keys = DefaultKeys)
-{
-	return new MatchSorter(items, { keys });
-}
-
 
 export default [
 	{
-		name: "QuickScore",
-		scorer: createQuickScore(),
-		update: function(
-			items)
-		{
-			this.scorer.setItems(items);
-		},
-		converter: convertQuickScore(DefaultKeys)
+		adapter: new QuickScoreAdapter(...defaults),
+		description: []
 	},
 	{
-		name: "Fuse.js",
-		scorer: createFuse(),
-		update: function(
-			items)
-		{
-			this.scorer = createFuse(items);
-		},
-		converter: convertFuse(DefaultKeys),
+		adapter: new FuseAdapter(...defaults),
 		description: [
 			<div>
 				<p>
@@ -142,14 +74,7 @@ export default [
 		]
 	},
 	{
-		name: "liquidmetal",
-		scorer: createLiquidMetal(),
-		update: function(
-			items)
-		{
-			this.scorer.setItems(items);
-		},
-		converter: convertQuickScore(DefaultKeys),
+		adapter: new LiquidmetalAdapter(...defaults),
 		description: [
 			<div>
 				<p>
@@ -182,14 +107,7 @@ export default [
 		]
 	},
 	{
-		name: "match-sorter",
-		scorer: createMatchSorter(),
-		update: function(
-			items)
-		{
-			this.scorer = createMatchSorter(items);
-		},
-		converter: convertMatchSorter(DefaultKeys),
+		adapter: new MatchSorterAdapter(...defaults),
 		description: [
 			<div>
 				<p>
@@ -218,14 +136,7 @@ export default [
 		]
 	},
 	{
-		name: "fuzzysort",
-		scorer: createFuzzySort(),
-		update: function(
-			items)
-		{
-			this.scorer = createFuzzySort(items);
-		},
-		converter: convertFuzzysort(DefaultKeys),
+		adapter: new FuzzySortAdapter(...defaults),
 		description: [
 			<div>
 				<p>
@@ -253,14 +164,7 @@ export default [
 		]
 	},
 	{
-		name: "Quicksilver (original algorithm)",
-		scorer: createQuicksilver(),
-		update: function(
-			items)
-		{
-			this.scorer.setItems(items);
-		},
-		converter: convertQuickScore(DefaultKeys),
+		adapter: new QuicksilverAdapter(...defaults),
 		description: [
 			<div>
 				<p>
@@ -291,4 +195,4 @@ export default [
 			</div>
 		]
 	}
-];
+] as AdapterConfig[];
