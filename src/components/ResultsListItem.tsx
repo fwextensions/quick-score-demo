@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled, {css} from "styled-components";
 import MatchedString from "./MatchedString";
 
@@ -8,7 +7,15 @@ const MaxTitleLength = 70;
 const MaxURLLength = 75;
 
 
-const Item = styled.div`
+interface ItemProps {
+	isSelected: boolean
+}
+
+interface FaviconProps {
+	domain: string
+}
+
+const Item = styled.div<ItemProps>`
 	margin: 0;
 	padding: 4px 55px 5px 28px;
 	max-width: 590px;
@@ -28,7 +35,7 @@ const URLText = styled(Text)`
 	font-size: 12px;
 	opacity: 0.7;
 `;
-const Favicon = styled.div`
+const Favicon = styled.div<FaviconProps>`
 	left: 6px;
 	top: 6px;
 	width: 16px;
@@ -54,7 +61,7 @@ const URLScore = styled(Score)`
 
 
 function clip(
-	value)
+	value: number)
 {
 		// for display purposes, ignore the rounding issues with toFixed().
 		// fuzzysort returns whole numbers <= 0, so don't add unnecessary
@@ -63,11 +70,18 @@ function clip(
 }
 
 
+export interface ResultsListItemProps {
+	item: any, // TODO: specify item type
+	isSelected: boolean,
+	index: number,
+	style: object
+}
+
 export default function ResultsListItem({
 	item,
 	isSelected,
 	index,
-	style})
+	style}: ResultsListItemProps)
 {
 	const {item: {title, url, domain}, scores, matches} = item;
 	const tooltip = [
@@ -106,11 +120,3 @@ url: ${urlScore}`;
 		</Item>
 	);
 }
-
-
-ResultsListItem.propTypes = {
-	item: PropTypes.object.isRequired,
-	isSelected: PropTypes.bool.isRequired,
-	index: PropTypes.number.isRequired,
-	style: PropTypes.object.isRequired
-};

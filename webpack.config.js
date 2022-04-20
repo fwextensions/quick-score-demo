@@ -14,8 +14,9 @@ module.exports = env => {
 	return {
 		mode: ifProduction("production", "development"),
 		devtool: ifProduction("source-map", "eval-source-map"),
-		entry: "./src/index.js",
+		entry: "./src/index.tsx",
 		resolve: {
+			extensions: [".ts", ".tsx", "..."],
 			alias: {
 				"@": path.resolve(__dirname, "src")
 			}
@@ -25,6 +26,7 @@ module.exports = env => {
 			filename: "bundle.js"
 		},
 		devServer: {
+			port: 3100,
 			static: {
 				directory: "./dist"
 			}
@@ -35,6 +37,14 @@ module.exports = env => {
 		},
 		module: {
 			rules: [
+				{
+					test: /\.tsx?$/,
+					loader: "ts-loader"
+				},
+				{
+					test: /\.js$/,
+					loader: "source-map-loader"
+				},
 				{
 					test: /\.css$/,
 					use: ["style-loader", "css-loader"]

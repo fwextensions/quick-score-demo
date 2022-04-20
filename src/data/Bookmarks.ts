@@ -5,16 +5,26 @@ import bookmarks from "./bookmarks-data";
 const ProtocolPattern = /https?:\/\/(www\.)?/;
 
 
+export interface Bookmark {
+	title: string,
+	url: string
+}
+
 class Bookmarks {
+	items: Bookmark[] = [];
+	originalItems: Bookmark[] = [];
+	hash = 0;
+
+
 	constructor(
-		items)
+		items: Bookmark[])
 	{
 		this.setItems(items);
 	}
 
 
 	setItems(
-		items)
+		items: Bookmark[])
 	{
 		this.originalItems = items;
 		this.items = this.processItems(items);
@@ -23,7 +33,7 @@ class Bookmarks {
 
 
 	processItems(
-		items)
+		items: Bookmark[])
 	{
 		return items.map(({title, url}) => {
 			let domain = url;

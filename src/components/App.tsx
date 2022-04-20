@@ -1,10 +1,10 @@
 import React, {useCallback, useRef, useState} from "react";
 import styled from "styled-components";
-import ScorerSelector from "./ScorerSelector";
-import SearchWidget from "./SearchWidget";
-import ItemsEditor from "./ItemsEditor";
-import scorers from "@/scorers/scorers";
+import configs from "@/adapters/configs";
 import Bookmarks from "@/data/Bookmarks";
+import ScorerSelector from "./ScorerSelector";
+import SearchWidget, {SearchWidgetHandle} from "./SearchWidget";
+import ItemsEditor from "./ItemsEditor";
 
 
 const AppContainer = styled.div`
@@ -21,43 +21,36 @@ const Title = styled.h2`
 	}
 `;
 
-const [leftScorerConfig] = scorers;
-const scorerConfigs = scorers.slice(1);
-
 
 export default function App()
 {
 	const [query, setQuery] = useState("");
 	const [selectedIndex, setSelectedIndex] = useState(-1);
-	const [rightScorerConfig, setRightScorerConfig] = useState(scorers[1]);
-	const [itemsHash, setItemsHash] = useState(Bookmarks.hash);
-	const leftWidgetRef = useRef(null);
-	const rightWidgetRef = useRef(null);
+	const [rightConfig, setRightConfig] = useState(configs[1]);
+	const leftWidgetRef = useRef<SearchWidgetHandle>(null);
+	const rightWidgetRef = useRef<SearchWidgetHandle>(null);
 
 
-	const setItems = useCallback(
+	const handleItemsChange = useCallback(
 		items =>
 	{
 			// update the Bookmarks singleton, and then update all of the
-			// scorers, so that when the user switches to a different one, it's
-			// got the right items
+			// adapters, so that when the user switches to a different one, it's
+			// got the right items and hash.  we use a hash of the JSON text, so
+			// that the memoized search function in each scorer will return a
+			// different value when the items are changed.  this is faster than
+			// making memoize() run stringify on the whole items array every time.
 		Bookmarks.setItems(items);
-		scorers.forEach(scorer => scorer.update(Bookmarks.items));
-
-			// use a hash of the JSON text, so that the memoized search
-			// function in SearchWidget will return a different value when
-			// the items are changed.  this is faster than making memoize()
-			// run stringify on the whole items array every time.
-		setItemsHash(Bookmarks.hash);
+		configs.forEach(({adapter}) => adapter.update(Bookmarks.items, Bookmarks.hash));
 	}, []);
 
 
 	const handleScorerChange = useCallback(
 		selectedConfig =>
 	{
-		setRightScorerConfig(selectedConfig);
+		setRightConfig(selectedConfig);
 		setQuery("");
-		leftWidgetRef.current.focus();
+		leftWidgetRef.current?.focus();
 	}, [leftWidgetRef]);
 
 
@@ -83,13 +76,13 @@ export default function App()
 				break;
 
 			case "PageDown":
-				leftWidgetRef.current.scrollByPage("down");
-				rightWidgetRef.current.scrollByPage("down");
+				leftWidgetRef.current?.scrollByPage("down");
+				rightWidgetRef.current?.scrollByPage("down");
 				break;
 
 			case "PageUp":
-				leftWidgetRef.current.scrollByPage("up");
-				rightWidgetRef.current.scrollByPage("up");
+				leftWidgetRef.current?.scrollByPage("up");
+				rightWidgetRef.current?.scrollByPage("up");
 				break;
 
 			default:
@@ -111,8 +104,8 @@ export default function App()
 		setSelectedIndex(0);
 
 			// reset the scroll to show the first match
-		leftWidgetRef.current.scrollToRow(0);
-		rightWidgetRef.current.scrollToRow(0);
+		leftWidgetRef.current?.scrollToRow(0);
+		rightWidgetRef.current?.scrollToRow(0);
 	}, [leftWidgetRef, rightWidgetRef]);
 
 
@@ -120,7 +113,7 @@ export default function App()
 		{target}) =>
 	{
 		if (target.tagName === "KBD") {
-			leftWidgetRef.current.focus();
+			leftWidgetRef.current?.focus();
 			handleQueryChange({
 				target: {
 					value: target.textContent
@@ -142,16 +135,15 @@ export default function App()
 				the query to that string.  Edit the bookmarks <a href="#editor">below</a>.
 			</p>
 			<ScorerSelector
-				scorers={scorerConfigs}
+				configs={configs.slice(1)}
 				onChange={handleScorerChange}
 				onKbdClick={handleKbdClick}
 			/>
 			<div>
 				<SearchWidget
 					ref={leftWidgetRef}
-					itemsHash={itemsHash}
 					query={query}
-					scorerConfig={leftScorerConfig}
+					adapter={configs[0].adapter}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={setSelectedIndex}
 					onQueryChange={handleQueryChange}
@@ -159,9 +151,8 @@ export default function App()
 				/>
 				<SearchWidget
 					ref={rightWidgetRef}
-					itemsHash={itemsHash}
 					query={query}
-					scorerConfig={rightScorerConfig}
+					adapter={rightConfig.adapter}
 					selectedIndex={selectedIndex}
 					setSelectedIndex={setSelectedIndex}
 					onQueryChange={handleQueryChange}
@@ -170,7 +161,7 @@ export default function App()
 			</div>
 			<ItemsEditor
 				itemsJSON={Bookmarks.toString()}
-				setItems={setItems}
+				onItemsChange={handleItemsChange}
 			/>
 		</AppContainer>
 	);

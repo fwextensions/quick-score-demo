@@ -1,10 +1,9 @@
 import React, {forwardRef, useImperativeHandle, useRef} from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
-import SearchBox from "./SearchBox";
-import ResultsList from "./ResultsList";
+import {Adapter} from "@/adapters/Adapter";
+import SearchBox, {SearchBoxHandle} from "./SearchBox";
+import ResultsList, {ResultsListHandle} from "./ResultsList";
 import ResultsListItem from "./ResultsListItem";
-import getMatchingItems from "@/scorers/getMatchingItems";
 
 
 const Box = styled.div`
@@ -30,11 +29,23 @@ const SearchTime = styled.div`
 `;
 
 
-const SearchWidget = forwardRef(function SearchWidget(
+export interface SearchWidgetHandle extends ResultsListHandle {
+	focus: () => void
+}
+
+interface SearchWidgetProps {
+	query: string,
+	adapter: Adapter,
+	selectedIndex: number,
+	setSelectedIndex: (i: number) => void,
+	onQueryChange: (e: React.ChangeEvent) => void,
+	onKeyDown: (e: React.KeyboardEvent) => void
+}
+
+const SearchWidget = forwardRef<SearchWidgetHandle, SearchWidgetProps>(function SearchWidget(
 	{
 		query,
-		itemsHash,
-		scorerConfig,
+		adapter,
 		selectedIndex,
 		setSelectedIndex,
 		onQueryChange,
@@ -42,9 +53,9 @@ const SearchWidget = forwardRef(function SearchWidget(
 	},
 	ref)
 {
-	const resultsListRef = useRef(null);
-	const searchBoxRef = useRef(null);
-	const [items, ms] = getMatchingItems(query, scorerConfig, itemsHash);
+	const resultsListRef = useRef<ResultsListHandle>(null);
+	const searchBoxRef = useRef<SearchBoxHandle>(null);
+	const items = adapter.search(query);
 	const count = items.length;
 	const countDisplay = `${count} result${count > 1 || count === 0 ? "s" : ""}`;
 		// don't let the selection go beyond the last item in this SearchWidget,
@@ -56,20 +67,20 @@ const SearchWidget = forwardRef(function SearchWidget(
 		scrollToRow(
 			row)
 		{
-			resultsListRef.current.scrollToRow(row);
+			resultsListRef.current?.scrollToRow(row);
 		},
 
 
 		scrollByPage(
 			direction)
 		{
-			resultsListRef.current.scrollByPage(direction);
+			resultsListRef.current?.scrollByPage(direction);
 		},
 
 
 		focus()
 		{
-			searchBoxRef.current.focus();
+			searchBoxRef.current?.focus();
 		}
 	}));
 
@@ -79,13 +90,13 @@ const SearchWidget = forwardRef(function SearchWidget(
 			<SearchBox
 				ref={searchBoxRef}
 				query={query}
-				scorerName={scorerConfig.name}
+				scorerName={adapter.name}
 				onChange={onQueryChange}
 				onKeyDown={onKeyDown}
 			/>
 			{
 				query
-					? <SearchTime>{countDisplay} - {ms} ms avg</SearchTime>
+					? <SearchTime>{countDisplay} - {adapter.averageTime} ms avg</SearchTime>
 					: ""
 			}
 			<ResultsList
@@ -100,17 +111,6 @@ const SearchWidget = forwardRef(function SearchWidget(
 		</Box>
 	);
 });
-
-
-SearchWidget.propTypes = {
-	query: PropTypes.string.isRequired,
-	itemsHash: PropTypes.number.isRequired,
-	scorerConfig: PropTypes.object.isRequired,
-	selectedIndex: PropTypes.number.isRequired,
-	setSelectedIndex: PropTypes.func.isRequired,
-	onQueryChange: PropTypes.func.isRequired,
-	onKeyDown: PropTypes.func.isRequired
-};
 
 
 export default SearchWidget;

@@ -1,5 +1,4 @@
 import React, {useRef} from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import copy from "@/utils/copy-to-clipboard";
 
@@ -41,11 +40,17 @@ copy(JSON.stringify(b, null, 2));
 `;
 
 
+interface ItemsEditorProps {
+	itemsJSON: string,
+	onItemsChange: (items: object[]) => void
+}
+
 export default function ItemsEditor({
 	itemsJSON,
-	setItems})
+	onItemsChange
+}: ItemsEditorProps)
 {
-	const editorRef = useRef(null);
+	const editorRef = useRef<HTMLTextAreaElement>(null);
 
 
 	function handleCopyClick()
@@ -56,13 +61,15 @@ export default function ItemsEditor({
 
 	function handleDelete()
 	{
-		editorRef.current.value = "";
-		editorRef.current.focus();
+		if (editorRef.current) {
+			editorRef.current.value = "";
+			editorRef.current.focus();
+		}
 	}
 
 
 	function handleTextChange(
-		{target: {value}})
+		{target: {value}}: React.ChangeEvent<HTMLTextAreaElement>)
 	{
 		let items = null;
 
@@ -73,7 +80,7 @@ export default function ItemsEditor({
 		}
 
 		if (items) {
-			setItems(items);
+			onItemsChange(items);
 		}
 	}
 
@@ -132,9 +139,3 @@ export default function ItemsEditor({
 		</ItemsContainer>
 	);
 }
-
-
-ItemsEditor.propTypes = {
-	itemsJSON: PropTypes.string.isRequired,
-	setItems: PropTypes.func.isRequired
-};

@@ -1,5 +1,4 @@
 import React, {forwardRef, useImperativeHandle, useRef} from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 
@@ -20,7 +19,16 @@ const StyledInput = styled.input`
 `;
 
 
-const SearchBox = forwardRef(function SearchBox(
+export interface SearchBoxHandle {
+	focus: () => void
+}
+
+interface SearchBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+	query?: string,
+	scorerName: string
+}
+
+const SearchBox = forwardRef<SearchBoxHandle, SearchBoxProps>(function SearchBox(
 	{
 		query = "",
 		scorerName,
@@ -28,17 +36,17 @@ const SearchBox = forwardRef(function SearchBox(
 	},
 	ref)
 {
-	const inputRef = useRef(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	useImperativeHandle(ref, () => ({
-		focus() { inputRef.current.focus(); }
+		focus() { inputRef.current?.focus(); }
 	}));
 
 	return (
 		<StyledInput
 			type="search"
 			ref={inputRef}
-			tabIndex="0"
+			tabIndex={0}
 			placeholder={`Search for a title or URL using ${scorerName}`}
 			spellCheck={false}
 			value={query}
@@ -46,12 +54,6 @@ const SearchBox = forwardRef(function SearchBox(
 		/>
 	);
 });
-
-
-SearchBox.propTypes = {
-	query: PropTypes.string,
-	scorerName: PropTypes.string.isRequired
-};
 
 
 export default SearchBox;
